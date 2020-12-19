@@ -28,6 +28,9 @@ module Kozo
     def setup
       @loader = Zeitwerk::Loader.for_gem
 
+      loader.inflector.inflect(
+        "cli" => "CLI",
+      )
       loader.setup
       loader.eager_load
     end

@@ -21,6 +21,9 @@ Layout/MultilineMethodCallIndentation:
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
+Metrics/MethodLength:
+  Max: 20
+
 Style/Documentation:
   Enabled: false
 

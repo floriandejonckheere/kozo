@@ -2,3 +2,8 @@
 # frozen_string_literal: true
 
 require_relative "../config/application"
+
+require "kozo"
+require "byebug"
+
+Kozo::CLI.new(ARGV).start
