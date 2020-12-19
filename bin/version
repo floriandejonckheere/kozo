@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../config/application"
+
+FILE = Kozo.root.join("lib/kozo/version.rb")
+
+def usage(error: false)
+  puts "Usage: #{$PROGRAM_NAME} [major [VERSION] | minor [VERSION] | patch [VERSION] | pre VERSION]"
+  puts "  #{$PROGRAM_NAME} major\t\tIncrement major version number"
+  puts "  #{$PROGRAM_NAME} major VERSION\tSet major version number"
+  puts "  #{$PROGRAM_NAME} minor\t\tIncrement minor version number"
+  puts "  #{$PROGRAM_NAME} minor VERSION\tSet minor version number"
+  puts "  #{$PROGRAM_NAME} patch\t\tIncrement patch version number"
+  puts "  #{$PROGRAM_NAME} patch VERSION\tSet patch version number"
+  puts "  #{$PROGRAM_NAME} pre\t\tClear pre version number"
+  puts "  #{$PROGRAM_NAME} pre VERSION\tSet pre version number"
+  puts "  #{$PROGRAM_NAME} version VERSION\tSet entire version number"
+
+  exit 1 if error
+end
+
+def bump(hash)
+  hash.each do |level, version|
+    File.write FILE, File.read(FILE).gsub(/#{level}( +)= [^\n]*/) { "#{level}#{$LAST_MATCH_INFO[1]}= #{version}" }
+  end
+
+  silence_warnings { load FILE }
+
+  File.write FILE_JS, File.read(FILE_JS).gsub(/"version": "[^"]*"/) { "\"version\": \"#{Kozo::VERSION}\"" }
+end
+
+case ARGV.shift&.to_sym
+when nil
+  # Print version
+  puts "v#{Kozo::VERSION}"
+when :version
+  usage(error: true) unless ARGV.any?
+
+  version, pre = ARGV.shift.split("-")
+  major, minor, patch = version.split(".")
+
+  bump MAJOR: major, MINOR: minor, PATCH: patch, PRE: (pre ? "\"#{pre}\"" : "nil")
+  puts "Setting version to #{Kozo::VERSION}"
+when :major
+  # Bump major version
+  bump MAJOR: (ARGV.pop || Kozo::Version::MAJOR + 1), MINOR: 0, PATCH: 0, PRE: "nil"
+  puts "Bumping version to #{Kozo::VERSION}"
+when :minor
+  # Bump minor version
+  bump MINOR: (ARGV.pop || Kozo::Version::MINOR + 1), PATCH: 0, PRE: "nil"
+  puts "Bumping version to #{Kozo::VERSION}"
+when :patch
+  # Bump patch version
+  bump PATCH: (ARGV.pop || Kozo::Version::PATCH + 1), PRE: "nil"
+  puts "Bumping version to #{Kozo::VERSION}"
+when :pre
+  # Set or clear patch version
+  bump PRE: (ARGV.any? ? "\"#{ARGV.shift}\"" : "nil")
+else
+  usage
+end
