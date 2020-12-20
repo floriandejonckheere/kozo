@@ -2,7 +2,8 @@
 
 module Kozo
   class Workspace
-    attr_reader :directory, :backend
+    attr_reader :directory
+    attr_writer :backend
 
     def initialize(directory)
       @directory = directory
@@ -11,6 +12,10 @@ module Kozo
       Dir[File.join(directory, "*.kz")]
         .sort
         .each { |configuration| dsl.instance_eval(File.read(configuration)) }
+    end
+
+    def backend
+      @backend ||= Backends::Local.new(directory)
     end
   end
 end
