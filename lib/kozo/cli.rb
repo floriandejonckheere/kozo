@@ -14,10 +14,11 @@ module Kozo
       @parser = OptionParser.new("#{$PROGRAM_NAME} [global options] command [command options]") do |o|
         o.on("Global options:")
         o.on("-v", "--verbose", "Turn on verbose logging")
-        o.on("-h", "--help", "Display this message") { abort(o.to_s) }
-        o.separator "\n"
+        o.on("-h", "--help", "Display this message") { usage }
+        o.separator("\n")
         o.on("Commands:")
         commands.each { |(name, description)| o.on("    #{name}#{description.rjust(48)}") }
+        o.separator("\n")
       end
 
       @args = args
@@ -40,15 +41,22 @@ module Kozo
     def start
       command = command_args.shift
 
-      Command
+      Commands
         .const_get(command.camelize)
         .new(command_args, options)
         .start
     rescue NameError
-      abort(parser.to_s)
+      usage(tail: "#{$PROGRAM_NAME}: unknown command: #{command}")
     end
 
     private
+
+    def usage(code: 1, tail: nil)
+      puts parser.to_s
+      puts tail if tail
+
+      exit code
+    end
 
     def commands
       Commands::Base.descendants.map { |k| [k.name.demodulize.underscore, k.description] }

@@ -3,9 +3,7 @@
 module Kozo
   module Commands
     class Plan < Base
-      def self.description
-        "Show execution plan"
-      end
+      self.description = "Show execution plan"
 
       def start
         raise NotImplementedError

@@ -3,14 +3,12 @@
 module Kozo
   module Commands
     class Base
+      class_attribute :description
+
       attr_reader :options
 
       def initialize(_args, options)
         @options = options
-      end
-
-      def self.description
-        raise NotImplementedError
       end
 
       def start
