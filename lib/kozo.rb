@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "logger"
-
 require "zeitwerk"
 require "active_support/all"
 
@@ -18,7 +16,7 @@ module Kozo
     end
 
     def logger
-      @logger ||= Logger.new(level: ENV.fetch("LOG_LEVEL", "info"))
+      @logger ||= Logger.new
     end
 
     def setup
