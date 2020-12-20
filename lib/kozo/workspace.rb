@@ -2,17 +2,15 @@
 
 module Kozo
   class Workspace
-    attr_reader :directory, :dsl
+    attr_reader :directory, :backend
 
     def initialize(directory)
       @directory = directory
-      @dsl = DSL.new
 
-      configurations.each { |configuration| dsl.instance_eval(File.read(configuration)) }
-    end
-
-    def configurations
-      @configurations ||= Dir[File.join(directory, "*.kz")].sort
+      dsl = DSL.new(self)
+      Dir[File.join(directory, "*.kz")]
+        .sort
+        .each { |configuration| dsl.instance_eval(File.read(configuration)) }
     end
   end
 end
