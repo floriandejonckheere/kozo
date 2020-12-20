@@ -40,13 +40,13 @@ module Kozo
 
     def start
       command = command_args.shift
+      klass = "Kozo::Commands::#{command.camelize}".safe_constantize
 
-      Commands
-        .const_get(command.camelize)
+      return usage(tail: "#{$PROGRAM_NAME}: unknown command: #{command}") unless klass
+
+      klass
         .new(command_args, options)
         .start
-    rescue NameError
-      usage(tail: "#{$PROGRAM_NAME}: unknown command: #{command}")
     end
 
     private
