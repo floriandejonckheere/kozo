@@ -11,6 +11,10 @@ module Kozo
       @root ||= Pathname.new(File.expand_path(File.join("..", ".."), __FILE__))
     end
 
+    def config
+      @config ||= Configuration.new
+    end
+
     def env
       @env ||= Environment.new
     end

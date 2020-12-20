@@ -5,11 +5,7 @@ module Kozo
     class Base
       class_attribute :description
 
-      attr_reader :options
-
-      def initialize(_args, options)
-        @options = options
-      end
+      def initialize(_args); end
 
       def start
         raise NotImplementedError
@@ -18,7 +14,7 @@ module Kozo
       protected
 
       def workspace
-        @workspace ||= Workspace.new(Dir.pwd)
+        @workspace ||= Workspace.new(Kozo.config.directory)
       end
     end
   end

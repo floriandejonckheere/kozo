@@ -4,13 +4,9 @@ require "optparse"
 
 module Kozo
   class CLI
-    attr_reader :options, :parser, :args, :command_args
+    attr_reader :parser, :args, :command_args
 
     def initialize(args)
-      @options = {
-        verbose: false,
-      }
-
       @parser = OptionParser.new("#{File.basename($PROGRAM_NAME)} [global options] command [command options]") do |o|
         o.on("Global options:")
         o.on("-v", "--verbose", "Turn on verbose logging")
@@ -32,7 +28,7 @@ module Kozo
       # (unrecognized option values). Raise for invalid option arguments (unrecognized
       # option keys). "--foo FOO --bar BAR" will result in "--foo" and "FOO" being parsed
       # correctly, "--bar" and "BAR" will be extracted.
-      parser.order!(args, into: options) { |value| command_args << value }
+      parser.order!(args, into: Kozo.config) { |value| command_args << value }
     rescue OptionParser::InvalidOption => e
       @command_args += e.args
       retry
@@ -40,12 +36,15 @@ module Kozo
 
     def start
       command = command_args.shift
-      klass = "Kozo::Commands::#{command&.camelize}".safe_constantize
+
+      return usage unless command
+
+      klass = "Kozo::Commands::#{command.camelize}".safe_constantize
 
       return usage(tail: "#{File.basename($PROGRAM_NAME)}: unknown command: #{command}") unless klass
 
       klass
-        .new(command_args, options)
+        .new(command_args)
         .start
     end
 

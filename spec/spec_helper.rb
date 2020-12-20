@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "byebug"
+
 ENV["KOZO_ENV"] = "test"
 
 require File.expand_path("../config/application", __dir__)
@@ -106,4 +108,8 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+
+  config.before do
+    Kozo.instance_variable_set(:@config, nil)
+  end
 end
