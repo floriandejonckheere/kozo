@@ -7,12 +7,12 @@ module Kozo
     class Local < Base
       def state
         Kozo.logger.debug "Reading local state in #{file}"
-        JSON.parse(File.read(file), symbolize_names: true)
+        JSON.parse(File.read(file, mode: File::RDONLY | File::CREAT), symbolize_names: true)
       end
 
       def state=(value)
         Kozo.logger.debug "Writing local state in #{file}"
-        File.write(file, value.to_json)
+        File.write(file, value.to_json, mode: File::WRONLY | File::CREAT)
       end
 
       private

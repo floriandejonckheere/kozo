@@ -10,7 +10,7 @@ RSpec.describe Kozo::Backends::Local do
     it "reads a local file" do
       allow(File)
         .to receive(:read)
-        .with(file)
+        .with(file, any_args)
         .and_return state.to_json
 
       expect(backend.state).to eq state
@@ -21,7 +21,7 @@ RSpec.describe Kozo::Backends::Local do
     it "writes a local file" do
       allow(File)
         .to receive(:write)
-        .with(file, state.to_json)
+        .with(file, state.to_json, any_args)
 
       backend.state = state
     end
