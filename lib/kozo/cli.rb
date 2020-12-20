@@ -11,7 +11,7 @@ module Kozo
         verbose: false,
       }
 
-      @parser = OptionParser.new("#{$PROGRAM_NAME} [global options] command [command options]") do |o|
+      @parser = OptionParser.new("#{File.basename($PROGRAM_NAME)} [global options] command [command options]") do |o|
         o.on("Global options:")
         o.on("-v", "--verbose", "Turn on verbose logging")
         o.on("-h", "--help", "Display this message") { usage }
@@ -40,9 +40,9 @@ module Kozo
 
     def start
       command = command_args.shift
-      klass = "Kozo::Commands::#{command.camelize}".safe_constantize
+      klass = "Kozo::Commands::#{command&.camelize}".safe_constantize
 
-      return usage(tail: "#{$PROGRAM_NAME}: unknown command: #{command}") unless klass
+      return usage(tail: "#{File.basename($PROGRAM_NAME)}: unknown command: #{command}") unless klass
 
       klass
         .new(command_args, options)

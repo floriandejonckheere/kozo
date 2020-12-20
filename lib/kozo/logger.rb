@@ -20,7 +20,9 @@ module Kozo
     end
 
     class Formatter < ::Logger::Formatter
-      def call(_severity, _time, _progname, msg)
+      def call(severity, _time, _progname, msg)
+        abort("#{File.basename($PROGRAM_NAME)}: #{msg}") if severity == "FATAL"
+
         "#{msg}\n"
       end
     end
