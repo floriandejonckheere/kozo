@@ -9,8 +9,12 @@ module Kozo
         @options = options
       end
 
-      def start
+      def self.description
+        raise NotImplementedError
+      end
 
+      def start
+        raise NotImplementedError
       end
     end
   end
