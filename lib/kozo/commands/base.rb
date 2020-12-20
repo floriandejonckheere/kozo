@@ -14,6 +14,12 @@ module Kozo
       def start
         raise NotImplementedError
       end
+
+      protected
+
+      def workspace
+        @workspace ||= Workspace.new(Dir.pwd)
+      end
     end
   end
 end

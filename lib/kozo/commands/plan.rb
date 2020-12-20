@@ -6,7 +6,7 @@ module Kozo
       self.description = "Show execution plan"
 
       def start
-        raise NotImplementedError
+        puts "Collecting #{workspace.configurations.join(', ')}"
       end
     end
   end

@@ -24,6 +24,7 @@ module Kozo
 
       loader.inflector.inflect(
         "cli" => "CLI",
+        "dsl" => "DSL",
       )
       loader.setup
       loader.eager_load
