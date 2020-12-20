@@ -13,16 +13,12 @@ module Kozo
       @root ||= Pathname.new(File.expand_path(File.join("..", ".."), __FILE__))
     end
 
-    def config
-      @config ||= Configuration.new
-    end
-
     def env
       @env ||= Environment.new
     end
 
     def logger
-      @logger ||= Logger.new(level: Kozo.config.log_level)
+      @logger ||= Logger.new(level: ENV.fetch("LOG_LEVEL", "info"))
     end
 
     def setup
