@@ -15,11 +15,13 @@ module Kozo
     def backend(type)
       Kozo.logger.debug "Initializing backend #{type}"
 
-      workspace.backend = Kozo.container.resolve("backend.#{type}", workspace.directory, quiet: true)
+      backend = Kozo.container.resolve("backend.#{type}", workspace.directory, quiet: true)
 
-      Kozo.logger.fatal "Unknown backend: #{type}" unless workspace.backend
+      Kozo.logger.fatal "Unknown backend: #{type}" unless backend
 
-      yield workspace.backend if block_given?
+      yield backend if block_given?
+
+      workspace.backend = backend
     end
 
     def provider(type, &_block)
