@@ -35,6 +35,10 @@ Metrics/MethodLength:
 RSpec/ExampleLength:
   Max: 20
 
+RSpec/FilePath:
+  CustomTransform:
+    HCloud: hcloud
+
 Style/Documentation:
   Enabled: false
 

@@ -24,3 +24,7 @@ end
 register("resource.null") do
   Kozo::Providers::Null::Resources::Null.new
 end
+
+register("resource.hcloud_ssh_key") do
+  Kozo::Providers::HCloud::Resources::SSHKey.new
+end
