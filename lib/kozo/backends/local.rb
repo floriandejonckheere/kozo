@@ -7,12 +7,17 @@ module Kozo
     class Local < Base
       def state
         Kozo.logger.debug "Reading local state in #{file}"
-        JSON.parse(File.read(file, mode: File::RDONLY | File::CREAT), symbolize_names: true)
+
+        File.write(file, {}.to_json) unless File.exist?(file)
+
+        JSON.parse(File.read(file), symbolize_names: true)
+      rescue JSON::ParserError => e
+        Kozo.logger.fatal "Could not read state file: #{e.message}"
       end
 
       def state=(value)
         Kozo.logger.debug "Writing local state in #{file}"
-        File.write(file, value.to_json, mode: File::WRONLY | File::CREAT)
+        File.write(file, value.to_json)
       end
 
       private
