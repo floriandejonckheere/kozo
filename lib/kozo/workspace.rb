@@ -11,7 +11,7 @@ module Kozo
       dsl = DSL.new(self)
       Dir[File.join(directory, "*.kz")]
         .sort
-        .each { |configuration| dsl.instance_eval(File.read(configuration)) }
+        .each { |file| dsl.instance_eval(File.read(file)) }
     end
 
     def backend

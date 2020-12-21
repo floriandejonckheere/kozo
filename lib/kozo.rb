@@ -11,8 +11,8 @@ module Kozo
       @root ||= Pathname.new(File.expand_path(File.join("..", ".."), __FILE__))
     end
 
-    def config
-      @config ||= Configuration.new
+    def options
+      @options ||= Options.new
     end
 
     def container

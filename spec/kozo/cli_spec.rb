@@ -7,7 +7,7 @@ describe Kozo::CLI do
     let(:args) { %w(--verbose) }
 
     it "turns on verbose output" do
-      expect(Kozo.config).to be_verbose
+      expect(Kozo.options).to be_verbose
     end
   end
 end

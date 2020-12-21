@@ -28,7 +28,7 @@ module Kozo
       # (unrecognized option values). Raise for invalid option arguments (unrecognized
       # option keys). "--foo FOO --bar BAR" will result in "--foo" and "FOO" being parsed
       # correctly, "--bar" and "BAR" will be extracted.
-      parser.order!(args, into: Kozo.config) { |value| command_args << value }
+      parser.order!(args, into: Kozo.options) { |value| command_args << value }
     rescue OptionParser::InvalidOption => e
       @command_args += e.args
       retry

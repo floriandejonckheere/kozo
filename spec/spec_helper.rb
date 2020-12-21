@@ -110,6 +110,6 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 
   config.before do
-    Kozo.instance_variable_set(:@config, nil)
+    Kozo.instance_variable_set(:@options, nil)
   end
 end

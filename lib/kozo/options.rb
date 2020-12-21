@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Kozo
-  class Configuration
+  class Options
     attr_writer :directory, :verbose
 
     def directory
