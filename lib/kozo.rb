@@ -15,6 +15,10 @@ module Kozo
       @config ||= Configuration.new
     end
 
+    def container
+      @container ||= Container.new
+    end
+
     def env
       @env ||= Environment.new
     end
@@ -32,6 +36,8 @@ module Kozo
       )
       loader.setup
       loader.eager_load
+
+      container.instance_eval(File.read(root.join("config/dependencies.rb")))
     end
   end
 end
