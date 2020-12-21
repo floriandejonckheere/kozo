@@ -13,8 +13,8 @@ module Kozo
 
       protected
 
-      def workspace
-        @workspace ||= Workspace.new(Kozo.options.directory)
+      def configuration
+        @configuration ||= Configuration.new(Kozo.options.directory)
       end
     end
   end

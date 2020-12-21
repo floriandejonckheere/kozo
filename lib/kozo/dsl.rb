@@ -2,10 +2,10 @@
 
 module Kozo
   class DSL
-    attr_reader :workspace
+    attr_reader :configuration
 
-    def initialize(workspace)
-      @workspace = workspace
+    def initialize(configuration)
+      @configuration = configuration
     end
 
     def kozo(&_block)
@@ -15,13 +15,13 @@ module Kozo
     def backend(type)
       Kozo.logger.debug "Initializing backend #{type}"
 
-      backend = Kozo.container.resolve("backend.#{type}", workspace.directory, quiet: true)
+      backend = Kozo.container.resolve("backend.#{type}", configuration.directory, quiet: true)
 
       Kozo.logger.fatal "Unknown backend: #{type}" unless backend
 
       yield backend if block_given?
 
-      workspace.backend = backend
+      configuration.backend = backend
     end
 
     def provider(type, &_block)

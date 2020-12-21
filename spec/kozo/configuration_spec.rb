@@ -2,8 +2,8 @@
 
 require "tmpdir"
 
-RSpec.describe Kozo::Workspace do
-  subject(:workspace) { described_class.new(directory) }
+RSpec.describe Kozo::Configuration do
+  subject(:configuration) { described_class.new(directory) }
 
   let(:directory) { Dir.mktmpdir }
   let(:file) { "" }
@@ -16,6 +16,6 @@ RSpec.describe Kozo::Workspace do
   after { FileUtils.remove_entry directory }
 
   it "defaults to local backend" do
-    expect(workspace.backend).to be_a Kozo::Backends::Local
+    expect(configuration.backend).to be_a Kozo::Backends::Local
   end
 end

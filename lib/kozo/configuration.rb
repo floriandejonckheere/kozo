@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Kozo
-  class Workspace
+  class Configuration
     attr_reader :directory
     attr_writer :backend
 
