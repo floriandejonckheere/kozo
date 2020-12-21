@@ -24,8 +24,16 @@ module Kozo
       configuration.backend = backend
     end
 
-    def provider(type, &_block)
+    def provider(type)
       Kozo.logger.debug "Initializing provider #{type}"
+
+      provider = Kozo.container.resolve("provider.#{type}", quiet: true)
+
+      Kozo.logger.fatal "Unknown provider: #{type}" unless provider
+
+      yield provider if block_given?
+
+      configuration.providers << provider
     end
 
     def resource(type, name, &_block)

@@ -18,4 +18,16 @@ RSpec.describe Kozo::DSL do
       expect(configuration.backend).to eq backend
     end
   end
+
+  describe "#provider" do
+    it "raises on unknown provider type" do
+      expect { dsl.provider("foo") }.to raise_error SystemExit
+    end
+
+    it "configures a provider" do
+      dsl.provider("hcloud") { |p| p.key = "my_key" }
+
+      expect(configuration.providers).to include provider
+    end
+  end
 end

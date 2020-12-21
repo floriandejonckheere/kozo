@@ -6,7 +6,7 @@ module Kozo
       self.description = "Show execution plan"
 
       def start
-        puts configuration.backend.state
+        configuration.parse!
       end
     end
   end
