@@ -30,11 +30,7 @@ module Kozo
     def setup
       @loader = Zeitwerk::Loader.for_gem
 
-      loader.inflector.inflect(
-        "cli" => "CLI",
-        "dsl" => "DSL",
-        "hcloud" => "HCloud",
-      )
+      instance_eval(File.read(root.join("config/inflections.rb")))
       loader.setup
       loader.eager_load
 
