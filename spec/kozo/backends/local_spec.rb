@@ -9,6 +9,11 @@ RSpec.describe Kozo::Backends::Local do
   describe "#state" do
     it "reads a local file" do
       allow(File)
+        .to receive(:exist?)
+        .with(file)
+        .and_return true
+
+      allow(File)
         .to receive(:read)
         .with(file, any_args)
         .and_return state.to_json
