@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
 module Kozo
-  class Resource; end
+  class Resource
+    attr_accessor :id
+
+    def ==(other)
+      id == other.id
+    end
+  end
 end
