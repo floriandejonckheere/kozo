@@ -38,6 +38,14 @@ module Kozo
 
     def resource(type, name)
       Kozo.logger.debug "Initializing resource #{type} #{name}"
+
+      resource = Kozo.container.resolve("resource.#{type}", quiet: true)
+
+      Kozo.logger.fatal "unknown resource type: #{type}" unless resource
+
+      yield resource if block_given?
+
+      configuration.resources << resource
     end
   end
 end

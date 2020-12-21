@@ -28,4 +28,16 @@ RSpec.describe Kozo::DSL do
       expect(configuration.providers).to include build(:null_provider)
     end
   end
+
+  describe "#resource" do
+    it "raises on unknown resource type" do
+      expect { dsl.resource("foo", "bar") }.to raise_error SystemExit
+    end
+
+    it "configures a resource" do
+      dsl.resource("null", "bar")
+
+      expect(configuration.resources).to include build(:null_resource)
+    end
+  end
 end
