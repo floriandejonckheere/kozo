@@ -4,8 +4,6 @@ RSpec.describe Kozo::DSL do
   subject(:dsl) { described_class.new(configuration) }
 
   let(:configuration) { build(:configuration) }
-  let(:backend) { build(:local_backend, directory: "/tmp") }
-  let(:provider) { build(:hcloud_provider, key: "my_key") }
 
   describe "#backend" do
     it "raises on unknown backend type" do
@@ -15,7 +13,7 @@ RSpec.describe Kozo::DSL do
     it "configures a backend" do
       dsl.backend("local") { |b| b.directory = "/tmp" }
 
-      expect(configuration.backend).to eq backend
+      expect(configuration.backend).to eq build(:local_backend, directory: "/tmp")
     end
   end
 
@@ -25,9 +23,9 @@ RSpec.describe Kozo::DSL do
     end
 
     it "configures a provider" do
-      dsl.provider("hcloud") { |p| p.key = "my_key" }
+      dsl.provider("null")
 
-      expect(configuration.providers).to include provider
+      expect(configuration.providers).to include build(:null_provider)
     end
   end
 end

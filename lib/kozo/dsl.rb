@@ -17,7 +17,7 @@ module Kozo
 
       backend = Kozo.container.resolve("backend.#{type}", configuration.directory, quiet: true)
 
-      Kozo.logger.fatal "Unknown backend: #{type}" unless backend
+      Kozo.logger.fatal "unknown backend type: #{type}" unless backend
 
       yield backend if block_given?
 
@@ -29,14 +29,14 @@ module Kozo
 
       provider = Kozo.container.resolve("provider.#{type}", quiet: true)
 
-      Kozo.logger.fatal "Unknown provider: #{type}" unless provider
+      Kozo.logger.fatal "unknown provider type: #{type}" unless provider
 
       yield provider if block_given?
 
       configuration.providers << provider
     end
 
-    def resource(type, name, &_block)
+    def resource(type, name)
       Kozo.logger.debug "Initializing resource #{type} #{name}"
     end
   end
