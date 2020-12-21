@@ -33,6 +33,7 @@ module Kozo
       loader.inflector.inflect(
         "cli" => "CLI",
         "dsl" => "DSL",
+        "hcloud" => "HCloud",
       )
       loader.setup
       loader.eager_load
