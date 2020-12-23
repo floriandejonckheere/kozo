@@ -31,6 +31,8 @@ module Kozo
       @loader = Zeitwerk::Loader.for_gem
 
       instance_eval(File.read(root.join("config/inflections.rb")))
+
+      loader.enable_reloading
       loader.setup
       loader.eager_load
 
