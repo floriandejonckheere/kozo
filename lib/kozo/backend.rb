@@ -4,6 +4,8 @@ module Kozo
   class Backend
     attr_accessor :directory
 
+    VERSION = 1
+
     def initialize(directory)
       @directory = directory
     end
@@ -29,6 +31,13 @@ module Kozo
     #
     def state=(_value)
       raise NotImplementedError
+    end
+
+    def meta
+      {
+        version: VERSION,
+        kozo_version: Kozo::VERSION,
+      }
     end
   end
 end

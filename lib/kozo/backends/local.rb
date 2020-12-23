@@ -12,23 +12,36 @@ module Kozo
       end
 
       def initialize!
-        return if File.exist?(file)
-
         Kozo.logger.debug "Initializing local state in #{file}"
 
-        File.write(file, {}.to_json)
+        File.write(file, meta.to_json) unless File.exist?(file)
+      end
+
+      def validate!
+        version = state.fetch(:version)
+        kozo_version = state.fetch(:kozo_version)
+
+        unless version == Backend::VERSION
+          Kozo.logger.fatal "Invalid version in state: got #{version}, expected #{Backend::VERSION}"
+        end
+
+        return if kozo_version == Kozo::VERSION
+
+        Kozo.logger.fatal "Invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}"
       end
 
       def state
         Kozo.logger.debug "Reading local state in #{file}"
 
-        JSON.parse(File.read(file), symbolize_names: true)
+        @state ||= JSON.parse(File.read(file), symbolize_names: true)
       rescue JSON::ParserError => e
         Kozo.logger.fatal "Could not read state file: #{e.message}"
       end
 
       def state=(value)
         Kozo.logger.debug "Writing local state in #{file}"
+
+        @state = value
 
         File.write(file, value.to_json)
       end
