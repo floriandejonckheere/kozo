@@ -1,5 +1,5 @@
 # Changelog
 
-## Kozo v0.0.1
+## Kozo v0.1.0
 
 Initial release
