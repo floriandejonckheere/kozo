@@ -67,3 +67,7 @@ build-iPhoneSimulator/
 
 ### RubyMine ###
 .idea
+
+### Kozo ###
+*.kz
+*.kzstate
