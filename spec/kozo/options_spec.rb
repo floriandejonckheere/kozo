@@ -8,17 +8,17 @@ RSpec.describe Kozo::Options do
 
   describe "#[]" do
     it "gets the option value" do
-      options.directory = "foobar"
+      options.directory = "/foobar"
 
-      expect(options[:directory]).to eq "foobar"
+      expect(options[:directory]).to eq "/foobar"
     end
   end
 
   describe "#[]=" do
     it "sets the option value" do
-      options[:directory] = "foobar"
+      options[:directory] = "/foobar"
 
-      expect(options.directory).to eq "foobar"
+      expect(options.directory).to eq "/foobar"
     end
   end
 end

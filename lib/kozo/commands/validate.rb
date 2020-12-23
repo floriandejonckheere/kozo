@@ -8,7 +8,7 @@ module Kozo
       def start
         configuration.parse!
 
-        Kozo.logger.info "the configuration is valid"
+        Kozo.logger.info "The configuration in #{configuration.directory} is valid"
       end
     end
   end

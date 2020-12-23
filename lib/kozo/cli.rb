@@ -9,6 +9,7 @@ module Kozo
     def initialize(args)
       @parser = OptionParser.new("#{File.basename($PROGRAM_NAME)} [global options] command [command options]") do |o|
         o.on("Global options:")
+        o.on("-d", "--directory=DIRECTORY", "Set working directory")
         o.on("-v", "--verbose", "Turn on verbose logging")
         o.on("-h", "--help", "Display this message") { usage }
         o.separator("\n")

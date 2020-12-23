@@ -10,7 +10,7 @@ module Kozo
 
         configuration.backend.initialize!
 
-        Kozo.logger.info "Kozo initialized in #{Dir.pwd}"
+        Kozo.logger.info "Kozo initialized in #{configuration.directory}"
       end
     end
   end

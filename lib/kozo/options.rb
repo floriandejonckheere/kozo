@@ -2,7 +2,9 @@
 
 module Kozo
   class Options
-    attr_writer :directory, :verbose
+    def directory=(path)
+      @directory = File.expand_path(path)
+    end
 
     def directory
       @directory ||= Dir.pwd
@@ -10,6 +12,10 @@ module Kozo
 
     def directory?
       directory.present?
+    end
+
+    def verbose=(value)
+      @verbose = value.present?
     end
 
     def verbose
