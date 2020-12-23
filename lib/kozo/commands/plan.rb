@@ -3,7 +3,7 @@
 module Kozo
   module Commands
     class Plan < Base
-      self.description = "Show execution plan"
+      self.description = "Show execution plan for current configuration"
 
       def start
         configuration.parse!
