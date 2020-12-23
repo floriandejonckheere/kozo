@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "activesupport", "~> 6.0"
   spec.add_runtime_dependency "dotenv", "~> 2.7"
+  spec.add_runtime_dependency "hcloud", "~> 1.0.2"
   spec.add_runtime_dependency "zeitwerk", "~> 2.4"
 
   spec.add_development_dependency "rubocop"
