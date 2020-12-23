@@ -13,11 +13,7 @@ module Kozo
     end
 
     def backend(type)
-      Kozo.logger.debug "Initializing backend #{type}"
-
-      backend = Kozo.container.resolve("backend.#{type}", configuration.directory, quiet: true)
-
-      Kozo.logger.fatal "unknown backend type: #{type}" unless backend
+      backend = resolve(:backend, type)
 
       yield backend if block_given?
 
@@ -25,11 +21,7 @@ module Kozo
     end
 
     def provider(type)
-      Kozo.logger.debug "Initializing provider #{type}"
-
-      provider = Kozo.container.resolve("provider.#{type}", quiet: true)
-
-      Kozo.logger.fatal "unknown provider type: #{type}" unless provider
+      provider = resolve(:provider, type)
 
       yield provider if block_given?
 
@@ -37,15 +29,21 @@ module Kozo
     end
 
     def resource(type, name)
-      Kozo.logger.debug "Initializing resource #{type} #{name}"
-
-      resource = Kozo.container.resolve("resource.#{type}", quiet: true)
-
-      Kozo.logger.fatal "unknown resource type: #{type}" unless resource
+      resource = resolve(:resource, type, name)
 
       yield resource if block_given?
 
       configuration.resources << resource
+    end
+
+    private
+
+    def resolve(resource, type, name = nil)
+      Kozo.logger.debug "initializing #{resource} #{type} #{name}"
+
+      Kozo.container.resolve("#{resource}.#{type}")
+    rescue Container::DependencyNotRegistered
+      Kozo.logger.fatal "unknown #{resource} type: #{type}"
     end
   end
 end
