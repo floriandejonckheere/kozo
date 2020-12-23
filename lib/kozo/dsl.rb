@@ -30,6 +30,9 @@ module Kozo
 
     def resource(type, name)
       resource = resolve(:resource, type, name)
+      resource.provider = configuration.providers[resource.class.provider]
+
+      Kozo.logger.fatal "provider #{resource.class.provider}" unless resource.provider
 
       yield resource if block_given?
 

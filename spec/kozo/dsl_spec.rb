@@ -34,7 +34,12 @@ RSpec.describe Kozo::DSL do
       expect { dsl.resource("foo", "bar") }.to raise_error SystemExit
     end
 
+    it "raises on unregistered provider" do
+      expect { dsl.resource("null", "bar") }.to raise_error SystemExit
+    end
+
     it "configures a resource" do
+      dsl.provider("null")
       dsl.resource("null", "bar")
 
       expect(configuration.resources["null"]).to eq build(:null_resource)

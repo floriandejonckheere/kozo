@@ -24,6 +24,9 @@ Layout/ParameterAlignment:
 Lint/EmptyClass:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
