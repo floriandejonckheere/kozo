@@ -35,6 +35,9 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 20
 
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
 RSpec/ExampleLength:
   Max: 20
 
