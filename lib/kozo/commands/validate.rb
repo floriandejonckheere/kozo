@@ -2,7 +2,7 @@
 
 module Kozo
   module Commands
-    class Validate < Base
+    class Validate < Kozo::Command
       self.description = "Check whether configuration is valid"
 
       def start

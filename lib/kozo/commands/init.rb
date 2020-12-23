@@ -2,7 +2,7 @@
 
 module Kozo
   module Commands
-    class Init < Base
+    class Init < Kozo::Command
       self.description = "Prepare your working directory for other commands"
 
       def start

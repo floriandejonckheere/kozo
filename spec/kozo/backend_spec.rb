@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Kozo::Backends::Base do
+RSpec.describe Kozo::Backend do
   subject(:backend) { backend_class.new(directory, state) }
 
   let(:backend_class) do

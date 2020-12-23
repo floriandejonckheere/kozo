@@ -2,7 +2,7 @@
 
 module Kozo
   module Commands
-    class Plan < Base
+    class Plan < Kozo::Command
       self.description = "Show execution plan for current configuration"
 
       def start

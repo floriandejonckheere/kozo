@@ -58,7 +58,7 @@ module Kozo
     end
 
     def commands
-      Commands::Base.descendants.sort_by(&:to_s).map { |k| [k.name.demodulize.underscore, k.description] }
+      Command.descendants.sort_by(&:to_s).map { |k| [k.name.demodulize.underscore, k.description] }
     end
   end
 end

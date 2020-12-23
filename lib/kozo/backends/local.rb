@@ -4,7 +4,7 @@ require "json"
 
 module Kozo
   module Backends
-    class Local < Base
+    class Local < Kozo::Backend
       def initialize!
         return if File.exist?(file)
 
