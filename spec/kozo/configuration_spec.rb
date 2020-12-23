@@ -3,7 +3,7 @@
 require "tmpdir"
 
 RSpec.describe Kozo::Configuration do
-  subject(:configuration) { described_class.new(directory) }
+  subject(:configuration) { build(:configuration, directory: directory) }
 
   let(:directory) { Dir.mktmpdir }
   let(:file) { "" }

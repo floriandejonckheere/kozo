@@ -25,7 +25,7 @@ RSpec.describe Kozo::DSL do
     it "configures a provider" do
       dsl.provider("null")
 
-      expect(configuration.providers).to include build(:null_provider)
+      expect(configuration.providers["null"]).to eq build(:null_provider)
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe Kozo::DSL do
     it "configures a resource" do
       dsl.resource("null", "bar")
 
-      expect(configuration.resources).to include build(:null_resource)
+      expect(configuration.resources["null"]).to eq build(:null_resource)
     end
   end
 end

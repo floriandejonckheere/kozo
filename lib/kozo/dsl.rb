@@ -25,7 +25,7 @@ module Kozo
 
       yield provider if block_given?
 
-      configuration.providers << provider
+      configuration.providers[provider.class.name] = provider
     end
 
     def resource(type, name)
@@ -33,7 +33,7 @@ module Kozo
 
       yield resource if block_given?
 
-      configuration.resources << resource
+      configuration.resources[resource.class.name] = resource
     end
 
     private
