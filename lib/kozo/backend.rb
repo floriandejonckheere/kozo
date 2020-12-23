@@ -8,14 +8,6 @@ module Kozo
       @directory = directory
     end
 
-    def providers
-      state.fetch(:providers)
-    end
-
-    def resources
-      state.fetch(:resources)
-    end
-
     protected
 
     ##

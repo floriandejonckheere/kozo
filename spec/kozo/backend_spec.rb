@@ -16,16 +16,4 @@ RSpec.describe Kozo::Backend do
 
   let(:directory) { "directory" }
   let(:state) { build(:state) }
-
-  describe "#providers" do
-    it "returns a list of providers" do
-      expect(backend.providers).to match_array state[:providers]
-    end
-  end
-
-  describe "#resources" do
-    it "returns a list of resources" do
-      expect(backend.resources).to match_array state[:resources]
-    end
-  end
 end
