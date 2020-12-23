@@ -7,5 +7,9 @@ module Kozo
     def ==(other)
       id == other.id
     end
+
+    def self.provider
+      raise NotImplementedError
+    end
   end
 end

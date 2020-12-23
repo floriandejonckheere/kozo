@@ -3,9 +3,9 @@
 module Kozo
   module Providers
     module HCloud
-      module Resources
-        class SSHKey < Resource
-          attr_accessor :name, :public_key
+      class Resource < Kozo::Resource
+        def self.provider
+          Provider
         end
       end
     end

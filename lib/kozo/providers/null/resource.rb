@@ -3,8 +3,10 @@
 module Kozo
   module Providers
     module Null
-      module Resources
-        class Null < Resource; end
+      class Resource < Kozo::Resource
+        def self.provider
+          Provider
+        end
       end
     end
   end
