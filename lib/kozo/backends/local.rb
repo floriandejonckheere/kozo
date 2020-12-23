@@ -5,6 +5,12 @@ require "json"
 module Kozo
   module Backends
     class Local < Kozo::Backend
+      def initialize(directory)
+        super
+
+        @directory ||= Kozo.options.directory
+      end
+
       def initialize!
         return if File.exist?(file)
 
