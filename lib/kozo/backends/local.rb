@@ -5,10 +5,16 @@ require "json"
 module Kozo
   module Backends
     class Local < Base
+      def initialize!
+        return if File.exist?(file)
+
+        Kozo.logger.debug "Initializing local state in #{file}"
+
+        File.write(file, {}.to_json)
+      end
+
       def state
         Kozo.logger.debug "Reading local state in #{file}"
-
-        File.write(file, {}.to_json) unless File.exist?(file)
 
         JSON.parse(File.read(file), symbolize_names: true)
       rescue JSON::ParserError => e
@@ -17,6 +23,7 @@ module Kozo
 
       def state=(value)
         Kozo.logger.debug "Writing local state in #{file}"
+
         File.write(file, value.to_json)
       end
 

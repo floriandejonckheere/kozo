@@ -6,6 +6,34 @@ RSpec.describe Kozo::Backends::Local do
   let(:state) { build(:state) }
   let(:file) { File.join(backend.directory, "kozo.kzstate") }
 
+  describe "#initialize" do
+    it "does not override existing state file" do
+      allow(File)
+        .to receive(:exist?)
+        .with(file)
+        .and_return true
+
+      expect(File)
+        .not_to have_received(:write)
+        .with(file, any_args)
+
+      backend.initialize!
+    end
+
+    it "creates a state file if it does not exist" do
+      allow(File)
+        .to receive(:exist?)
+        .with(file)
+        .and_return false
+
+      expect(File)
+        .to have_received(:write)
+        .with(file, any_args)
+
+      backend.initialize!
+    end
+  end
+
   describe "#state" do
     it "reads a local file" do
       allow(File)

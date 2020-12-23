@@ -5,7 +5,7 @@ module Kozo
     class Base
       class_attribute :description
 
-      def initialize(_args); end
+      def initialize(*_args); end
 
       def start
         raise NotImplementedError
