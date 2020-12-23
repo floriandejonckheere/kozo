@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "climate_control"
   spec.add_development_dependency "factory_bot"
+  spec.add_development_dependency "fakefs"
   spec.add_development_dependency "ffaker"
   spec.add_development_dependency "overcommit"
   spec.add_development_dependency "pry-byebug"

@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :local_backend, class: "Kozo::Backends::Local" do
-    directory { "directory" }
+    directory { Dir.mktmpdir }
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "byebug"
+require "fakefs/spec_helpers"
 
 ENV["KOZO_ENV"] = "test"
 
