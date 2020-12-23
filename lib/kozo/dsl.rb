@@ -32,7 +32,7 @@ module Kozo
       resource = resolve(:resource, type, name)
       resource.provider = configuration.providers[resource.class.provider]
 
-      Kozo.logger.fatal "provider #{resource.class.provider}" unless resource.provider
+      Kozo.logger.fatal "Provider #{resource.class.provider}" unless resource.provider
 
       yield resource if block_given?
 
@@ -42,11 +42,11 @@ module Kozo
     private
 
     def resolve(resource, type, name = nil)
-      Kozo.logger.debug "initializing #{resource} #{type} #{name}"
+      Kozo.logger.debug "Initializing #{resource} #{type} #{name}"
 
       Kozo.container.resolve("#{resource}.#{type}")
     rescue Container::DependencyNotRegistered
-      Kozo.logger.fatal "unknown #{resource} type: #{type}"
+      Kozo.logger.fatal "Unknown #{resource} type: #{type}"
     end
   end
 end
