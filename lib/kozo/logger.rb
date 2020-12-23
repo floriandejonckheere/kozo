@@ -12,11 +12,11 @@ module Kozo
     private
 
     def level
-      ENV.fetch("LOG_LEVEL", "info")
+      Kozo.options.verbose? ? "debug" : ENV.fetch("LOG_LEVEL", "info")
     end
 
     def formatter
-      level == "debug" ? ::Logger::Formatter.new : Formatter.new
+      Formatter.new
     end
 
     class Formatter < ::Logger::Formatter
