@@ -57,7 +57,7 @@ jobs:
 
       - name: Set version
         run: |
-          echo ::set-env name=VERSION::${GITHUB_REF/refs\/tags\//}
+          echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -89,7 +89,7 @@ jobs:
     steps:
       - name: Set version
         run: |
-          echo ::set-env name=VERSION::${GITHUB_REF/refs\/tags\//}
+          echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Publish to RubyGems
         run: |
