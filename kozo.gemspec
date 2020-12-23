@@ -25,8 +25,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r(^bin/)) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "activesupport"
-  spec.add_runtime_dependency "zeitwerk"
+  spec.add_runtime_dependency "activesupport", "~> 6.0"
+  spec.add_runtime_dependency "zeitwerk", "~> 2.4"
 
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-performance"

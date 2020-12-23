@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     kozo (0.1.0)
-      activesupport
-      zeitwerk
+      activesupport (~> 6.0)
+      zeitwerk (~> 2.4)
 
 GEM
   remote: https://rubygems.org/
