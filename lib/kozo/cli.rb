@@ -13,7 +13,7 @@ module Kozo
         o.on("-h", "--help", "Display this message") { usage }
         o.separator("\n")
         o.on("Commands:")
-        commands.each { |(name, description)| o.on("    #{name}#{description.rjust(48)}") }
+        commands.each { |(name, description)| o.on("    #{name.ljust(33)}#{description}") }
         o.separator("\n")
       end
 
@@ -58,7 +58,7 @@ module Kozo
     end
 
     def commands
-      Commands::Base.descendants.map { |k| [k.name.demodulize.underscore, k.description] }
+      Commands::Base.descendants.sort_by(&:to_s).map { |k| [k.name.demodulize.underscore, k.description] }
     end
   end
 end
