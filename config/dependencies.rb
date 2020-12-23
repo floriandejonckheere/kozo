@@ -8,21 +8,21 @@ register("backend.local") do |directory|
 end
 
 ##
-# Providers
+# Null provider
 #
 register("provider.null") do
   Kozo::Providers::Null::Provider.new
 end
 
-register("provider.hcloud") do
-  Kozo::Providers::HCloud::Provider.new
+register("resource.null") do
+  Kozo::Providers::Null::Resources::Null.new
 end
 
 ##
-# Resources
+# HCloud
 #
-register("resource.null") do
-  Kozo::Providers::Null::Resources::Null.new
+register("provider.hcloud") do
+  Kozo::Providers::HCloud::Provider.new
 end
 
 register("resource.hcloud_ssh_key") do
