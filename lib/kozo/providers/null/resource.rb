@@ -4,9 +4,7 @@ module Kozo
   module Providers
     module Null
       class Resource < Kozo::Resource
-        def self.provider
-          Provider
-        end
+        self.provider = "null"
       end
     end
   end

@@ -4,9 +4,7 @@ module Kozo
   module Providers
     module HCloud
       class Resource < Kozo::Resource
-        def self.provider
-          Provider
-        end
+        self.provider = "hcloud"
       end
     end
   end

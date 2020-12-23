@@ -4,12 +4,10 @@ module Kozo
   class Resource
     attr_accessor :id
 
+    class_attribute :name, :provider
+
     def ==(other)
       id == other.id
-    end
-
-    def self.provider
-      raise NotImplementedError
     end
   end
 end

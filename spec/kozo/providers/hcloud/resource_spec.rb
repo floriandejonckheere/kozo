@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Providers::HCloud::Resource do
-  subject(:resource) { described_class }
+  subject(:resource) { described_class.new }
 
-  describe ".provider" do
-    it "returns the provider class" do
-      expect(resource.provider).to eq Kozo::Providers::HCloud::Provider
-    end
+  it "has a provider" do
+    expect(described_class.provider).to eq "hcloud"
   end
 end
