@@ -6,8 +6,6 @@ module Kozo
       self.description = "Prepare your working directory for other commands"
 
       def start
-        configuration.parse!
-
         configuration.backend.initialize!
 
         Kozo.logger.info "Kozo initialized in #{configuration.directory}"

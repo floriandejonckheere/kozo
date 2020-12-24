@@ -5,9 +5,7 @@ module Kozo
     class Plan < Kozo::Command
       self.description = "Show execution plan for current configuration"
 
-      def start
-        configuration.parse!
-      end
+      def start; end
     end
   end
 end
