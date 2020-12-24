@@ -8,7 +8,7 @@ module Kozo
     def initialize(directory)
       @directory = directory
       @providers = {}
-      @resources = {}
+      @resources = []
     end
 
     def backend

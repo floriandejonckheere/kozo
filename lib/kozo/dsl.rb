@@ -38,7 +38,7 @@ module Kozo
 
       yield resource if block_given?
 
-      configuration.resources[resource.class.name] = resource
+      configuration.resources << resource
     end
 
     private
