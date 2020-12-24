@@ -25,6 +25,8 @@ module Kozo
 
       yield provider if block_given?
 
+      provider.initialize!
+
       configuration.providers[provider.class.name] = provider
     end
 

@@ -6,6 +6,8 @@ module Kozo
       class Provider < Kozo::Provider
         self.name = "null"
 
+        def initialize!; end
+
         def ==(_other)
           true
         end

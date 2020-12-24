@@ -3,5 +3,9 @@
 module Kozo
   class Provider
     class_attribute :name
+
+    def initialize!
+      raise NotImplementedError
+    end
   end
 end
