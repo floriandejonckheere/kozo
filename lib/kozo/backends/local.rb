@@ -14,7 +14,7 @@ module Kozo
       def initialize!
         Kozo.logger.debug "Initializing local state in #{file}"
 
-        File.write(file, meta.to_json) unless File.exist?(file)
+        self.state = meta unless File.exist?(file)
       end
 
       def validate!
