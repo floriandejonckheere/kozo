@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :null_provider, class: "Kozo::Providers::Null::Provider"
 
-  factory :hcloud_provider, class: "Kozo::Providers::HCloud" do
+  factory :hcloud, class: "Kozo::Providers::HCloud::Provider" do
     key { SecureRandom.uuid }
   end
 end

@@ -5,7 +5,7 @@ module Kozo
     module Null
       module Resources
         class Null < Resource
-          self.name = "null"
+          self.resource_name = "null"
         end
       end
     end

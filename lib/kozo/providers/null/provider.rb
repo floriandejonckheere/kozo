@@ -4,7 +4,7 @@ module Kozo
   module Providers
     module Null
       class Provider < Kozo::Provider
-        self.name = "null"
+        self.provider_name = "null"
 
         def initialize!; end
 

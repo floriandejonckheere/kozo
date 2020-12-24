@@ -7,7 +7,7 @@ module Kozo
         class SSHKey < Resource
           attr_accessor :name, :public_key
 
-          self.name = "hcloud_ssh_key"
+          self.resource_name = "hcloud_ssh_key"
         end
       end
     end

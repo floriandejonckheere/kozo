@@ -27,14 +27,14 @@ module Kozo
 
       provider.initialize!
 
-      configuration.providers[provider.class.name] = provider
+      configuration.providers[provider.class.provider_name] = provider
     end
 
     def resource(type, name)
       resource = resolve(:resource, type, name)
-      resource.provider = configuration.providers[resource.class.provider]
+      resource.provider = configuration.providers[resource.class.provider_name]
 
-      Kozo.logger.fatal "Provider #{resource.class.provider}" unless resource.provider
+      Kozo.logger.fatal "Provider #{resource.class.provider_name}" unless resource.provider
 
       yield resource if block_given?
 

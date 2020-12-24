@@ -9,7 +9,7 @@ module Kozo
         attr_accessor :key
         attr_reader :client
 
-        self.name = "hcloud"
+        self.provider_name = "hcloud"
 
         def initialize!
           @client = Hcloud::Client.new(token: key)

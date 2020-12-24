@@ -4,7 +4,7 @@ module Kozo
   module Providers
     module Null
       class Resource < Kozo::Resource
-        self.provider = "null"
+        self.provider_name = "null"
       end
     end
   end

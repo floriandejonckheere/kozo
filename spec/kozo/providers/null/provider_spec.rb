@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Providers::Null::Provider do
-  subject(:provider) { described_class.new }
+  subject(:provider) { build(:null_provider) }
 
   it "has a name" do
-    expect(described_class.name).to eq "null"
+    expect(described_class.provider_name).to eq "null"
   end
 end

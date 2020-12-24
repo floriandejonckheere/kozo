@@ -4,6 +4,6 @@ RSpec.describe Kozo::Providers::HCloud::Resource do
   subject(:resource) { described_class.new }
 
   it "has a provider" do
-    expect(described_class.provider).to eq "hcloud"
+    expect(described_class.provider_name).to eq "hcloud"
   end
 end
