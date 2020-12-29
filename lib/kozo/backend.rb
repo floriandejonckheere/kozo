@@ -63,12 +63,7 @@ module Kozo
     def resources
       data
         .fetch(:resources, [])
-        .map do |hash|
-        Kozo
-          .container
-          .resolve("resource.#{hash[:resource]}")
-          .tap { |r| hash.except(:resource).each { |k, v| r.send(:"#{k}=", v) } }
-      end
+        .map { |h| Resource.from_h(h) }
     end
   end
 end

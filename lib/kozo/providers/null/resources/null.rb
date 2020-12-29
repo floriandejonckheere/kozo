@@ -6,6 +6,10 @@ module Kozo
       module Resources
         class Null < Resource
           self.resource_name = "null"
+
+          def data
+            {}
+          end
         end
       end
     end

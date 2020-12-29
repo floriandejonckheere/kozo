@@ -1,14 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Resource do
-  subject(:resource) { resource_class.new }
-
-  let(:resource_class) do
-    Class.new(described_class) do
-      self.provider_name = "provider"
-      self.resource_name = "name"
-    end
-  end
+  subject(:resource) { build(:null_resource) }
 
   it { is_expected.to respond_to :id, :id= }
   it { is_expected.to respond_to :provider, :provider= }
@@ -23,8 +16,14 @@ RSpec.describe Kozo::Resource do
 
   describe "#to_h" do
     it "transforms resource into a hash" do
-      expect(resource.to_h).to include provider: "provider",
-                                       resource: "name"
+      expect(resource.to_h).to include meta: { provider: "null", resource: "null" },
+                                       data: {}
+    end
+  end
+
+  describe ".from_h" do
+    it "transforms hash into a resource" do
+      expect(described_class.from_h(resource.to_h)).to eq resource
     end
   end
 end
