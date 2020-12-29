@@ -9,7 +9,7 @@ module Kozo
     end
 
     def register(key, force: false, &block)
-      raise DependencyAlreadyRegistered, key unless force || !dependencies[key]
+      raise DependencyAlreadyRegistered, "Dependency alreadyd registered: #{key}" unless force || !dependencies[key]
 
       dependencies[key] = block
     end
@@ -17,19 +17,11 @@ module Kozo
     def resolve(key, *args, quiet: false, &block)
       return dependencies[key].call(*args, &block) if dependencies[key]
 
-      raise DependencyNotRegistered, key unless quiet
+      raise DependencyNotRegistered, "Dependency not registered: #{key}" unless quiet
     end
 
-    class DependencyAlreadyRegistered < StandardError
-      def initialize(message)
-        super("Dependency already registered: #{message}")
-      end
-    end
+    class DependencyAlreadyRegistered < Error; end
 
-    class DependencyNotRegistered < StandardError
-      def initialize(message)
-        super("Dependency not registered: #{message}")
-      end
-    end
+    class DependencyNotRegistered < Error; end
   end
 end

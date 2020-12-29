@@ -24,12 +24,12 @@ module Kozo
       kozo_version = data.fetch(:kozo_version)
 
       unless state_version == State::VERSION
-        Kozo.logger.fatal "Invalid version in state: got #{state_version}, expected #{State::VERSION}"
+        raise InvalidState, "Invalid version in state: got #{state_version}, expected #{State::VERSION}"
       end
 
       return if kozo_version == Kozo::VERSION
 
-      Kozo.logger.fatal "Invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}"
+      raise InvalidState, "Invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}"
     end
 
     ##
@@ -66,5 +66,7 @@ module Kozo
         .fetch(:resources, [])
         .map { |h| Resource.from_h(h) }
     end
+
+    class InvalidState < Error; end
   end
 end

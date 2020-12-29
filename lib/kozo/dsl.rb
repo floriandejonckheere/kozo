@@ -34,7 +34,7 @@ module Kozo
       resource = resolve(:resource, type, name)
       resource.provider = configuration.providers[resource.class.provider_name]
 
-      Kozo.logger.fatal "Provider #{resource.class.provider_name}" unless resource.provider
+      raise InvalidResource, "Provider #{resource.class.provider_name} not configured" unless resource.provider
 
       yield resource if block_given?
 
@@ -48,7 +48,9 @@ module Kozo
 
       Kozo.container.resolve("#{resource}.#{type}", *args)
     rescue Container::DependencyNotRegistered
-      Kozo.logger.fatal "Unknown #{resource} type: #{type}"
+      raise InvalidResource, "Unknown #{resource} type: #{type}"
     end
+
+    class InvalidResource < Error; end
   end
 end

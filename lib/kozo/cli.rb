@@ -47,6 +47,8 @@ module Kozo
       klass
         .new(command_args)
         .start
+    rescue Error => e
+      Kozo.logger.fatal e.message
     end
 
     private

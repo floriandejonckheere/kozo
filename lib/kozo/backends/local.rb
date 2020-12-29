@@ -23,7 +23,7 @@ module Kozo
         @data ||= JSON
           .parse(File.read(file), symbolize_names: true)
       rescue JSON::ParserError => e
-        Kozo.logger.fatal "Could not read state file: #{e.message}"
+        raise InvalidState, "Could not read state file: #{e.message}"
       end
 
       def data=(value)
