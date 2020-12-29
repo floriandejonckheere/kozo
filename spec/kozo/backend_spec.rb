@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Backend do
-  subject(:backend) { backend_class.new(directory, state) }
+  subject(:backend) { backend_class.new(configuration, directory, state) }
 
   let(:backend_class) do
     Class.new(described_class) do
       attr_accessor :data
 
-      def initialize(directory, data)
-        super(directory)
+      def initialize(configuration, directory, data)
+        super(configuration, directory)
         @data = data.to_h
       end
     end
   end
 
+  let(:configuration) { build(:configuration) }
   let(:directory) { "directory" }
   let(:state) { build(:state, resources: [resource]) }
   let(:resource) { build(:null_resource) }

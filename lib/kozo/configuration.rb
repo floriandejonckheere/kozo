@@ -12,7 +12,7 @@ module Kozo
     end
 
     def backend
-      @backend ||= Backends::Local.new(directory)
+      @backend ||= Backends::Local.new(self, directory)
     end
 
     def parse!

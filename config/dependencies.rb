@@ -3,8 +3,8 @@
 ##
 # Backends
 #
-register("backend.local") do |directory|
-  Kozo::Backends::Local.new(directory)
+register("backend.local") do |configuration, directory|
+  Kozo::Backends::Local.new(configuration, directory)
 end
 
 ##

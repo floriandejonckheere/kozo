@@ -5,7 +5,7 @@ require "json"
 module Kozo
   module Backends
     class Local < Kozo::Backend
-      def initialize(directory)
+      def initialize(configuration, directory)
         super
 
         @directory ||= Kozo.options.directory

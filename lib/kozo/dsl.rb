@@ -13,7 +13,7 @@ module Kozo
     end
 
     def backend(type)
-      backend = resolve(:backend, type)
+      backend = resolve(:backend, type, configuration)
 
       yield backend if block_given?
 
@@ -43,10 +43,10 @@ module Kozo
 
     private
 
-    def resolve(resource, type, name = nil)
-      Kozo.logger.debug "Initializing #{resource} #{type} #{name}"
+    def resolve(resource, type, *args)
+      Kozo.logger.debug "Initializing #{resource} #{type} #{args.join(' ')}"
 
-      Kozo.container.resolve("#{resource}.#{type}")
+      Kozo.container.resolve("#{resource}.#{type}", *args)
     rescue Container::DependencyNotRegistered
       Kozo.logger.fatal "Unknown #{resource} type: #{type}"
     end

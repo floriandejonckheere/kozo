@@ -2,9 +2,10 @@
 
 module Kozo
   class Backend
-    attr_accessor :directory
+    attr_accessor :configuration, :directory
 
-    def initialize(directory)
+    def initialize(configuration, directory)
+      @configuration = configuration
       @directory = directory
     end
 
