@@ -14,12 +14,19 @@ RSpec.describe Kozo::Backend do
     end
   end
 
-  let(:configuration) { build(:configuration) }
+  let(:configuration) { build(:configuration, providers: { "null" => provider }) }
   let(:directory) { "directory" }
   let(:state) { build(:state, resources: [resource]) }
-  let(:resource) { build(:null_resource) }
+  let(:resource) { build(:null_resource, provider: provider) }
+  let(:provider) { build(:null_provider) }
 
   describe "#state" do
+    it "raises when provider is not configured" do
+      configuration.providers = {}
+
+      expect { backend.state.resources }.to raise_error Kozo::Backend::InvalidState
+    end
+
     it "reads resources" do
       backend.data = state.to_h
 

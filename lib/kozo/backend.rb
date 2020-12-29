@@ -64,7 +64,15 @@ module Kozo
     def resources
       data
         .fetch(:resources, [])
-        .map { |h| Resource.from_h(h) }
+        .map do |hash|
+        provider = configuration.providers[hash.dig(:meta, :provider)]
+
+        raise InvalidState, "Provider #{hash.dig(:meta, :provider)} not configured" unless provider
+
+        Resource
+          .from_h(hash)
+          .tap { |r| r.provider = provider }
+      end
     end
 
     class InvalidState < Error; end

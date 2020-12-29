@@ -12,10 +12,8 @@ module Kozo
 
     protected
 
-    def configuration
-      @configuration ||= Configuration
-        .new(Kozo.options.directory)
-        .tap(&:parse!)
+    def environment
+      @environment ||= Environment.new(Kozo.options.directory)
     end
   end
 end
