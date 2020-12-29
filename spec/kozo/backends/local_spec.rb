@@ -26,7 +26,7 @@ RSpec.describe Kozo::Backends::Local do
 
   describe "#state" do
     it "reads a local file" do
-      File.write(file, state.to_json)
+      File.write(file, state.to_h.to_json)
 
       expect(backend.state).to eq state
     end
@@ -36,7 +36,7 @@ RSpec.describe Kozo::Backends::Local do
     it "writes a local file" do
       backend.state = state
 
-      expect(File.read(file)).to eq state.to_json
+      expect(File.read(file)).to eq state.to_h.to_json
     end
   end
 
