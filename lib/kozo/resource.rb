@@ -2,7 +2,7 @@
 
 module Kozo
   class Resource
-    attr_accessor :id, :provider
+    attr_accessor :id, :provider, :state_name
 
     class_attribute :resource_name, :provider_name
 
@@ -22,6 +22,7 @@ module Kozo
         .container
         .resolve("resource.#{hash.dig(:meta, :resource)}")
         .tap { |r| hash[:data].each { |k, v| r.send(:"#{k}=", v) } }
+        .tap { |r| r.state_name = hash.dig(:meta, :name) }
     end
 
     protected
@@ -34,6 +35,7 @@ module Kozo
 
     def meta
       {
+        name: state_name,
         provider: provider_name,
         resource: resource_name,
       }
