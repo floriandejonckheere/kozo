@@ -5,15 +5,44 @@ RSpec.describe Kozo::Backend do
 
   let(:backend_class) do
     Class.new(described_class) do
-      attr_reader :state
+      attr_accessor :data
 
-      def initialize(directory, state)
+      def initialize(directory, data)
         super(directory)
-        @state = state
+        @data = data.to_h
       end
     end
   end
 
   let(:directory) { "directory" }
-  let(:state) { build(:state) }
+  let(:state) { build(:state, resources: [resource]) }
+  let(:resource) { build(:null_resource) }
+
+  describe "#state" do
+    it "parses resources" do
+      backend.data = state.to_h
+
+      expect(backend.state.resources).to include resource
+    end
+  end
+
+  describe "#validate!" do
+    it "raises when version does not match" do
+      backend.data = { version: 0, kozo_version: Kozo::VERSION }
+
+      expect { backend.validate! }.to raise_error SystemExit
+    end
+
+    it "raises when kozo version does not match" do
+      backend.data = { version: Kozo::State::VERSION, kozo_version: 0 }
+
+      expect { backend.validate! }.to raise_error SystemExit
+    end
+
+    it "validates the state file" do
+      backend.data = { version: Kozo::State::VERSION, kozo_version: Kozo::VERSION }
+
+      expect { backend.validate! }.not_to raise_error
+    end
+  end
 end

@@ -2,6 +2,8 @@
 
 module Kozo
   class State
+    VERSION = 1
+
     attr_accessor :resources
 
     def initialize(resources = [])
@@ -14,6 +16,8 @@ module Kozo
 
     def to_h
       {
+        version: VERSION,
+        kozo_version: Kozo::VERSION,
         resources: resources.map(&:to_h),
       }
     end

@@ -4,13 +4,26 @@ module Kozo
   class Backend
     attr_accessor :directory
 
-    VERSION = 1
-
     def initialize(directory)
       @directory = directory
     end
 
-    protected
+    def state
+      @state ||= State.new(resources)
+    end
+
+    def validate!
+      state_version = data.fetch(:version)
+      kozo_version = data.fetch(:kozo_version)
+
+      unless state_version == State::VERSION
+        Kozo.logger.fatal "Invalid version in state: got #{state_version}, expected #{State::VERSION}"
+      end
+
+      return if kozo_version == Kozo::VERSION
+
+      Kozo.logger.fatal "Invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}"
+    end
 
     ##
     # Create necessary backend files/structures if they do not exist
@@ -19,25 +32,37 @@ module Kozo
       raise NotImplementedError
     end
 
+    protected
+
     ##
     # Read state from backend
     #
-    def state
+    # @return Hash
+    #
+    def data
       raise NotImplementedError
     end
 
     ##
     # Write state to backend
     #
-    def state=(_value)
+    # @param value Hash
+    #
+    def data=(value)
       raise NotImplementedError
     end
 
-    def meta
-      {
-        version: VERSION,
-        kozo_version: Kozo::VERSION,
-      }
+    private
+
+    def resources
+      data
+        .fetch(:resources, [])
+        .map do |hash|
+        Kozo
+          .container
+          .resolve("resource.#{hash[:resource]}")
+          .tap { |r| hash.except(:resource).each { |k, v| r.send(:"#{k}=", v) } }
+      end
     end
   end
 end
