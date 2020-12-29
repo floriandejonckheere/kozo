@@ -9,5 +9,12 @@ module Kozo
     def ==(other)
       id == other.id
     end
+
+    def to_h
+      {
+        provider: provider_name,
+        resource: resource_name,
+      }
+    end
   end
 end
