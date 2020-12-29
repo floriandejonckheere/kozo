@@ -19,10 +19,6 @@ module Kozo
       @container ||= Container.new
     end
 
-    def env
-      @env ||= Environment.new
-    end
-
     def logger
       @logger ||= Logger.new
     end

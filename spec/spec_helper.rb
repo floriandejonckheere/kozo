@@ -2,8 +2,6 @@
 
 require "byebug"
 
-ENV["KOZO_ENV"] = "test"
-
 require File.expand_path("../config/application", __dir__)
 
 require "kozo"
