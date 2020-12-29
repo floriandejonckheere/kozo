@@ -12,6 +12,12 @@ module Kozo
       @state ||= State.new(resources)
     end
 
+    def state=(value)
+      @state = value
+
+      self.data = value.to_h
+    end
+
     def validate!
       state_version = data.fetch(:version)
       kozo_version = data.fetch(:kozo_version)

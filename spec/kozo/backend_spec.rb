@@ -19,10 +19,18 @@ RSpec.describe Kozo::Backend do
   let(:resource) { build(:null_resource) }
 
   describe "#state" do
-    it "parses resources" do
+    it "reads resources" do
       backend.data = state.to_h
 
       expect(backend.state.resources).to include resource
+    end
+  end
+
+  describe "#state=" do
+    it "writes resources" do
+      backend.state = state
+
+      expect(backend.data).to include resources: [resource.to_h]
     end
   end
 
