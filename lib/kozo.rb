@@ -26,13 +26,17 @@ module Kozo
     def setup
       @loader = Zeitwerk::Loader.for_gem
 
+      # Register inflections
       instance_eval(File.read(root.join("config/inflections.rb")))
 
+      # Set up code loader
       loader.enable_reloading
+      loader.ignore(root.join("**/*/dependencies.rb"))
       loader.setup
       loader.eager_load
 
-      container.instance_eval(File.read(root.join("config/dependencies.rb")))
+      # Register dependencies
+      Dir["**/*/dependencies.rb"].each { |d| container.instance_eval(File.read(d)) }
     end
   end
 end
