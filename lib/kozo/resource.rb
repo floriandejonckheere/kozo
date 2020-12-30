@@ -27,7 +27,19 @@ module Kozo
 
     protected
 
+    ##
+    # Collect resource data
+    #
+    # @return Hash
+    #
     def data
+      raise NotImplementedError
+    end
+
+    ##
+    # Refetch resource from remote infrastructure
+    #
+    def refresh!
       raise NotImplementedError
     end
 

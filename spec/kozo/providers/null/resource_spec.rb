@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Providers::Null::Resource do
-  subject(:resource) { described_class.new }
+  subject(:resource) { build(:null_resource) }
 
   it "has a provider" do
     expect(described_class.provider_name).to eq "null"

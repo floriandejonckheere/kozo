@@ -45,6 +45,9 @@ RSpec/FilePath:
   CustomTransform:
     HCloud: hcloud
 
+RSpec/MultipleExpectations:
+  Max: 5
+
 Style/Documentation:
   Enabled: false
 
