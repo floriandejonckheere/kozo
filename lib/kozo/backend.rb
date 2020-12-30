@@ -39,6 +39,11 @@ module Kozo
       raise NotImplementedError
     end
 
+    def ==(other)
+      directory == other.directory &&
+        state == other.state
+    end
+
     protected
 
     ##

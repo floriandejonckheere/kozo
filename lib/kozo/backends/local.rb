@@ -36,10 +36,6 @@ module Kozo
         File.write(file, value.to_json)
       end
 
-      def ==(other)
-        directory == other.directory
-      end
-
       private
 
       def file
