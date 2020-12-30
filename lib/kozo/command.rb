@@ -15,5 +15,7 @@ module Kozo
     def environment
       @environment ||= Environment.new(Kozo.options.directory)
     end
+
+    delegate :configuration, :state, to: :environment
   end
 end

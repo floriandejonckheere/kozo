@@ -7,13 +7,13 @@ module Kozo
 
       def start
         environment
-          .configuration
-          .backend
           .state
           .resources
-          .tap { |r| r.each(&:refresh!) }
+          .each(&:refresh!)
 
-        configuration.backend.state = state
+        configuration
+          .backend
+          .state = environment.state
       end
     end
   end
