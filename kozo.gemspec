@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "ffaker"
   spec.add_development_dependency "overcommit"
   spec.add_development_dependency "pry-byebug"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.10"
   spec.add_development_dependency "shoulda-matchers"
   spec.add_development_dependency "super_diff"
