@@ -7,12 +7,11 @@ module Kozo
     module HCloud
       class Provider < Kozo::Provider
         attr_accessor :key
-        attr_reader :client
 
         self.provider_name = "hcloud"
 
-        def initialize!
-          @client = Hcloud::Client.new(token: key)
+        def client
+          @client ||= Hcloud::Client.new(token: key)
         end
 
         def ==(other)
