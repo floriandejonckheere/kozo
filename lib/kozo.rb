@@ -31,12 +31,12 @@ module Kozo
 
       # Set up code loader
       loader.enable_reloading
-      loader.ignore(root.join("**/*/dependencies.rb"))
+      loader.ignore(root.join("lib/**/*/dependencies.rb"))
       loader.setup
       loader.eager_load
 
       # Register dependencies
-      Dir["**/*/dependencies.rb"].each { |d| container.instance_eval(File.read(d)) }
+      Dir["lib/**/*/dependencies.rb", "config/dependencies.rb"].each { |d| container.instance_eval(File.read(d)) }
     end
   end
 end
