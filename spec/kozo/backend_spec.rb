@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Backend do
-  subject(:backend) { backend_class.new(configuration, directory, state) }
+  subject(:backend) { backend_class.new(configuration, "directory", state) }
 
   let(:backend_class) do
     Class.new(described_class) do
@@ -15,7 +15,6 @@ RSpec.describe Kozo::Backend do
   end
 
   let(:configuration) { build(:configuration, providers: { "null" => provider }) }
-  let(:directory) { "directory" }
   let(:state) { build(:state, resources: [resource]) }
   let(:resource) { build(:null_resource, provider: provider) }
   let(:provider) { build(:null) }
