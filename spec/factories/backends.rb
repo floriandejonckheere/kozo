@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :local_backend, class: "Kozo::Backends::Local" do
-    initialize_with { Kozo::Backends::Local.new(configuration, directory) }
+  factory :backend, class: "Kozo::Backend" do
+    initialize_with { new(configuration, directory) }
 
     configuration { build(:configuration) }
-    directory { Dir.mktmpdir }
+    directory { FFaker::Filesystem.directory }
   end
 end
