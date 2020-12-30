@@ -18,7 +18,7 @@ RSpec.describe Kozo::Backend do
   let(:directory) { "directory" }
   let(:state) { build(:state, resources: [resource]) }
   let(:resource) { build(:null_resource, provider: provider) }
-  let(:provider) { build(:null_provider) }
+  let(:provider) { build(:null) }
 
   describe "#state" do
     it "raises when provider is not configured" do
