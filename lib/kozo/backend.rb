@@ -40,8 +40,7 @@ module Kozo
     end
 
     def ==(other)
-      directory == other.directory &&
-        state == other.state
+      directory == other.directory
     end
 
     protected
