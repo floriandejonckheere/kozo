@@ -2,6 +2,8 @@
 
 module Kozo
   class Resource
+    include Attribute
+
     attr_accessor :id, :provider, :state_name
 
     class_attribute :resource_name, :provider_name
