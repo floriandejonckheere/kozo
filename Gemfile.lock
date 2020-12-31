@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     kozo (0.1.0)
+      activemodel (~> 6.0)
       activesupport (~> 6.0)
       dotenv (~> 2.7)
       hcloud (~> 1.0.2)
