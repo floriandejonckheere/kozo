@@ -2,14 +2,17 @@
 
 module Kozo
   class Resource
-    include Attribute
+    include ActiveModel::Attributes
+    include ActiveModel::Dirty
 
     attr_accessor :id, :provider, :state_name
 
     class_attribute :resource_name, :provider_name
 
     def ==(other)
-      id == other.id
+      self.class == other.class &&
+        id == other.id &&
+        attributes == other.attributes
     end
 
     def to_h

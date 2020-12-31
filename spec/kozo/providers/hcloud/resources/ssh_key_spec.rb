@@ -13,8 +13,8 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
     allow(client).to receive(:ssh_keys).and_return ssh_keys
   end
 
-  it { is_expected.to respond_to :name, :name?, :name= }
-  it { is_expected.to respond_to :public_key, :public_key?, :public_key= }
+  it { is_expected.to respond_to :name, :name= }
+  it { is_expected.to respond_to :public_key, :public_key= }
 
   it "has a name" do
     expect(described_class.resource_name).to eq "hcloud_ssh_key"

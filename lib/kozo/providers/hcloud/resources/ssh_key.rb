@@ -23,8 +23,8 @@ module Kozo
 
             ssh_key = provider.client.ssh_keys.find(id)
 
-            @name = ssh_key.name
-            @public_key = ssh_key.public_key
+            self.name = ssh_key.name
+            self.public_key = ssh_key.public_key
           end
         end
       end
