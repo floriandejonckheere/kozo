@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = "Declaratively create, modify and destroy cloud infrastructure in your favourite language"
   spec.homepage      = "http://github.com/floriandejonckheere/kozo"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.2")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   spec.metadata["source_code_uri"] = "https://github.com/floriandejonckheere/kozo"
 

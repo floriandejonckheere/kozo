@@ -2,6 +2,7 @@
 
 require "zeitwerk"
 require "active_support/all"
+require "active_model"
 
 module Kozo
   class << self
