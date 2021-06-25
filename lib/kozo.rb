@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require "zeitwerk"
 require "active_support/all"
 require "active_model"
+require "dinja"
+require "zeitwerk"
 
 module Kozo
   class << self
@@ -17,7 +18,7 @@ module Kozo
     end
 
     def container
-      @container ||= Container.new
+      @container ||= Dinja::Container.new
     end
 
     def logger

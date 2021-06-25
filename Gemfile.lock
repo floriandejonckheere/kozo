@@ -4,6 +4,7 @@ PATH
     kozo (0.1.0)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
+      dinja (~> 2.0)
       dotenv (~> 2.7)
       hcloud (~> 1.0.2)
       zeitwerk (~> 2.4)
@@ -31,6 +32,8 @@ GEM
     crack (0.4.5)
       rexml
     diff-lcs (1.4.4)
+    dinja (2.0.0)
+      zeitwerk
     docile (1.4.0)
     dotenv (2.7.6)
     ethon (0.14.0)

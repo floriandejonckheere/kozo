@@ -45,7 +45,7 @@ module Kozo
       Kozo.logger.debug "Initializing #{resource} #{type} #{args.join(' ')}"
 
       Kozo.container.resolve("#{resource}.#{type}", *args)
-    rescue Container::DependencyNotRegistered
+    rescue Dinja::Container::DependencyNotRegistered
       raise InvalidResource, "Unknown #{resource} type: #{type}"
     end
 
