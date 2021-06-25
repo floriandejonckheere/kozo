@@ -28,7 +28,7 @@ require "fakefs/spec_helpers"
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-Dir[Kozo.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
+Dir[Kozo.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

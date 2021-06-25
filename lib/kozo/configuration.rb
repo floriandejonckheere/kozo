@@ -18,7 +18,7 @@ module Kozo
     def parse!
       dsl = DSL.new(self)
       Dir[File.join(directory, "*.kz")]
-        .sort
+
         .each { |file| dsl.instance_eval(File.read(file)) }
     end
   end
