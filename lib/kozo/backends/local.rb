@@ -25,6 +25,8 @@ module Kozo
         @data ||= YAML
           .safe_load(File.read(path))
           .deep_symbolize_keys
+      rescue Errno::ENOENT
+        abort "Local state at #{path} not initialized"
       rescue Psych::SyntaxError => e
         raise InvalidState, "Could not read state file: #{e.message}"
       end
