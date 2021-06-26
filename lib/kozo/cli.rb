@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "optparse"
+require "English"
 
 module Kozo
   class CLI
