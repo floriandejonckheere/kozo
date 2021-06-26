@@ -7,4 +7,8 @@ FactoryBot.define do
     configuration { build(:configuration) }
     directory { FFaker::Filesystem.directory }
   end
+
+  factory :local_backend, parent: :backend, class: "Kozo::Backends::Local" do
+    directory { Dir.mktmpdir }
+  end
 end
