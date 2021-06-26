@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "json"
+require "yaml"
 
 module Kozo
   module Backends
@@ -22,9 +22,10 @@ module Kozo
       def data
         Kozo.logger.debug "Reading local state in #{path}"
 
-        @data ||= JSON
-          .parse(File.read(path), symbolize_names: true)
-      rescue JSON::ParserError => e
+        @data ||= YAML
+          .safe_load(File.read(path))
+          .deep_symbolize_keys
+      rescue Psych::SyntaxError => e
         raise InvalidState, "Could not read state file: #{e.message}"
       end
 
@@ -35,7 +36,7 @@ module Kozo
 
         @data = value
 
-        File.write(path, value.to_json)
+        File.write(path, value.deep_stringify_keys.to_yaml)
       end
 
       def file

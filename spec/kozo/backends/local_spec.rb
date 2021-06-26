@@ -20,7 +20,7 @@ RSpec.describe Kozo::Backends::Local do
     it "creates a state file if it does not exist" do
       backend.initialize!
 
-      expect(File.read(file)).to eq Kozo::State.new.to_h.to_json
+      expect(File.read(file)).to eq Kozo::State.new.to_h.deep_stringify_keys.to_yaml
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe Kozo::Backends::Local do
     it "writes a local file" do
       backend.data = state
 
-      expect(File.read(file)).to eq state.to_json
+      expect(File.read(file)).to eq "---\nfoo: bar\n"
     end
   end
 
