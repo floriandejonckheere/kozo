@@ -39,4 +39,12 @@ RSpec.describe Kozo::Backends::Local do
       expect(File.read(file)).to eq state.to_json
     end
   end
+
+  describe "#file=" do
+    it "sets the relative path to the state file" do
+      backend.file = "kozo/kozo.kzstate"
+
+      expect(backend.path).to eq File.join(backend.directory, "kozo/kozo.kzstate")
+    end
+  end
 end

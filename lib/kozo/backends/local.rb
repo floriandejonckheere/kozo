@@ -5,6 +5,8 @@ require "json"
 module Kozo
   module Backends
     class Local < Kozo::Backend
+      attr_writer :file
+
       def initialize(configuration, directory)
         super
 
@@ -12,16 +14,16 @@ module Kozo
       end
 
       def initialize!
-        Kozo.logger.debug "Initializing local state in #{file}"
+        Kozo.logger.debug "Initializing local state in #{path}"
 
-        self.data = State.new.to_h unless File.exist?(file)
+        self.data = State.new.to_h unless File.exist?(path)
       end
 
       def data
-        Kozo.logger.debug "Reading local state in #{file}"
+        Kozo.logger.debug "Reading local state in #{path}"
 
         @data ||= JSON
-          .parse(File.read(file), symbolize_names: true)
+          .parse(File.read(path), symbolize_names: true)
       rescue JSON::ParserError => e
         raise InvalidState, "Could not read state file: #{e.message}"
       end
@@ -29,17 +31,19 @@ module Kozo
       def data=(value)
         raise ArgumentError unless value.is_a? Hash
 
-        Kozo.logger.debug "Writing local state in #{file}"
+        Kozo.logger.debug "Writing local state in #{path}"
 
         @data = value
 
-        File.write(file, value.to_json)
+        File.write(path, value.to_json)
       end
 
-      private
-
       def file
-        @file ||= File.join(directory, "kozo.kzstate")
+        @file ||= "kozo.kzstate"
+      end
+
+      def path
+        @path ||= File.join(directory, file)
       end
     end
   end
