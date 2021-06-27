@@ -48,7 +48,5 @@ module Kozo
     rescue Dinja::Container::DependencyNotRegistered
       raise InvalidResource, "Unknown #{resource} type: #{type}"
     end
-
-    class InvalidResource < Error; end
   end
 end
