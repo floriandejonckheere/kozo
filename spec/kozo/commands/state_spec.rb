@@ -4,7 +4,7 @@ RSpec.describe Kozo::Commands::State do
   describe Kozo::Commands::State::List do
     subject(:command) { described_class.new }
 
-    let(:resource) { build(:resource, id: "my_id") }
+    let(:resource) { build(:null_resource, id: "null", state_name: "null") }
     let(:state) { build(:state, resources: [resource]) }
 
     before do
@@ -15,7 +15,7 @@ RSpec.describe Kozo::Commands::State do
 
     describe "#start" do
       it "lists all resources in the state" do
-        expect { command.start }.to output(/my_id/).to_stdout
+        expect { command.start }.to output("null.null\n").to_stdout
       end
     end
   end

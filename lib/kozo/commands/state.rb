@@ -25,7 +25,7 @@ module Kozo
         def start
           state
             .resources
-            .each { |r| puts r.id }
+            .each { |r| puts r.address }
         end
       end
     end
