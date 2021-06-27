@@ -14,6 +14,12 @@ RSpec.describe Kozo::Resource do
     it { is_expected.to respond_to :provider_name, :provider_name= }
   end
 
+  describe "#address" do
+    it "returns the resource address" do
+      expect(resource.address).to eq "null.null"
+    end
+  end
+
   describe "#to_h" do
     it "transforms resource into a hash" do
       expect(resource.to_h).to include meta: { name: "null", provider: "null", resource: "null" },

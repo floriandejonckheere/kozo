@@ -9,6 +9,10 @@ module Kozo
 
     class_attribute :resource_name, :provider_name
 
+    def address
+      "#{resource_name}.#{state_name}"
+    end
+
     def ==(other)
       self.class == other.class &&
         id == other.id &&
