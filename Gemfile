@@ -7,3 +7,5 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "~> 3.0"
 
 gemspec
+
+gem "hcloud", path: "vendor/hcloud"

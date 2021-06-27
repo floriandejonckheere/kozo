@@ -6,8 +6,16 @@ PATH
       activesupport (~> 6.0)
       dinja (~> 2.0)
       dotenv (~> 2.7)
-      hcloud (~> 1.0.2)
       zeitwerk (~> 2.4)
+
+PATH
+  remote: vendor/hcloud
+  specs:
+    hcloud (1.0.2)
+      activemodel
+      activesupport
+      oj
+      typhoeus
 
 GEM
   remote: https://rubygems.org/
@@ -44,11 +52,6 @@ GEM
     ffaker (2.18.0)
     ffi (1.15.3)
     hashdiff (1.0.1)
-    hcloud (1.0.2)
-      activemodel
-      activesupport
-      oj
-      typhoeus
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
@@ -141,6 +144,7 @@ DEPENDENCIES
   factory_bot
   fakefs
   ffaker
+  hcloud!
   kozo!
   overcommit
   pry-byebug
