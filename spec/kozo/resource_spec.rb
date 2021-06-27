@@ -16,8 +16,8 @@ RSpec.describe Kozo::Resource do
 
   describe "#to_h" do
     it "transforms resource into a hash" do
-      expect(resource.to_h).to include meta: { id: "null", name: "null", provider: "null", resource: "null" },
-                                       data: {}
+      expect(resource.to_h).to include meta: { name: "null", provider: "null", resource: "null" },
+                                       data: { id: "null" }
     end
   end
 
