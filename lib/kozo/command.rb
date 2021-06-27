@@ -6,7 +6,7 @@ module Kozo
 
     attr_reader :args
 
-    def initialize(args)
+    def initialize(args = nil)
       @args = args
     end
 
@@ -17,7 +17,7 @@ module Kozo
     protected
 
     def environment
-      @environment ||= Environment.new(Kozo.options.directory)
+      @environment ||= Kozo.container.resolve("environment", Kozo.options.directory)
     end
 
     delegate :configuration, :state, to: :environment
