@@ -23,9 +23,7 @@ module Kozo
       state_version = data.fetch(:version)
       kozo_version = data.fetch(:kozo_version)
 
-      unless state_version == State::VERSION
-        raise InvalidState, "Invalid version in state: got #{state_version}, expected #{State::VERSION}"
-      end
+      raise InvalidState, "Invalid version in state: got #{state_version}, expected #{State::VERSION}" unless state_version == State::VERSION
 
       return if kozo_version == Kozo::VERSION
 
