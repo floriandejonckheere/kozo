@@ -23,8 +23,7 @@ module Kozo
         self.description = "List resources currently in the state"
 
         def start
-          environment
-            .state
+          state
             .resources
             .each { |r| puts r.id }
         end

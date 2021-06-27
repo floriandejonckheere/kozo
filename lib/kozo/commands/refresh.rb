@@ -6,15 +6,14 @@ module Kozo
       self.description = "Update the state to match remote infrastructure"
 
       def start
-        Kozo.logger.info "Refreshing #{environment.state.resources.count} resources"
-        environment
-          .state
+        Kozo.logger.info "Refreshing #{state.resources.count} resources"
+        state
           .resources
           .each(&:refresh!)
 
         configuration
           .backend
-          .state = environment.state
+          .state = state
       end
     end
   end

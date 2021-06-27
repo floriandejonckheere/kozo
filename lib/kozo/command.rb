@@ -16,10 +16,16 @@ module Kozo
 
     protected
 
-    def environment
-      @environment ||= Kozo.container.resolve("environment", Kozo.options.directory)
+    def configuration
+      @configuration ||= Configuration
+        .new(Kozo.options.directory)
+        .tap(&:parse!)
     end
 
-    delegate :configuration, :state, to: :environment
+    def state
+      @state ||= configuration
+        .backend
+        .state
+    end
   end
 end

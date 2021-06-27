@@ -8,9 +8,7 @@ RSpec.describe Kozo::Commands::State do
     let(:state) { build(:state, resources: [resource]) }
 
     before do
-      environment = dinja_mock!("environment", Kozo.options.directory)
-
-      allow(environment)
+      allow(command)
         .to receive(:state)
         .and_return state
     end
