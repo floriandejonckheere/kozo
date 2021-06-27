@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :resource, class: "Kozo::Resource" do
     id { SecureRandom.hex }
-    provider { build(:provider) }
     state_name { FFaker::Lorem.word.downcase }
   end
 end

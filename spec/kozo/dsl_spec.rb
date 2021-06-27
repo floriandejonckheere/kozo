@@ -42,7 +42,7 @@ RSpec.describe Kozo::DSL do
       dsl.provider("null")
       dsl.resource("null", "bar")
 
-      expect(configuration.resources).to include build(:null_resource)
+      expect(configuration.resources).to include build(:null_resource, id: nil, state_name: nil)
     end
   end
 end

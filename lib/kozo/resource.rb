@@ -27,6 +27,7 @@ module Kozo
         .container
         .resolve("resource.#{hash.dig(:meta, :resource)}")
         .tap { |r| hash[:data].each { |k, v| r.send(:"#{k}=", v) } }
+        .tap { |r| r.id = hash.dig(:meta, :id) }
         .tap { |r| r.state_name = hash.dig(:meta, :name) }
     end
 
@@ -52,6 +53,7 @@ module Kozo
 
     def meta
       {
+        id: id,
         name: state_name,
         provider: provider_name,
         resource: resource_name,
