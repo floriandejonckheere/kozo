@@ -58,7 +58,7 @@ module Kozo
       puts parser.to_s
       puts tail if tail
 
-      exit code
+      raise ExitError, code
     end
 
     def commands
