@@ -4,7 +4,11 @@ module Kozo
   class Command
     class_attribute :description
 
-    def initialize(*_args); end
+    attr_reader :args
+
+    def initialize(args)
+      @args = args
+    end
 
     def start
       raise NotImplementedError

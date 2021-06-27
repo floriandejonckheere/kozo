@@ -1,21 +1,101 @@
 # frozen_string_literal: true
 
 describe Kozo::CLI do
-  subject!(:cli) { described_class.new(args) }
+  subject(:cli) { described_class.new(args) }
 
-  describe "--directory" do
-    let(:args) { %w(--directory /foo/bar/..) }
+  # around { |example| suppress_output { example.run } }
 
-    it "sets the working directory" do
-      expect(Kozo.options.directory).to eq "/foo"
+  describe "options" do
+    describe "--directory" do
+      let(:args) { %w(--directory /foo/bar/..) }
+
+      it "sets the working directory" do
+        cli
+
+        expect(Kozo.options.directory).to eq "/foo"
+      end
+    end
+
+    describe "--verbose" do
+      let(:args) { %w(--verbose) }
+
+      it "turns on verbose output" do
+        cli
+
+        expect(Kozo.options).to be_verbose
+      end
+    end
+
+    describe "--help" do
+      let(:args) { %w(--help) }
+
+      it "prints usage and exits" do
+        expect { expect { cli }.to raise_error Kozo::ExitError }.to print_output
+      end
     end
   end
 
-  describe "--verbose" do
-    let(:args) { %w(--verbose) }
+  describe "#start" do
+    context "when no command is given" do
+      let(:args) { %w() }
 
-    it "turns on verbose output" do
-      expect(Kozo.options).to be_verbose
+      it "prints usage and exits" do
+        expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+      end
+    end
+
+    describe "a command without subcommands" do
+      let(:args) { %w(init foo) }
+
+      it "instantiates a command" do
+        expect(Kozo::Commands::Init)
+          .to receive(:new)
+          .with(["foo"])
+          .and_call_original
+
+        cli.start
+      end
+
+      context "when an invalid command is given" do
+        let(:args) { %w(foo) }
+
+        it "prints usage and exits" do
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+        end
+      end
+    end
+
+    describe "a command with subcommands" do
+      let(:args) { %w(state list foo) }
+
+      it "instantiates a subcommand" do
+        expect(Kozo::Commands::State::List)
+          .to receive(:new)
+          .with(["foo"])
+          .and_call_original
+
+        cli.start
+      end
+
+      context "when no subcommand is given" do
+        let(:args) { %w(state) }
+
+        it "prints usage and exits" do
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+        end
+      end
+
+      context "when an invalid subcommand is given" do
+        let(:args) { %w(state foo) }
+
+        it "prints usage and exits" do
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+        end
+      end
     end
   end
+end
+
+def print_output
+  output(/\[global options\]/i).to_stdout
 end

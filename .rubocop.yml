@@ -11,9 +11,7 @@ AllCops:
   TargetRubyVersion: 3.0
 
 Layout/LineLength:
-  Max: 120
-  Exclude:
-    - spec/**/*
+  Enabled: false
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -45,7 +43,13 @@ RSpec/FilePath:
   CustomTransform:
     HCloud: hcloud
 
+RSpec/MessageSpies:
+  Enabled: false
+
 RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
   Max: 5
 
 Style/Documentation:

@@ -2,6 +2,8 @@
 
 module Kozo
   class Options
+    attr_accessor :help
+
     def directory=(path)
       @directory = File.expand_path(path)
     end

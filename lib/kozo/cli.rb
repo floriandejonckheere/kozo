@@ -8,14 +8,20 @@ module Kozo
     attr_reader :parser, :args, :command_args
 
     def initialize(args)
-      @parser = OptionParser.new("#{File.basename($PROGRAM_NAME)} [global options] command [command options]") do |o|
+      @parser = OptionParser.new("#{File.basename($PROGRAM_NAME)} [global options] command [subcommand] [command options]") do |o|
         o.on("Global options:")
         o.on("-d", "--directory=DIRECTORY", "Set working directory")
         o.on("-v", "--verbose", "Turn on verbose logging")
         o.on("-h", "--help", "Display this message") { usage }
         o.separator("\n")
         o.on("Commands:")
-        commands.each { |(name, description)| o.on("    #{name.ljust(33)}#{description}") }
+        commands.each do |(name, description, subcommands)|
+          o.on("    #{name.ljust(33)}#{description}")
+
+          subcommands.each do |(sb_name, sb_description)|
+            o.on("      #{sb_name.ljust(31)}#{sb_description}")
+          end
+        end
         o.separator("\n")
       end
 
@@ -39,15 +45,20 @@ module Kozo
     def start
       command = command_args.shift
 
-      return usage unless command
+      raise UsageError unless command
 
       klass = "Kozo::Commands::#{command.camelize}".safe_constantize
 
-      return usage(tail: "#{File.basename($PROGRAM_NAME)}: unknown command: #{command}") unless klass
+      raise UsageError, "unknown command: #{command}" unless klass
 
       klass
         .new(command_args)
         .start
+    rescue UsageError => e
+      # Don't print tail if no message was passed
+      return usage if e.message == e.class.name
+
+      usage(tail: "#{File.basename($PROGRAM_NAME)}: #{e.message}")
     rescue Error => e
       Kozo.logger.fatal e.message
     end
@@ -62,7 +73,13 @@ module Kozo
     end
 
     def commands
-      Command.descendants.sort_by(&:to_s).map { |k| [k.name.demodulize.underscore, k.description] }
+      Command.subclasses.sort_by(&:to_s).map do |k|
+        [
+          k.name.demodulize.underscore,
+          k.description,
+          k.descendants.sort_by(&:to_s).map { |s| [s.name.demodulize.underscore, s.description] },
+        ]
+      end
     end
   end
 end
