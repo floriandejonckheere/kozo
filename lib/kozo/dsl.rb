@@ -28,10 +28,10 @@ module Kozo
       configuration.providers[provider.class.provider_name] = provider
     end
 
-    def resource(type, name)
-      resource = resolve(:resource, type, name)
+    def resource(type, state_name)
+      resource = resolve(:resource, type)
+      resource.state_name = state_name
       resource.provider = configuration.providers[resource.class.provider_name]
-
       raise InvalidResource, "Provider #{resource.class.provider_name} not configured" unless resource.provider
 
       yield resource if block_given?
