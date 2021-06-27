@@ -15,8 +15,7 @@ module Kozo
 
     def ==(other)
       self.class == other.class &&
-        id == other.id &&
-        attributes == other.attributes
+        id == other.id
     end
 
     def to_h
