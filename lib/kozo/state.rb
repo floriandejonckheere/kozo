@@ -6,8 +6,8 @@ module Kozo
 
     attr_accessor :resources
 
-    def initialize(resources = Set.new)
-      @resources = resources
+    def initialize(resources = nil)
+      @resources = resources || Set.new
     end
 
     def ==(other)
