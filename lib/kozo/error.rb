@@ -8,4 +8,6 @@ module Kozo
   class ExitError < StandardError; end
 
   class UsageError < Error; end
+
+  class StateError < Error; end
 end

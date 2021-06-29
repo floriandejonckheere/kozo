@@ -6,7 +6,7 @@ module Kozo
 
     attr_accessor :resources
 
-    def initialize(resources = [])
+    def initialize(resources = Set.new)
       @resources = resources
     end
 
