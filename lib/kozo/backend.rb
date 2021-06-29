@@ -71,14 +71,12 @@ module Kozo
         .map do |hash|
         provider = configuration.providers[hash.dig(:meta, :provider)]
 
-        raise InvalidState, "Provider #{hash.dig(:meta, :provider)} not configured" unless provider
+        raise StateError, "provider #{hash.dig(:meta, :provider)} not configured" unless provider
 
         Resource
           .from_h(hash)
           .tap { |r| r.provider = provider }
       end
     end
-
-    class InvalidState < Error; end
   end
 end

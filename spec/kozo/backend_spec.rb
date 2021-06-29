@@ -23,7 +23,7 @@ RSpec.describe Kozo::Backend do
     it "raises when provider is not configured" do
       configuration.providers = {}
 
-      expect { backend.state.resources }.to raise_error Kozo::Backend::InvalidState
+      expect { backend.state.resources }.to raise_error Kozo::StateError
     end
 
     it "reads resources" do
@@ -45,13 +45,13 @@ RSpec.describe Kozo::Backend do
     it "raises when version does not match" do
       backend.data = { version: 0, kozo_version: Kozo::VERSION }
 
-      expect { backend.validate! }.to raise_error Kozo::Backend::InvalidState
+      expect { backend.validate! }.to raise_error Kozo::StateError
     end
 
     it "raises when kozo version does not match" do
       backend.data = { version: Kozo::State::VERSION, kozo_version: 0 }
 
-      expect { backend.validate! }.to raise_error Kozo::Backend::InvalidState
+      expect { backend.validate! }.to raise_error Kozo::StateError
     end
 
     it "validates the state file" do
