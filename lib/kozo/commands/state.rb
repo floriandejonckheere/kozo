@@ -5,7 +5,9 @@ module Kozo
     class State < Kozo::Command
       self.description = "Manage and manipulate state"
 
-      def start
+      attr_reader :subcommand
+
+      def initialize(args = [])
         subcommand = args.shift
 
         raise UsageError unless subcommand
@@ -14,18 +16,45 @@ module Kozo
 
         raise UsageError, "unknown subcommand: state #{subcommand}" unless klass
 
-        klass
-          .new(args)
+        @subcommand = klass.new(args)
+      end
+
+      def start
+        subcommand
           .start
       end
 
       class List < State
-        self.description = "List resources currently in the state"
+        self.description = "List resources in the state"
 
         def start
           state
             .resources
             .each { |r| puts r.address }
+        end
+      end
+
+      class Show < State
+        self.description = "Show a resource in the state"
+
+        attr_reader :address
+
+        def initialize(args = [])
+          address = args.shift
+
+          raise UsageError, "address not specified" unless address
+
+          @address = address
+        end
+
+        def start
+          resource = state
+            .resources
+            .find { |r| r.address == address }
+
+          raise StateError, "no such resource address: #{address}" unless resource
+
+          Kozo.logger.info resource.to_dsl
         end
       end
     end

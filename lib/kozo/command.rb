@@ -6,7 +6,7 @@ module Kozo
 
     attr_reader :args
 
-    def initialize(args = nil)
+    def initialize(args = [])
       @args = args
     end
 
