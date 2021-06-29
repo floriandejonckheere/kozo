@@ -12,7 +12,9 @@ module Kozo
     end
 
     def backend
-      @backend ||= Backends::Local.new(self, directory)
+      @backend ||= Kozo
+        .container
+        .resolve("backend.local", self, directory)
     end
 
     def parse!
