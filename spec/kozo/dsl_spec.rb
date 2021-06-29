@@ -7,7 +7,7 @@ RSpec.describe Kozo::DSL do
 
   describe "#backend" do
     it "raises on unknown backend type" do
-      expect { dsl.backend("foo") }.to raise_error Kozo::DSL::InvalidResource
+      expect { dsl.backend("foo") }.to raise_error Kozo::InvalidResource
     end
 
     it "configures a backend" do
@@ -19,7 +19,7 @@ RSpec.describe Kozo::DSL do
 
   describe "#provider" do
     it "raises on unknown provider type" do
-      expect { dsl.provider("foo") }.to raise_error Kozo::DSL::InvalidResource
+      expect { dsl.provider("foo") }.to raise_error Kozo::InvalidResource
     end
 
     it "configures a provider" do
@@ -31,11 +31,11 @@ RSpec.describe Kozo::DSL do
 
   describe "#resource" do
     it "raises on unknown resource type" do
-      expect { dsl.resource("foo", "bar") }.to raise_error Kozo::DSL::InvalidResource
+      expect { dsl.resource("foo", "bar") }.to raise_error Kozo::InvalidResource
     end
 
     it "raises on unregistered provider" do
-      expect { dsl.resource("null", "bar") }.to raise_error Kozo::DSL::InvalidResource
+      expect { dsl.resource("null", "bar") }.to raise_error Kozo::InvalidResource
     end
 
     it "configures a resource" do
