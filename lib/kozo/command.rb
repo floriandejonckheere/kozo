@@ -17,8 +17,9 @@ module Kozo
     protected
 
     def configuration
-      @configuration ||= Configuration
-        .new(Kozo.options.directory)
+      @configuration ||= Kozo
+        .container
+        .resolve("configuration", Kozo.options.directory)
         .tap(&:parse!)
     end
 
