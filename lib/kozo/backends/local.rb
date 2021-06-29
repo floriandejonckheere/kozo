@@ -16,7 +16,7 @@ module Kozo
       def initialize!
         Kozo.logger.debug "Initializing local state in #{path}"
 
-        self.state = State.new unless File.exist?(path)
+        self.state = Kozo.container.resolve("state") unless File.exist?(path)
       end
 
       def data
