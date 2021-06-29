@@ -22,6 +22,9 @@ Layout/ParameterAlignment:
 Lint/EmptyClass:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 25
 
