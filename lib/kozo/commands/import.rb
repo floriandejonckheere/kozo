@@ -5,19 +5,19 @@ module Kozo
     class Import < Kozo::Command
       self.description = "Import existing resources into the state"
 
-      attr_reader :address, :resource_name, :name, :id
+      attr_reader :address, :id
 
       def initialize(args = [])
-        super
+        address = args.shift
 
-        raise UsageError, "address not specified" unless args[0]
+        raise UsageError, "address not specified" unless address
 
-        @address = args[0]
-        @resource_name, @name = address.split(".")
+        id = args.shift
 
-        raise UsageError, "id not specified" unless args[1]
+        raise UsageError, "id not specified" unless id
 
-        @id = args[1]
+        @address = address
+        @id = id
       end
 
       def start
