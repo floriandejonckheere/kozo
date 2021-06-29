@@ -5,6 +5,7 @@ module Kozo
     class_attribute :description
 
     attr_reader :args
+    attr_writer :state, :configuration
 
     def initialize(*args)
       @args = args

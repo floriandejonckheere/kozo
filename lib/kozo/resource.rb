@@ -33,7 +33,7 @@ module Kozo
 
     def to_dsl
       # Max attribute name length
-      l = attribute_names.map(&:length).max
+      l = attribute_names.map(&:length).max || 1
 
       <<~DSL.chomp
         resource "#{resource_name}", "#{state_name}" do |r|
