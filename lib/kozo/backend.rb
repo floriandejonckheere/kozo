@@ -10,7 +10,9 @@ module Kozo
     end
 
     def state
-      @state ||= State.new(resources)
+      @state ||= Kozo
+        .container
+        .resolve(:state, resources)
     end
 
     def state=(value)
