@@ -50,7 +50,7 @@ describe Kozo::CLI do
       it "instantiates a command" do
         expect(Kozo::Commands::Init)
           .to receive(:new)
-          .with(["foo"])
+          .with("foo")
           .and_call_original
 
         cli.start
@@ -71,7 +71,7 @@ describe Kozo::CLI do
       it "instantiates a subcommand" do
         expect(Kozo::Commands::State::List)
           .to receive(:new)
-          .with(["foo"])
+          .with("foo")
           .and_call_original
 
         cli.start
