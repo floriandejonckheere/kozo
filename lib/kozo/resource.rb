@@ -18,6 +18,12 @@ module Kozo
         id == other.id
     end
 
+    alias eql? ==
+
+    def hash
+      [self.class, id].hash
+    end
+
     def to_h
       {
         meta: meta,
