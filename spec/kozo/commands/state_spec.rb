@@ -13,10 +13,8 @@ RSpec.describe Kozo::Commands::State do
         .and_return state
     end
 
-    describe "#start" do
-      it "lists all resources in the state" do
-        expect { command.start }.to output("null.null\n").to_stdout
-      end
+    it "lists all resources in the state" do
+      expect { command.start }.to output("null.null\n").to_stdout
     end
   end
 end
