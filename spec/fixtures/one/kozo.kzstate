@@ -1,0 +1,12 @@
+---
+version: 1
+kozo_version: 0.1.0
+resources:
+- meta:
+    name: default
+    provider: hcloud
+    resource: hcloud_ssh_key
+  data:
+    id: 1
+    name: default
+    public_key: 'hcloud_public_key'
