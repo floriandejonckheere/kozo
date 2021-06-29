@@ -7,7 +7,7 @@ module Kozo
 
       attr_reader :subcommand
 
-      def initialize(args = [])
+      def initialize(*args)
         subcommand = args.shift
 
         raise UsageError unless subcommand
@@ -16,7 +16,7 @@ module Kozo
 
         raise UsageError, "unknown subcommand: state #{subcommand}" unless klass
 
-        @subcommand = klass.new(args)
+        @subcommand = klass.new(*args)
       end
 
       def start
@@ -26,6 +26,8 @@ module Kozo
 
       class List < State
         self.description = "List resources in the state"
+
+        def initialize(*_args); end
 
         def start
           state
@@ -39,7 +41,7 @@ module Kozo
 
         attr_reader :address
 
-        def initialize(args = [])
+        def initialize(*args)
           address = args.shift
 
           raise UsageError, "address not specified" unless address

@@ -2,7 +2,7 @@
 
 RSpec.describe Kozo::Commands::State do
   describe Kozo::Commands::State::List do
-    subject(:command) { described_class.new }
+    subject(:command) { described_class.new("list") }
 
     let(:resource) { build(:null_resource, id: "null", state_name: "null") }
     let(:state) { build(:state, resources: [resource]) }
