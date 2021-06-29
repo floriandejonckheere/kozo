@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/floriandejonckheere/hcloud-ruby.git
+  revision: 9a2e65ec4d24dd165ba60aef05bc2dc1c006f893
+  specs:
+    hcloud (1.0.2)
+      activemodel
+      activesupport
+      oj
+      typhoeus
+
 PATH
   remote: .
   specs:
@@ -7,15 +17,6 @@ PATH
       dinja (~> 2.0)
       dotenv (~> 2.7)
       zeitwerk (~> 2.4)
-
-PATH
-  remote: vendor/hcloud
-  specs:
-    hcloud (1.0.2)
-      activemodel
-      activesupport
-      oj
-      typhoeus
 
 GEM
   remote: https://rubygems.org/
@@ -92,7 +93,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.17.0)
+    rubocop (1.18.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -106,8 +107,8 @@ GEM
     rubocop-performance (1.11.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rake (0.5.1)
-      rubocop
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
     rubocop-rspec (2.4.0)
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
