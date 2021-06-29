@@ -52,7 +52,7 @@ module Kozo
       raise UsageError, "unknown command: #{command}" unless klass
 
       klass
-        .new(command_args)
+        .new(*command_args)
         .start
     rescue UsageError => e
       # Don't print tail if no message was passed

@@ -28,7 +28,7 @@ module Kozo
       rescue Errno::ENOENT
         abort "Local state at #{path} not initialized"
       rescue Psych::SyntaxError => e
-        raise InvalidState, "Could not read state file: #{e.message}"
+        raise StateError, "Could not read state file: #{e.message}"
       end
 
       def data=(value)
