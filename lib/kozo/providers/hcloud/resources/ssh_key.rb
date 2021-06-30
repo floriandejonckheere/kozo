@@ -19,7 +19,7 @@ module Kozo
           end
 
           def refresh!
-            Kozo.logger.info "Refreshing state for #{resource_name}.#{name}"
+            Kozo.logger.info "#{address}: refreshing state"
 
             ssh_key = provider.client.ssh_keys.find(id)
 

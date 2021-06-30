@@ -11,7 +11,7 @@ module Kozo
         end
 
         def refresh!
-          Kozo.logger.info "Refreshing state for #{resource_name}"
+          Kozo.logger.info "#{address}: refreshing state"
         end
       end
     end
