@@ -38,11 +38,19 @@ RSpec.describe Kozo::DSL do
       expect { dsl.resource("null", "bar") }.to raise_error Kozo::InvalidResource
     end
 
+    it "raises on resource already defined" do
+      dsl.provider("null")
+      dsl.resource("null", "bar")
+
+      expect { dsl.resource("null", "bar") }.to raise_error Kozo::InvalidResource
+      expect { dsl.resource("null", "baz") }.not_to raise_error
+    end
+
     it "configures a resource" do
       dsl.provider("null")
       dsl.resource("null", "bar")
 
-      expect(configuration.resources).to include build(:null_resource, id: nil, state_name: nil)
+      expect(configuration.resources).to include build(:null_resource, id: nil, state_name: "bar")
     end
   end
 end

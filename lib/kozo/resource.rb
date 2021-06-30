@@ -15,7 +15,8 @@ module Kozo
 
     def ==(other)
       self.class == other.class &&
-        id == other.id
+        id == other.id &&
+        state_name == other.state_name
     end
 
     alias eql? ==

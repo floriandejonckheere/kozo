@@ -31,7 +31,11 @@ module Kozo
     def resource(type, state_name)
       resource = resolve(:resource, type)
       resource.state_name = state_name
+
+      raise InvalidResource, "Resource #{resource.address} already defined" if configuration.resources.include?(resource)
+
       resource.provider = configuration.providers[resource.class.provider_name]
+
       raise InvalidResource, "Provider #{resource.class.provider_name} not configured" unless resource.provider
 
       yield resource if block_given?
