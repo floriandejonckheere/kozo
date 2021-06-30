@@ -36,9 +36,11 @@ module Kozo
       l = attribute_names.map(&:length).max || 1
 
       <<~DSL.chomp
+        # #{resource_name}.#{state_name}:
         resource "#{resource_name}", "#{state_name}" do |r|
           #{data.map { |k, v| "r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp}\"" }.join("\n  ")}
         end
+
       DSL
     end
 
