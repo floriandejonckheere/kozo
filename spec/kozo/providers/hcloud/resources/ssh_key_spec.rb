@@ -48,4 +48,23 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
       expect(resource.public_key).to eq "new_public_key"
     end
   end
+
+  describe "#destroy!" do
+    it "destroys a resource" do
+      mock = double
+
+      allow(ssh_keys)
+        .to receive(:find)
+        .with(resource.id)
+        .and_return mock
+
+      allow(mock)
+        .to receive(:destroy)
+
+      resource.destroy!
+
+      expect(mock)
+        .to have_received(:destroy)
+    end
+  end
 end

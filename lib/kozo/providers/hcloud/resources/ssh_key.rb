@@ -39,7 +39,15 @@ module Kozo
             Kozo.logger.info "#{address}: created resource"
           end
 
-          def destroy!; end
+          def destroy!
+            Kozo.logger.info "#{address}: destroying resource"
+
+            ssh_key = provider.client.ssh_keys.find(id)
+
+            ssh_key.destroy
+
+            Kozo.logger.info "#{address}: destroyed resource"
+          end
 
           def update!; end
         end

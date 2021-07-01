@@ -10,7 +10,7 @@ module Kozo
         resource.destroy!
 
         # Delete resource in-memory state
-        state.delete(resource)
+        state.resources.delete(resource)
       end
     end
   end
