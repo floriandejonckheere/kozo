@@ -5,5 +5,7 @@ FactoryBot.define do
 
   factory :null_resource, parent: :resource, class: "Kozo::Providers::Null::Resources::Null" do
     provider { build(:null) }
+
+    name { "null" }
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe Kozo::Commands::State do
     let(:state) { build(:state, resources: [resource]) }
 
     it "lists all resources in the state" do
-      expect { command.start }.to output("null.null\n").to_stdout
+      expect { command.start }.to log("null.null")
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe Kozo::Commands::State do
     let(:state) { build(:state, resources: [resource]) }
 
     it "shows a resource in the state" do
-      expect { command.start }.to output(/id = "null"/).to_stdout
+      expect { command.start }.to log(/id *= "null"/)
     end
   end
 end

@@ -14,9 +14,8 @@ RSpec::Matchers.define :log do |expected|
 
     actual.call
 
-    expect(logger)
-      .to have_received(:info)
-      .with(expected)
+    expect(@messages)
+      .to include expected
   end
 
   failure_message do |_actual|

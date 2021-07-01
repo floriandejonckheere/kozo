@@ -32,7 +32,7 @@ module Kozo
         def start
           state
             .resources
-            .each { |r| puts r.address }
+            .each { |r| Kozo.logger.info r.address }
         end
       end
 
