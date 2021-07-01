@@ -6,10 +6,12 @@ module Kozo
       self.description = "Update the state to match remote infrastructure"
 
       def start
+        # Refresh resources in-memory
         state
           .resources
           .each(&:refresh!)
 
+        # Write state
         configuration
           .backend
           .state = state
