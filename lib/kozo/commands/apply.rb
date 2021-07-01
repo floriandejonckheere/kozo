@@ -28,7 +28,14 @@ module Kozo
           abort("\nApply cancelled") unless gets.chomp == "yes"
         end
 
-        operations.each(&:apply)
+        # Apply operations to in-memory state and remote infrastructure
+        operations
+          .each { |o| o.apply(state) }
+
+        # Write state
+        configuration
+          .backend
+          .state = state
       end
     end
   end
