@@ -5,8 +5,12 @@ module Kozo
     class Add < Operation
       self.symbol = :+
 
-      def apply
+      def apply(state)
+        # Create resource in remote infrastructure
         resource.create!
+
+        # Add resource to in-memory state
+        state.resources << resource
       end
     end
   end

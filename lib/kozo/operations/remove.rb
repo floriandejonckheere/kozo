@@ -5,8 +5,12 @@ module Kozo
     class Remove < Operation
       self.symbol = :-
 
-      def apply
+      def apply(state)
+        # Destroy resource in remote infrastructure
         resource.destroy!
+
+        # Delete resource in-memory state
+        state.delete(resource)
       end
     end
   end

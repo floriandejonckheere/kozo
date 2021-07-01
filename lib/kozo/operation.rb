@@ -9,5 +9,9 @@ module Kozo
     def initialize(resource)
       @resource = resource
     end
+
+    def apply(_state)
+      raise NotImplementedError
+    end
   end
 end

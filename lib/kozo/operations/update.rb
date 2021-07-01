@@ -5,8 +5,12 @@ module Kozo
     class Update < Operation
       self.symbol = :~
 
-      def apply
+      def apply(state)
+        # Update resource in remote infrastructure
         resource.update!
+
+        # Update resource in-memory state
+        state << resource
       end
     end
   end
