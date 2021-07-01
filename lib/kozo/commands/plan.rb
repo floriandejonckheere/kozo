@@ -5,34 +5,29 @@ module Kozo
     class Plan < Kozo::Command
       self.description = "Create and show an execution plan"
 
-      attr_reader :add, :remove, :update
+      attr_reader :operations
 
       def initialize(*_args)
-        @add = []
-        @remove = []
-        @update = []
+        @operations = []
       end
 
       def start
-        configuration.resources.each do |resource|
+        @operations += configuration.resources.filter_map do |resource|
           state_resource = state.resources.find { |r| r.address == resource.address }
 
           # Create resource if it does not exist in the state
-          next add << resource unless state_resource
+          next Operations::Add.new(resource) unless state_resource
 
           # Update resource if its properties have changed
-          update << resource unless resource.data.except(:id) == state_resource.data.except(:id)
+          Operations::Update.new(resource) unless resource.data.except(:id) == state_resource.data.except(:id)
         end
 
         # Remove state resources without corresponding configuration
-        state
+        @operations += state
           .resources
-          .reject { |r| configuration.resources.find { |s| s.address == r.address } }
-          .each { |r| remove << r }
+          .filter_map { |r| Operations::Remove.new(r) unless configuration.resources.find { |s| s.address == r.address } }
 
-        add.each { |r| Kozo.logger.info "+ #{r.address}" }
-        update.each { |r| Kozo.logger.info "~ #{r.address}" }
-        remove.each { |r| Kozo.logger.info "- #{r.address}" }
+        @operations.each { |o| Kozo.logger.info "#{o.symbol} #{o.resource.address}" }
       end
     end
   end
