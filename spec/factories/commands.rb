@@ -13,4 +13,6 @@ FactoryBot.define do
     factory :state_list_command, class: "Kozo::Commands::State::List"
     factory :state_show_command, class: "Kozo::Commands::State::Show"
   end
+
+  factory :plan_command, parent: :command, class: "Kozo::Commands::Plan"
 end

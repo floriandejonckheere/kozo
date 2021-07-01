@@ -7,9 +7,12 @@ module Kozo
         class Null < Resource
           self.resource_name = "null"
 
+          attribute :name
+
           def data
             {
               id: id,
+              name: name,
             }
           end
         end

@@ -7,7 +7,7 @@ module Kozo
 
       attr_reader :add, :remove, :update
 
-      def initialize
+      def initialize(*args)
         @add = []
         @remove = []
         @update = []
