@@ -26,6 +26,22 @@ module Kozo
             self.name = ssh_key.name
             self.public_key = ssh_key.public_key
           end
+
+          def create!
+            Kozo.logger.info "#{address}: creating resource"
+
+            ssh_key = provider.client.ssh_keys.create(**data.except(:id))
+
+            self.id = ssh_key.id
+            self.name = ssh_key.name
+            self.public_key = ssh_key.public_key
+
+            Kozo.logger.info "#{address}: created resource"
+          end
+
+          def destroy!; end
+
+          def update!; end
         end
       end
     end

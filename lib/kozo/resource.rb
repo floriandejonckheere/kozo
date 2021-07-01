@@ -71,6 +71,27 @@ module Kozo
       raise NotImplementedError
     end
 
+    ##
+    # Create resource in remote infrastructure
+    #
+    def create!
+      raise NotImplementedError
+    end
+
+    ##
+    # Destroy resource in remote infrastructure
+    #
+    def destroy!
+      raise NotImplementedError
+    end
+
+    ##
+    # Update resource in remote infrastructure
+    #
+    def update!
+      raise NotImplementedError
+    end
+
     private
 
     def meta

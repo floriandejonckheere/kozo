@@ -3,7 +3,7 @@
 require "hcloud"
 
 RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
-  subject(:resource) { build(:hcloud_ssh_key) }
+  subject(:resource) { build(:hcloud_ssh_key, name: "old_name", public_key: "old_public_key") }
 
   let(:client) { instance_double(Hcloud::Client, "client") }
   let(:ssh_keys) { instance_double(Hcloud::SSHKeyResource, "ssh_keys") }
@@ -29,6 +29,21 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
 
       resource.refresh!
 
+      expect(resource.name).to eq "new_name"
+      expect(resource.public_key).to eq "new_public_key"
+    end
+  end
+
+  describe "#create!" do
+    it "creates a resource" do
+      allow(ssh_keys)
+        .to receive(:create)
+        .with(name: "old_name", public_key: "old_public_key")
+        .and_return OpenStruct.new(id: 12_345, name: "new_name", public_key: "new_public_key")
+
+      resource.create!
+
+      expect(resource.id).to eq 12_345
       expect(resource.name).to eq "new_name"
       expect(resource.public_key).to eq "new_public_key"
     end
