@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/floriandejonckheere/hcloud-ruby.git
-  revision: 9a2e65ec4d24dd165ba60aef05bc2dc1c006f893
+  revision: f4f8ff3e75b3234510bfd7d011b358b9a99419d3
   specs:
     hcloud (1.0.2)
       activemodel
@@ -93,7 +93,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.18.0)
+    rubocop (1.18.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
