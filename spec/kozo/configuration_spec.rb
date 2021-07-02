@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "tmpdir"
-
 RSpec.describe Kozo::Configuration do
   subject(:configuration) { build(:configuration, directory: Dir.pwd) }
 

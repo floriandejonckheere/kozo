@@ -42,6 +42,9 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+RSpec/DescribeClass:
+  Enabled: false
+
 RSpec/EmptyExampleGroup:
   Enabled: false
 
