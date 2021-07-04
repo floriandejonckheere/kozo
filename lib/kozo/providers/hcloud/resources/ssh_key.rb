@@ -24,7 +24,7 @@ module Kozo
             ssh_key = provider.client.ssh_keys.find(id)
 
             attribute_names
-              .except("id")
+              .excluding("id")
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
 
             Kozo.logger.info "#{address}: refreshed state"
@@ -51,7 +51,15 @@ module Kozo
             Kozo.logger.info "#{address}: destroyed resource"
           end
 
-          def update!; end
+          def update!
+            Kozo.logger.info "#{address}: updating resource"
+
+            ssh_key = provider.client.ssh_keys.find(id)
+
+            ssh_key.update(name: name)
+
+            Kozo.logger.info "#{address}: updated resource"
+          end
         end
       end
     end

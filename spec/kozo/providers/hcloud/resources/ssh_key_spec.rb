@@ -67,4 +67,24 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
         .to have_received(:destroy)
     end
   end
+
+  describe "#update!" do
+    it "updates a resource" do
+      mock = double
+
+      allow(ssh_keys)
+        .to receive(:find)
+        .with(resource.id)
+        .and_return mock
+
+      allow(mock)
+        .to receive(:update)
+
+      resource.update!
+
+      expect(mock)
+        .to have_received(:update)
+        .with(name: resource.name)
+    end
+  end
 end
