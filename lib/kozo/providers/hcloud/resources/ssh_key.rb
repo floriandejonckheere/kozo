@@ -23,8 +23,11 @@ module Kozo
 
             ssh_key = provider.client.ssh_keys.find(id)
 
-            self.name = ssh_key.name
-            self.public_key = ssh_key.public_key
+            attribute_names
+              .except("id")
+              .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
+
+            Kozo.logger.info "#{address}: refreshed state"
           end
 
           def create!
@@ -32,9 +35,8 @@ module Kozo
 
             ssh_key = provider.client.ssh_keys.create(**data.except(:id))
 
-            self.id = ssh_key.id
-            self.name = ssh_key.name
-            self.public_key = ssh_key.public_key
+            attribute_names
+              .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
 
             Kozo.logger.info "#{address}: created resource"
           end
