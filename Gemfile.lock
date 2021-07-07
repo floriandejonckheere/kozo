@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/floriandejonckheere/hcloud-ruby.git
-  revision: f4f8ff3e75b3234510bfd7d011b358b9a99419d3
-  specs:
-    hcloud (1.0.2)
-      activemodel
-      activesupport
-      oj
-      typhoeus
-
 PATH
   remote: .
   specs:
@@ -17,6 +7,15 @@ PATH
       dinja (~> 2.0)
       dotenv (~> 2.7)
       zeitwerk (~> 2.4)
+
+PATH
+  remote: vendor/hcloud
+  specs:
+    hcloud (1.0.2)
+      activemodel
+      activesupport
+      oj
+      typhoeus
 
 GEM
   remote: https://rubygems.org/

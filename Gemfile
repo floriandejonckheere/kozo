@@ -8,4 +8,4 @@ ruby "~> 3.0"
 
 gemspec
 
-gem "hcloud", github: "floriandejonckheere/hcloud-ruby"
+gem "hcloud", path: "vendor/hcloud"
