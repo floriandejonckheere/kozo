@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/floriandejonckheere/hcloud.git
+  revision: 02af4d4cb6b95848d19ad5a3efc74891d7c7f77b
+  specs:
+    hcloud (1.0.0)
+      activemodel
+      activesupport
+      http
+      zeitwerk
+
 PATH
   remote: .
   specs:
@@ -7,15 +17,6 @@ PATH
       dinja (~> 2.0)
       dotenv (~> 2.7)
       zeitwerk (~> 2.4)
-
-PATH
-  remote: vendor/hcloud
-  specs:
-    hcloud (1.0.2)
-      activemodel
-      activesupport
-      oj
-      typhoeus
 
 GEM
   remote: https://rubygems.org/
@@ -43,21 +44,34 @@ GEM
     dinja (2.0.0)
       zeitwerk
     docile (1.4.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
-    ethon (0.14.0)
-      ffi (>= 1.15.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     fakefs (1.3.2)
     ffaker (2.18.0)
     ffi (1.15.3)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     hashdiff (1.0.1)
+    http (5.0.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      llhttp-ffi (~> 0.3.0)
+    http-cookie (1.0.4)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
+    llhttp-ffi (0.3.1)
+      ffi-compiler (~> 1.0)
+      rake (~> 13.0)
     method_source (1.0.0)
     minitest (5.14.4)
-    oj (3.11.7)
     optimist (3.0.1)
     overcommit (0.58.0)
       childprocess (>= 0.6.3, < 5)
@@ -125,10 +139,11 @@ GEM
       diff-lcs
       patience_diff
     timecop (0.9.4)
-    typhoeus (1.4.0)
-      ethon (>= 0.9.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode-display_width (2.0.0)
     webmock (3.13.0)
       addressable (>= 2.3.6)
