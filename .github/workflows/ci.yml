@@ -40,22 +40,15 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - name: Set environment
-        id: set_environment
+      - name: Test
         run: |
           if [[ "$EVENT_NAME" == "schedule" ]]; then
-              echo "::set-output name=integration_test::1"
+              bundle exec rspec --profile 10 --format progress --tag integration
           else
-              echo "::set-output name=integration_test::0"
+              bundle exec rspec --profile 10 --format progress
           fi
         env:
           EVENT_NAME: ${{ github.event_name }}
-
-      - name: Test
-        run: |
-          bundle exec rspec --profile 10 --format progress
-        env:
-          INTEGRATION_TEST: ${{ steps.set_environment.outputs.integration_test }}
 
       - name: Lint
         run: bundle exec rubocop --parallel --display-cop-names

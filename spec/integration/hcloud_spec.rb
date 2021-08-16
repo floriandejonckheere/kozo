@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "tmpdir"
-
-RSpec.describe "Hetzner Cloud", if: (ENV.fetch("INTEGRATION_TEST", 0)&.to_i == 1) do
+RSpec.describe "Hetzner Cloud", integration: true, order: :defined do
   include FakeFS::SpecHelpers
 
   let(:directory) { Dir.mktmpdir }
