@@ -5,13 +5,10 @@ require "hcloud"
 RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
   subject(:resource) { build(:hcloud_ssh_key, name: "old_name", public_key: "old_public_key") }
 
-  let(:client) { instance_double(Hcloud::Client, "client") }
-  let(:ssh_keys) { instance_double(Hcloud::SSHKeyResource, "ssh_keys") }
+  let(:ssh_key_class) { class_double("HCloud::SSHKey") }
+  let(:ssh_key) { instance_double("HCloud::SSHKey") }
 
-  before do
-    allow(resource.provider).to receive(:client).and_return client
-    allow(client).to receive(:ssh_keys).and_return ssh_keys
-  end
+  before { stub_const("HCloud::SSHKey", ssh_key_class) }
 
   it { is_expected.to respond_to :name, :name= }
   it { is_expected.to respond_to :public_key, :public_key= }
@@ -22,7 +19,7 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
 
   describe "#refresh!" do
     it "refreshes name and public_key" do
-      allow(ssh_keys)
+      allow(ssh_key_class)
         .to receive(:find)
         .with(resource.id)
         .and_return OpenStruct.new(name: "new_name", public_key: "new_public_key")
@@ -36,12 +33,20 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
 
   describe "#create!" do
     it "creates a resource" do
-      allow(ssh_keys)
-        .to receive(:create)
+      ssh_key = OpenStruct.new(id: 12_345, name: "new_name", public_key: "new_public_key", create: true)
+
+      allow(ssh_key_class)
+        .to receive(:new)
         .with(name: "old_name", public_key: "old_public_key")
-        .and_return OpenStruct.new(id: 12_345, name: "new_name", public_key: "new_public_key")
+        .and_return ssh_key
+
+      allow(ssh_key)
+        .to receive(:create)
 
       resource.create!
+
+      expect(ssh_key)
+        .to have_received(:create)
 
       expect(resource.id).to eq 12_345
       expect(resource.name).to eq "new_name"
@@ -51,40 +56,40 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
 
   describe "#destroy!" do
     it "destroys a resource" do
-      mock = double
-
-      allow(ssh_keys)
+      allow(ssh_key_class)
         .to receive(:find)
         .with(resource.id)
-        .and_return mock
+        .and_return ssh_key
 
-      allow(mock)
-        .to receive(:destroy)
+      allow(ssh_key)
+        .to receive(:delete)
 
       resource.destroy!
 
-      expect(mock)
-        .to have_received(:destroy)
+      expect(ssh_key)
+        .to have_received(:delete)
     end
   end
 
   describe "#update!" do
     it "updates a resource" do
-      mock = double
+      ssh_key = OpenStruct.new(name: "new_name", public_key: "new_public_key", update: true)
 
-      allow(ssh_keys)
+      allow(ssh_key_class)
         .to receive(:find)
         .with(resource.id)
-        .and_return mock
+        .and_return ssh_key
 
-      allow(mock)
+      allow(ssh_key)
         .to receive(:update)
 
       resource.update!
 
-      expect(mock)
+      expect(ssh_key)
         .to have_received(:update)
-        .with(name: resource.name)
+
+      expect(ssh_key.name).to eq "old_name"
+      expect(ssh_key.public_key).to eq "old_public_key"
     end
   end
 end

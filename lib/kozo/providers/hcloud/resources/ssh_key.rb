@@ -21,7 +21,7 @@ module Kozo
           def refresh!
             Kozo.logger.info "#{address}: refreshing state"
 
-            ssh_key = provider.client.ssh_keys.find(id)
+            ssh_key = ::HCloud::SSHKey.find(id)
 
             attribute_names
               .excluding("id")
@@ -33,7 +33,8 @@ module Kozo
           def create!
             Kozo.logger.info "#{address}: creating resource"
 
-            ssh_key = provider.client.ssh_keys.create(**data.except(:id))
+            ssh_key = ::HCloud::SSHKey.new(**data.except(:id))
+            ssh_key.create
 
             attribute_names
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
@@ -44,9 +45,8 @@ module Kozo
           def destroy!
             Kozo.logger.info "#{address}: destroying resource"
 
-            ssh_key = provider.client.ssh_keys.find(id)
-
-            ssh_key.destroy
+            ssh_key = ::HCloud::SSHKey.find(id)
+            ssh_key.delete
 
             Kozo.logger.info "#{address}: destroyed resource"
           end
@@ -54,9 +54,14 @@ module Kozo
           def update!
             Kozo.logger.info "#{address}: updating resource"
 
-            ssh_key = provider.client.ssh_keys.find(id)
+            ssh_key = ::HCloud::SSHKey.find(id)
+            ssh_key.name = name
+            ssh_key.public_key = public_key
+            ssh_key.update
 
-            ssh_key.update(name: name)
+            attribute_names
+              .excluding("id")
+              .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
 
             Kozo.logger.info "#{address}: updated resource"
           end
