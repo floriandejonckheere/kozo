@@ -5,6 +5,8 @@ require "active_model"
 require "dinja"
 require "zeitwerk"
 
+require "byebug" if ENV["ENV"] == "development"
+
 module Kozo
   class << self
     attr_reader :loader
