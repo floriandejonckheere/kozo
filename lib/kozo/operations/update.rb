@@ -4,6 +4,7 @@ module Kozo
   module Operations
     class Update < Operation
       self.symbol = :~
+      self.display_symbol = "~".yellow
 
       def apply(state)
         # Update resource in remote infrastructure

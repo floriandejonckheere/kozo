@@ -23,7 +23,7 @@ module Kozo
         super
 
         unless options[:yes]
-          print "\nContinue executing these actions (yes/no)? "
+          print "\nContinue executing these actions (yes/no)? ".bold
 
           abort("\nApply cancelled") unless gets.chomp == "yes"
         end

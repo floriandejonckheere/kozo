@@ -2,8 +2,9 @@
 
 module Kozo
   module Operations
-    class Remove < Operation
+    class Destroy < Operation
       self.symbol = :-
+      self.display_symbol = "-".red
 
       def apply(state)
         # Destroy resource in remote infrastructure

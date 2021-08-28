@@ -2,6 +2,7 @@
 
 require "active_support/all"
 require "active_model"
+require "colorize"
 require "dinja"
 require "zeitwerk"
 

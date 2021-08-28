@@ -2,8 +2,9 @@
 
 module Kozo
   module Operations
-    class Add < Operation
+    class Create < Operation
       self.symbol = :+
+      self.display_symbol = "+".green
 
       def apply(state)
         # Create resource in remote infrastructure

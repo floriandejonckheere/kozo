@@ -4,7 +4,7 @@ module Kozo
   class Operation
     attr_reader :resource
 
-    class_attribute :symbol
+    class_attribute :symbol, :display_symbol
 
     def initialize(resource)
       @resource = resource
