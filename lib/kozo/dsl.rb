@@ -46,7 +46,7 @@ module Kozo
     private
 
     def resolve(resource, type, *args)
-      Kozo.logger.debug "Initializing #{resource} #{type} with options #{args.join(' ')}"
+      Kozo.logger.debug "Initializing #{resource} #{type}#{" with options #{args.join(' ')}" if args.any?}"
 
       Kozo.container.resolve("#{resource}.#{type}", *args)
     rescue Dinja::Container::DependencyNotRegistered
