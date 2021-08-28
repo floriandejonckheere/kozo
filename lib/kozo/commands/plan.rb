@@ -27,6 +27,13 @@ module Kozo
           .resources
           .filter_map { |r| Operations::Remove.new(r) unless configuration.resources.find { |s| s.address == r.address } }
 
+        Kozo.logger.info "Kozo analyzed the state and created the following execution plan. Actions are indicated by the following symbols:"
+        Kozo.logger.info " + create"
+        Kozo.logger.info " ~ update"
+        Kozo.logger.info " - destroy\n"
+
+        Kozo.logger.info "Kozo will perform the following actions:"
+
         @operations.each { |o| Kozo.logger.info "#{o.symbol} #{o.resource.address}" }
       end
     end
