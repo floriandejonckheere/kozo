@@ -11,7 +11,7 @@ RSpec::Matchers.define :log do |expected|
 
     # Store logs with level 'info'
     allow(logger)
-      .to receive(:info) { |s| (@messages ||= []) << s }
+      .to receive(:info) { |s| (@messages ||= []) << s.strip.uncolorize }
       .and_return nil
 
     # Discard logs with other levels
@@ -24,15 +24,16 @@ RSpec::Matchers.define :log do |expected|
     actual.call
 
     expect(@messages)
-      .to include expected
+      .to(be_any { |m| m =~ (expected.is_a?(Regexp) ? expected : /#{Regexp.escape expected}/i) })
   end
 
   failure_message do |_actual|
     messages = @messages
       &.map
-      &.with_index { |m, i| m.prepend("\n#{(i + 1).to_s.rjust(5)}) ") } || "nothing"
+      &.with_index { |m, i| "\n#{(i + 1).to_s.rjust(5)}) #{m.uncolorize}" }
+      &.join || "nothing"
 
-    "expected block to log #{expected}, but received #{messages}"
+    "expected block to log '#{expected}', but received: #{messages}"
   end
 
   supports_block_expectations
