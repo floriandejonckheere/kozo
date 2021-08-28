@@ -23,4 +23,13 @@ RSpec.describe Kozo::Commands::Plan do
   it "plans a deletion of a resource" do
     expect { command.start }.to log("- null.resource2")
   end
+
+  context "when nothing can be done" do
+    let(:configuration) { build(:configuration) }
+    let(:state) { build(:state) }
+
+    it "plans nothing" do
+      expect { command.start }.to log("No actions have to be performed")
+    end
+  end
 end

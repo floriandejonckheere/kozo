@@ -32,7 +32,9 @@ module Kozo
 
         Kozo.logger.info "\nKozo will perform the following actions:"
 
-        @operations.each { |o| Kozo.logger.info "#{o.display_symbol} #{o.resource.address}" }
+        Kozo.logger.info "\nNo actions have to be performed." if operations.empty?
+
+        operations.each { |o| Kozo.logger.info "#{o.display_symbol} #{o.resource.address}" }
       end
     end
   end
