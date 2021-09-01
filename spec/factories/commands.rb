@@ -15,4 +15,6 @@ FactoryBot.define do
   end
 
   factory :plan_command, parent: :command, class: "Kozo::Commands::Plan"
+
+  factory :version_command, parent: :command, class: "Kozo::Commands::Version"
 end
