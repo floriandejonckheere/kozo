@@ -30,7 +30,7 @@ describe Kozo::CLI do
       let(:args) { %w(--help) }
 
       it "prints usage and exits" do
-        expect { expect { cli }.to raise_error Kozo::ExitError }.to print_output
+        expect { expect { cli }.to raise_error Kozo::ExitError }.to log "[global options]"
       end
     end
   end
@@ -40,7 +40,7 @@ describe Kozo::CLI do
       let(:args) { %w() }
 
       it "prints usage and exits" do
-        expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+        expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
       end
     end
 
@@ -60,7 +60,7 @@ describe Kozo::CLI do
         let(:args) { %w(foo) }
 
         it "prints usage and exits" do
-          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
         end
       end
     end
@@ -81,7 +81,7 @@ describe Kozo::CLI do
         let(:args) { %w(state) }
 
         it "prints usage and exits" do
-          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
         end
       end
 
@@ -89,13 +89,9 @@ describe Kozo::CLI do
         let(:args) { %w(state foo) }
 
         it "prints usage and exits" do
-          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to print_output
+          expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
         end
       end
     end
   end
-end
-
-def print_output
-  output(/\[global options\]/i).to_stdout
 end

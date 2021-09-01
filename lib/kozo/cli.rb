@@ -66,8 +66,8 @@ module Kozo
     private
 
     def usage(code: 1, tail: nil)
-      puts parser.to_s
-      puts tail if tail
+      Kozo.logger.info parser.to_s
+      Kozo.logger.info tail if tail
 
       raise ExitError, code
     end
