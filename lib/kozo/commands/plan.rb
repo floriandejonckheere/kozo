@@ -18,6 +18,9 @@ module Kozo
           # Create resource if it does not exist in the state
           next Operations::Create.new(resource) unless state_resource
 
+          # Configured resources do not contain identifiers
+          resource.id = state_resource.id
+
           # Update resource if its properties have changed
           Operations::Update.new(resource) unless resource.data.except(:id) == state_resource.data.except(:id)
         end

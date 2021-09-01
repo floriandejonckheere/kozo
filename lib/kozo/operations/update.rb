@@ -11,7 +11,7 @@ module Kozo
         resource.update!
 
         # Update resource in-memory state
-        state << resource
+        state.resources << resource
       end
     end
   end
