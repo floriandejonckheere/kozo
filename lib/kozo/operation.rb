@@ -13,5 +13,9 @@ module Kozo
     def apply(_state)
       raise NotImplementedError
     end
+
+    def to_s
+      "#{display_symbol} #{resource.address}"
+    end
   end
 end

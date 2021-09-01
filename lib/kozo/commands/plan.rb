@@ -34,7 +34,7 @@ module Kozo
 
         Kozo.logger.info "\nNo actions have to be performed." if operations.empty?
 
-        operations.each { |o| Kozo.logger.info "#{o.display_symbol} #{o.resource.address}" }
+        operations.each { |o| Kozo.logger.info o.to_s }
       end
     end
   end
