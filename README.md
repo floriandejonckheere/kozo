@@ -8,19 +8,7 @@ It leverages the power of [Ruby](https://www.ruby-lang.org/en/) to allow you to 
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```
-gem "kozo"
-```
-
-And then execute:
-
-```sh
-bundle
-```
-
-Or install it yourself as:
+Install the gem using your operating system's package manager, or using RubyGems:
 
 ```sh
 gem install kozo
@@ -29,6 +17,8 @@ gem install kozo
 ## Usage
 
 Execute `kozo --help` to see all available commands and their arguments.
+
+See [TUTORIAL.md](TUTORIAL.md) for a quick tutorial on how to work with Kozo.
 
 ## Release
 
