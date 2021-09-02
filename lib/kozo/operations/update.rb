@@ -10,7 +10,8 @@ module Kozo
         # Update resource in remote infrastructure
         resource.update!
 
-        # Update resource in-memory state
+        # Update resource in local state
+        state.resources.delete(resource)
         state.resources << resource
       end
     end

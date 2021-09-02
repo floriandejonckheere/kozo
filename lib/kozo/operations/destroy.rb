@@ -10,7 +10,7 @@ module Kozo
         # Destroy resource in remote infrastructure
         resource.destroy!
 
-        # Delete resource in-memory state
+        # Delete resource from local state
         state.resources.delete(resource)
       end
     end

@@ -10,7 +10,7 @@ module Kozo
         # Create resource in remote infrastructure
         resource.create!
 
-        # Add resource to in-memory state
+        # Add resource to local state
         state.resources << resource
       end
     end
