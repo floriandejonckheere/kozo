@@ -45,9 +45,9 @@ module Kozo
     def start
       command = command_args.shift
 
-      raise UsageError unless command
+      raise UsageError, "no command specified" unless command
 
-      klass = "Kozo::Commands::#{command.camelize}".safe_constantize
+      klass = "Kozo::Commands::#{command.camelize}".constantize
 
       raise UsageError, "unknown command: #{command}" unless klass
 
@@ -73,11 +73,11 @@ module Kozo
     end
 
     def commands
-      Command.subclasses.sort_by(&:to_s).map do |k|
+      Command.subclasses.sort_by(&:name).map do |k|
         [
           k.name.demodulize.underscore,
           k.description,
-          k.descendants.sort_by(&:to_s).map { |s| [s.name.demodulize.underscore, s.description] },
+          k.descendants.sort_by(&:name).map { |s| [s.name.demodulize.underscore, s.description] },
         ]
       end
     end
