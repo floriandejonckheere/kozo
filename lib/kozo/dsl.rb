@@ -36,9 +36,9 @@ module Kozo
 
       raise InvalidResource, "resource #{resource.address} already defined" if configuration.resources.include?(resource)
 
-      resource.provider = configuration.providers[resource.class.provider_name]
+      resource.provider = configuration.providers[resource.provider_name]
 
-      raise InvalidResource, "provider #{resource.class.provider_name} not configured" unless resource.provider
+      raise InvalidResource, "provider #{resource.provider_name} not configured" unless resource.provider
 
       yield resource if block_given?
 

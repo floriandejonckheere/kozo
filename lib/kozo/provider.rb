@@ -7,7 +7,7 @@ module Kozo
     def setup; end
 
     def ==(other)
-      self.class.provider_name == other.class.provider_name
+      provider_name == other.provider_name
     end
   end
 end
