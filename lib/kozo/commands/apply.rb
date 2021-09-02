@@ -22,6 +22,8 @@ module Kozo
       def start
         super
 
+        return if operations.empty?
+
         unless options[:yes]
           print "\nContinue executing these actions (yes/no)? ".bold
 
