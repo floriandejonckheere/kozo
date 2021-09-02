@@ -27,18 +27,18 @@ module Kozo
 
       provider.setup
 
-      configuration.providers[provider.class.provider_name] = provider
+      configuration.providers[provider.provider_name] = provider
     end
 
     def resource(type, state_name)
       resource = resolve(:resource, type)
       resource.state_name = state_name
 
-      raise InvalidResource, "Resource #{resource.address} already defined" if configuration.resources.include?(resource)
+      raise InvalidResource, "resource #{resource.address} already defined" if configuration.resources.include?(resource)
 
       resource.provider = configuration.providers[resource.class.provider_name]
 
-      raise InvalidResource, "Provider #{resource.class.provider_name} not configured" unless resource.provider
+      raise InvalidResource, "provider #{resource.class.provider_name} not configured" unless resource.provider
 
       yield resource if block_given?
 
@@ -52,7 +52,7 @@ module Kozo
 
       Kozo.container.resolve("#{resource}.#{type}", *args)
     rescue Dinja::Container::DependencyNotRegistered
-      raise InvalidResource, "Unknown #{resource} type: #{type}"
+      raise InvalidResource, "unknown #{resource} type: #{type}"
     end
   end
 end
