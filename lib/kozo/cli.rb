@@ -47,7 +47,7 @@ module Kozo
 
       raise UsageError, "no command specified" unless command
 
-      klass = "Kozo::Commands::#{command.camelize}".constantize
+      klass = "Kozo::Commands::#{command.camelize}".safe_constantize
 
       raise UsageError, "unknown command: #{command}" unless klass
 
