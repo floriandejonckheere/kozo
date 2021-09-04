@@ -23,5 +23,9 @@ module Kozo
       Dir[File.join(directory, "*.kz")]
         .each { |file| dsl.instance_eval(File.read(file)) }
     end
+
+    def to_s
+      "directory: #{directory}"
+    end
   end
 end
