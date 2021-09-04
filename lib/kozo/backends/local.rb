@@ -26,14 +26,12 @@ module Kozo
           .safe_load(File.read(path))
           .deep_symbolize_keys
       rescue Errno::ENOENT
-        abort "Local state at #{path} not initialized"
+        raise StateError, "local state at #{path} not initialized"
       rescue Psych::SyntaxError => e
         raise StateError, "could not read state file: #{e.message}"
       end
 
       def data=(value)
-        raise ArgumentError unless value.is_a? Hash
-
         Kozo.logger.debug "Writing local state in #{path}"
 
         @data = value
