@@ -5,7 +5,7 @@ module Kozo
 
   class InvalidResource < Error; end
 
-  class ExitError < StandardError; end
+  class ExitError < Error; end
 
   class UsageError < Error; end
 
