@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Backends::Local do
-  include FakeFS::SpecHelpers
-
   subject(:backend) { build(:local_backend) }
 
   let(:state) { { foo: "bar" } }

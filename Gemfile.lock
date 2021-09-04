@@ -17,6 +17,7 @@ PATH
       colorize (~> 0.8)
       dinja (~> 2.0)
       dotenv (~> 2.7)
+      git (~> 1.9)
       zeitwerk (~> 2.4)
 
 GEM
@@ -57,6 +58,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    git (1.9.1)
+      rchardet (~> 1.8)
     hashdiff (1.0.1)
     http (5.0.1)
       addressable (~> 2.3)
@@ -93,6 +96,7 @@ GEM
     public_suffix (4.0.6)
     rainbow (3.0.0)
     rake (13.0.6)
+    rchardet (1.8.0)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -181,4 +185,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.21
+   2.2.22

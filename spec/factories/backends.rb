@@ -11,4 +11,8 @@ FactoryBot.define do
   factory :local_backend, parent: :backend, class: "Kozo::Backends::Local" do
     directory { Dir.mktmpdir }
   end
+
+  factory :git_backend, parent: :backend, class: "Kozo::Backends::Git" do
+    directory { Dir.mktmpdir }
+  end
 end

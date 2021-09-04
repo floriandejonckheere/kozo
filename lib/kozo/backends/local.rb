@@ -16,16 +16,19 @@ module Kozo
       def initialize!
         Kozo.logger.debug "Initializing local state in #{path}"
 
-        self.state = Kozo.container.resolve("state") unless File.exist?(path)
+        return if File.exist?(path)
+
+        # Initialize empty local state
+        self.state = Kozo.container.resolve("state")
       end
 
       def data
         Kozo.logger.debug "Reading local state in #{path}"
 
-        @data ||= YAML
+        YAML
           .safe_load(File.read(path))
           .deep_symbolize_keys
-      rescue Errno::ENOENT
+      rescue Errno::ENOENT, Errno::ENOTDIR
         raise StateError, "local state at #{path} not initialized"
       rescue Psych::SyntaxError => e
         raise StateError, "could not read state file: #{e.message}"
