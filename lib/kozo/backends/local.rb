@@ -21,7 +21,7 @@ module Kozo
         return if File.exist?(path)
 
         # Initialize empty local state
-        self.state = Kozo.container.resolve("state")
+        self.state = State.new
       end
 
       def data
