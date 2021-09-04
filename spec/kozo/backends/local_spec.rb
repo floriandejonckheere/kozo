@@ -36,6 +36,19 @@ RSpec.describe Kozo::Backends::Local do
 
       expect(File.read(file)).to eq "---\nfoo: bar\n"
     end
+
+    it "writes a backup file" do
+      backend.backups = true
+
+      File.write(file, "---\nbar: foo\n")
+
+      Timecop.freeze do
+        backend.data = state
+
+        expect(File.read(file)).to eq "---\nfoo: bar\n"
+        expect(File.read("#{file}.#{DateTime.current.to_i}.kzbackup")).to eq "---\nbar: foo\n"
+      end
+    end
   end
 
   describe "#file=" do

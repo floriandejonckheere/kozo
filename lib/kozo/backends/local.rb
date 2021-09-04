@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require "fileutils"
 require "yaml"
 
 module Kozo
   module Backends
     class Local < Kozo::Backend
       attr_writer :file
+      attr_accessor :backups
 
       def initialize(configuration, directory)
         super
@@ -39,6 +41,10 @@ module Kozo
 
         @data = value
 
+        # Write backup state file
+        FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups
+
+        # Write local state file
         File.write(path, value.deep_stringify_keys.to_yaml)
       end
 

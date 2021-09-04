@@ -5,6 +5,8 @@ require "byebug"
 require "simplecov"
 SimpleCov.start
 
+require "timecop"
+
 require File.expand_path("../config/application", __dir__)
 
 require "kozo"
