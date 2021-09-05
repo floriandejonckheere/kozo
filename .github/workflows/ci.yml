@@ -46,7 +46,7 @@ jobs:
           git config --global user.name "Your Name"
 
           if [[ "$EVENT_NAME" == "schedule" ]]; then
-              bundle exec rspec --profile 10 --format progress --tag integration
+              bundle exec rspec --profile 10 --format progress --tag integration --fail-fast
           else
               bundle exec rspec --profile 10 --format progress
           fi
