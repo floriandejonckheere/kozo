@@ -41,7 +41,7 @@ module Kozo
       loader.eager_load
 
       # Register dependencies
-      Dir["lib/**/*/dependencies.rb", "config/dependencies.rb"].each { |d| container.instance_eval(File.read(d)) }
+      Dir[root.join("lib/**/*/dependencies.rb"), root.join("config/dependencies.rb")].each { |d| container.instance_eval(File.read(d)) }
     end
   end
 end
