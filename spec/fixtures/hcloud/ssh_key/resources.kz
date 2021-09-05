@@ -1,0 +1,7 @@
+##
+# Resources
+#
+resource "hcloud_ssh_key", "default" do |s|
+  s.name = "default"
+  s.public_key = File.read("id_rsa.pub")
+end
