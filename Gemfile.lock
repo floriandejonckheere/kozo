@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/floriandejonckheere/hcloud.git
-  revision: 02af4d4cb6b95848d19ad5a3efc74891d7c7f77b
+  revision: c2ef9116c0f696ded8a8e91aba15820481a74936
   specs:
     hcloud (1.0.0)
       activemodel
