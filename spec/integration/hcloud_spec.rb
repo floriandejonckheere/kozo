@@ -38,7 +38,7 @@ RSpec.describe "Hetzner Cloud", integration: true, order: :defined do
     expect(File).to exist File.join(@directory, "kozo.kzstate")
   end
 
-  it "creates an SSH key", fixture: "ssh_key_one" do
+  it "creates an SSH key", fixture: "ssh_key_1" do
     output = `kozo plan`
 
     expect($CHILD_STATUS.exitstatus).to be_zero
@@ -50,7 +50,7 @@ RSpec.describe "Hetzner Cloud", integration: true, order: :defined do
     expect(HCloud::SSHKey.all.first.name).to eq "default"
   end
 
-  it "updates an SSH key", fixture: "ssh_key_two" do
+  it "updates an SSH key", fixture: "ssh_key_2" do
     output = `kozo plan`
 
     expect($CHILD_STATUS.exitstatus).to be_zero
@@ -62,7 +62,7 @@ RSpec.describe "Hetzner Cloud", integration: true, order: :defined do
     expect(HCloud::SSHKey.all.first.name).to eq "new_default"
   end
 
-  it "removes an SSH key", fixture: "ssh_key_three" do
+  it "removes an SSH key", fixture: "ssh_key_3" do
     output = `kozo plan`
 
     expect($CHILD_STATUS.exitstatus).to be_zero
