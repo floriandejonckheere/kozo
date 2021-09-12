@@ -2,6 +2,7 @@
 
 module Kozo
   class Resource
+    include ActiveModel::AttributeAssignment
     include ActiveModel::Attributes
     include ActiveModel::Dirty
 
