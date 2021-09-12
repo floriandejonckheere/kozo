@@ -9,6 +9,12 @@ module Kozo
 
     class_attribute :resource_name, :provider_name
 
+    def initialize(attributes = {})
+      super()
+
+      assign_attributes(attributes) if attributes
+    end
+
     def address
       "#{resource_name}.#{state_name}"
     end

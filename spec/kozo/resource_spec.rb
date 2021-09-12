@@ -14,6 +14,14 @@ RSpec.describe Kozo::Resource do
     it { is_expected.to respond_to :provider_name, :provider_name= }
   end
 
+  describe "constructor" do
+    subject(:resource) { described_class.new(id: "null") }
+
+    it "initializes with attributes" do
+      expect(resource.id).to eq "null"
+    end
+  end
+
   describe "#address" do
     it "returns the resource address" do
       expect(resource.address).to eq "null.null"
