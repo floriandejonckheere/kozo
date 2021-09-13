@@ -3,7 +3,7 @@
 RSpec.describe Kozo::State do
   subject(:state) { build(:state, resources: [resource]) }
 
-  let(:resource) { build(:null_resource) }
+  let(:resource) { build(:dummy_resource) }
 
   describe "#to_h" do
     it "transforms state into a hash" do

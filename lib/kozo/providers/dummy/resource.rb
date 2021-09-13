@@ -2,17 +2,21 @@
 
 module Kozo
   module Providers
-    module Null
+    module Dummy
       class Resource < Kozo::Resource
-        self.provider_name = "null"
+        self.provider_name = "dummy"
 
         def data
           {}
         end
 
-        def refresh!
-          Kozo.logger.info "#{address}: refreshing state"
-        end
+        def refresh!; end
+
+        def create!; end
+
+        def destroy!; end
+
+        def update!; end
       end
     end
   end

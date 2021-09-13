@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Resource do
-  subject(:resource) { build(:null_resource, id: "null", state_name: "null") }
+  subject(:resource) { build(:dummy_resource, id: "id", state_name: "state_name") }
 
   it { is_expected.to respond_to :id, :id= }
   it { is_expected.to respond_to :provider, :provider= }
@@ -15,23 +15,23 @@ RSpec.describe Kozo::Resource do
   end
 
   describe "constructor" do
-    subject(:resource) { described_class.new(id: "null") }
+    subject(:resource) { described_class.new(id: "id") }
 
     it "initializes with attributes" do
-      expect(resource.id).to eq "null"
+      expect(resource.id).to eq "id"
     end
   end
 
   describe "#address" do
     it "returns the resource address" do
-      expect(resource.address).to eq "null.null"
+      expect(resource.address).to eq "dummy.state_name"
     end
   end
 
   describe "#to_h" do
     it "transforms resource into a hash" do
-      expect(resource.to_h).to include meta: { name: "null", provider: "null", resource: "null" },
-                                       data: { id: "null", name: "null" }
+      expect(resource.to_h).to include meta: { name: "state_name", provider: "dummy", resource: "dummy" },
+                                       data: { id: "id", name: "dummy", description: "Dummy resource" }
     end
   end
 

@@ -14,10 +14,10 @@ RSpec.describe Kozo::Backend do
     end
   end
 
-  let(:configuration) { build(:configuration, providers: { "null" => provider }) }
+  let(:configuration) { build(:configuration, providers: { "dummy" => provider }) }
   let(:state) { build(:state, resources: [resource]) }
-  let(:resource) { build(:null_resource, provider: provider) }
-  let(:provider) { build(:null) }
+  let(:resource) { build(:dummy_resource, provider: provider) }
+  let(:provider) { build(:dummy) }
 
   describe "#state" do
     it "raises when provider is not configured" do

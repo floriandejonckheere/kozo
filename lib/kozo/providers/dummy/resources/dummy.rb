@@ -2,17 +2,19 @@
 
 module Kozo
   module Providers
-    module Null
+    module Dummy
       module Resources
-        class Null < Resource
-          self.resource_name = "null"
+        class Dummy < Resource
+          self.resource_name = "dummy"
 
           attribute :name
+          attribute :description
 
           def data
             {
               id: id,
               name: name,
+              description: description,
             }
           end
         end

@@ -23,9 +23,9 @@ RSpec.describe Kozo::DSL do
     end
 
     it "configures a provider" do
-      dsl.provider("null")
+      dsl.provider("dummy")
 
-      expect(configuration.providers["null"]).to eq build(:null)
+      expect(configuration.providers["dummy"]).to eq build(:dummy)
     end
   end
 
@@ -35,22 +35,22 @@ RSpec.describe Kozo::DSL do
     end
 
     it "raises on unregistered provider" do
-      expect { dsl.resource("null", "bar") }.to raise_error Kozo::InvalidResource
+      expect { dsl.resource("dummy", "bar") }.to raise_error Kozo::InvalidResource
     end
 
     it "raises on resource already defined" do
-      dsl.provider("null")
-      dsl.resource("null", "bar")
+      dsl.provider("dummy")
+      dsl.resource("dummy", "bar")
 
-      expect { dsl.resource("null", "bar") }.to raise_error Kozo::InvalidResource
-      expect { dsl.resource("null", "baz") }.not_to raise_error
+      expect { dsl.resource("dummy", "bar") }.to raise_error Kozo::InvalidResource
+      expect { dsl.resource("dummy", "baz") }.not_to raise_error
     end
 
     it "configures a resource" do
-      dsl.provider("null")
-      dsl.resource("null", "bar")
+      dsl.provider("dummy")
+      dsl.resource("dummy", "bar")
 
-      expect(configuration.resources).to include build(:null_resource, id: nil, state_name: "bar")
+      expect(configuration.resources).to include build(:dummy_resource, id: nil, state_name: "bar")
     end
   end
 end
