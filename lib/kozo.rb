@@ -37,6 +37,7 @@ module Kozo
       # Set up code loader
       loader.enable_reloading
       loader.ignore(root.join("lib/**/*/dependencies.rb"))
+      loader.collapse(root.join("lib/kozo/concerns"))
       loader.setup
       loader.eager_load
 

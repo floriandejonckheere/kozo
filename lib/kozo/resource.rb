@@ -5,6 +5,7 @@ module Kozo
     include ActiveModel::AttributeAssignment
     include ActiveModel::Attributes
     include ActiveModel::Dirty
+    include Dirty
 
     attr_accessor :id, :provider, :state_name
 
