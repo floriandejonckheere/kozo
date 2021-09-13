@@ -16,6 +16,7 @@ RSpec.describe Kozo::Environment do
 
       resource = environment.resources.first
 
+      expect(resource).to be_marked_for_creation
       expect(resource.changes.symbolize_keys).to eq name: [nil, "name"]
     end
   end
@@ -42,6 +43,7 @@ RSpec.describe Kozo::Environment do
 
       resource = environment.resources.first
 
+      expect(resource).to be_marked_for_deletion
       expect(resource.changes.symbolize_keys).to eq name: ["name", nil]
     end
   end

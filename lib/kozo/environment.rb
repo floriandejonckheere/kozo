@@ -21,8 +21,11 @@ module Kozo
           .map do |resource|
           configured = configuration.resources.find { |r| r.address == resource.address }
 
-          # Assign updated attributes (mark for update or deletion)
+          # Assign updated attributes (mark for update)
           resource.assign_attributes(configured&.attributes || resource.attributes.transform_values { nil })
+
+          # Mark for deletion
+          resource.mark_for_deletion! unless configured
 
           resource
         end
@@ -32,6 +35,7 @@ module Kozo
           .resources
           .reject { |r| configuration.backend.state.resources.any? { |res| res.address == r.address } }
           .map { |r| r.class.new(r.attributes) }
+          .each(&:mark_for_creation!)
 
         resources
       end
