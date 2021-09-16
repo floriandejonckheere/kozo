@@ -18,9 +18,9 @@ module Kozo
     protected
 
     def configuration
-      @configuration ||= Configuration
+      @configuration ||= Parser
         .new(Kozo.options.directory)
-        .tap(&:parse!)
+        .call
     end
 
     def state

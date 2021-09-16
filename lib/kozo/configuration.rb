@@ -17,14 +17,6 @@ module Kozo
         .resolve("backend.local", self, directory)
     end
 
-    def parse!
-      dsl = DSL.new(self)
-
-      Dir[File.join(directory, "main.kz"), File.join(directory, "*.kz")]
-        .uniq
-        .each { |file| dsl.instance_eval(File.read(file)) }
-    end
-
     def to_s
       "directory: #{directory}"
     end
