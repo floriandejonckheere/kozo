@@ -6,7 +6,7 @@ module Kozo
       class Resource < Kozo::Resource
         self.provider_name = "hcloud"
 
-        attribute :id, :integer
+        attribute :id, :big_integer
       end
     end
   end

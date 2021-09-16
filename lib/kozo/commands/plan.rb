@@ -22,7 +22,7 @@ module Kozo
           resource.id = state_resource.id
 
           # Update resource if its properties have changed
-          Operations::Update.new(resource) unless resource.data.except(:id) == state_resource.data.except(:id)
+          Operations::Update.new(resource) unless resource.attributes.except(:id) == state_resource.attributes.except(:id)
         end
 
         # Remove state resources without corresponding configuration

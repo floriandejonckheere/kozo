@@ -22,7 +22,7 @@ module Kozo
           configured = configuration.resources.find { |r| r.address == resource.address }
 
           # Assign updated attributes (mark for update)
-          resource.assign_attributes(configured&.attributes || resource.attributes.transform_values { nil })
+          resource.assign_attributes(configured&.attributes&.except(:id) || resource.attributes.transform_values { nil })
 
           # Mark for deletion
           resource.mark_for_deletion! unless configured

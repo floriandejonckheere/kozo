@@ -6,10 +6,6 @@ module Kozo
       class Resource < Kozo::Resource
         self.provider_name = "dummy"
 
-        def data
-          {}
-        end
-
         def refresh!; end
 
         def create!; end

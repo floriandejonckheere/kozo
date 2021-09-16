@@ -7,7 +7,9 @@ module Kozo
     include ActiveModel::Dirty
     include Dirty
 
-    attr_accessor :id, :provider, :state_name
+    attr_accessor :provider, :state_name
+
+    attribute :id
 
     class_attribute :resource_name, :provider_name
 
@@ -36,7 +38,7 @@ module Kozo
     def to_h
       {
         meta: meta,
-        data: data,
+        data: attributes,
       }
     end
 
@@ -47,7 +49,7 @@ module Kozo
       <<~DSL.chomp
         #{"# #{resource_name}.#{state_name}:".bold}
         resource "#{resource_name}", "#{state_name}" do |r|
-          #{data.map { |k, v| "r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp}\"" }.join("\n  ")}
+          #{attributes.map { |k, v| "r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp}\"" }.join("\n  ")}
         end
 
       DSL
@@ -61,16 +63,15 @@ module Kozo
         .tap { |r| r.state_name = hash.dig(:meta, :name) }
     end
 
-    protected
-
-    ##
-    # Collect resource data
-    #
-    # @return Hash
-    #
-    def data
-      raise NotImplementedError
+    def attributes
+      super.symbolize_keys
     end
+
+    def attribute_names
+      super.map(&:to_sym)
+    end
+
+    protected
 
     ##
     # Refetch resource from remote infrastructure

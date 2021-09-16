@@ -9,14 +9,6 @@ module Kozo
 
           attribute :name
           attribute :description
-
-          def data
-            {
-              id: id,
-              name: name,
-              description: description,
-            }
-          end
         end
       end
     end
