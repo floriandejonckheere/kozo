@@ -117,5 +117,7 @@ RSpec.configure do |config|
 
   config.before do
     Kozo.instance_variable_set(:@options, nil)
+
+    Kozo.instance_variable_set(:@logger, Logger.new(File::NULL))
   end
 end

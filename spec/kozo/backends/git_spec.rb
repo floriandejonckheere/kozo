@@ -38,7 +38,7 @@ RSpec.describe Kozo::Backends::Git do
     it "adds a remote" do
       # Create dummy remote
       remote = Dir.mktmpdir
-      `git init --bare #{remote}`
+      `git init --bare #{remote} &> /dev/null`
 
       backend.remote = remote
       backend.initialize!
