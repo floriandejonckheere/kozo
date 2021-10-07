@@ -51,4 +51,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "super_diff"
   spec.add_development_dependency "timecop"
   spec.add_development_dependency "webmock"
+
+  spec.add_development_dependency "jekyll"
 end
