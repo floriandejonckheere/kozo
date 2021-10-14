@@ -38,7 +38,7 @@ module Kozo
         # Append resources not in state
         changes += resources
           .reject { |r| backend.state.resources.any? { |res| res.address == r.address } }
-          .map { |r| r.class.new(r.attributes) }
+          .map(&:dup)
           .each(&:mark_for_creation!)
 
         changes

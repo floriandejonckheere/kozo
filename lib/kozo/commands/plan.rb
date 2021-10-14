@@ -12,23 +12,15 @@ module Kozo
       end
 
       def start
-        @operations += configuration.resources.filter_map do |resource|
-          state_resource = state.resources.find { |r| r.address == resource.address }
-
-          # Create resource if it does not exist in the state
-          next Operations::Create.new(resource) unless state_resource
-
-          # Configured resources do not contain identifiers
-          resource.id = state_resource.id
-
-          # Update resource if its properties have changed
-          Operations::Update.new(resource) unless resource.attributes.except(:id) == state_resource.attributes.except(:id)
+        @operations += configuration.changes.filter_map do |resource|
+          if resource.marked_for_creation?
+            Operations::Create.new(resource)
+          elsif resource.marked_for_deletion?
+            Operations::Destroy.new(resource)
+          elsif resource.changed?
+            Operations::Update.new(resource)
+          end
         end
-
-        # Remove state resources without corresponding configuration
-        @operations += state
-          .resources
-          .filter_map { |r| Operations::Destroy.new(r) unless configuration.resources.find { |s| s.address == r.address } }
 
         Kozo.logger.info "Kozo analyzed the state and created the following execution plan. Actions are indicated by the following symbols:"
         Operation.descendants.each { |o| Kozo.logger.info " #{o.display_symbol} #{o.name.demodulize.downcase}" }
