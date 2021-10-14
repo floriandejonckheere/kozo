@@ -42,7 +42,7 @@ module Kozo
       }
     end
 
-    def to_dsl
+    def to_s
       # Max attribute name length
       l = attribute_names.map(&:length).max || 1
 
