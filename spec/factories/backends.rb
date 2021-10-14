@@ -8,6 +8,8 @@ FactoryBot.define do
     directory { FFaker::Filesystem.directory }
   end
 
+  factory :memory_backend, parent: :backend, class: "Kozo::Backends::Memory"
+
   factory :local_backend, parent: :backend, class: "Kozo::Backends::Local" do
     directory { Dir.mktmpdir }
   end
