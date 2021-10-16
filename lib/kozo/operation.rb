@@ -15,16 +15,28 @@ module Kozo
     end
 
     def to_s
-      # Max attribute name length
-      l = resource.attribute_names.map(&:length).max || 1
+      resource_to_s
+    end
 
+    protected
+
+    def resource_to_s
       <<~DSL.chomp
         #{"# #{resource.address}:".bold}
         #{display_symbol} resource "#{resource.resource_name}", "#{resource.state_name}" do |r|
-          #{resource.attributes.map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp.truncate(75)}\"" }.join("\n  ")}
+          #{attributes_to_s}
         end
 
       DSL
+    end
+
+    def attributes_to_s
+      l = resource.attribute_names.map(&:length).max || 1
+
+      resource
+        .attributes
+        .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp.truncate(75)}\"" }
+        .join("\n  ")
     end
   end
 end
