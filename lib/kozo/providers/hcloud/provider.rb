@@ -11,7 +11,7 @@ module Kozo
         self.provider_name = "hcloud"
 
         def setup
-          ::HCloud::Client.connection ||= ::HCloud::Client.new(access_token: key)
+          ::HCloud::Client.connection = ::HCloud::Client.new(access_token: key)
         end
 
         def ==(other)
