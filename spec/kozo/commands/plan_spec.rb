@@ -16,7 +16,7 @@ RSpec.describe Kozo::Commands::Plan do
     expect { command.start }.to log <<~LOG.chomp
       # dummy.resource0:
       + resource "dummy", "resource0" do |r|
-           r.id          = ""
+           r.id          = (known after apply)
         +  r.name        = "name0"
         +  r.description = "description0"
       end
