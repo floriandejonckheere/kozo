@@ -72,33 +72,65 @@ module Kozo
       super.map(&:to_sym)
     end
 
-    protected
-
     ##
     # Refetch resource from remote infrastructure
     #
     def refresh!
-      raise NotImplementedError
+      Kozo.logger.info "#{address}: refreshing state"
+
+      refresh
+
+      Kozo.logger.info "#{address}: refreshed state"
     end
 
     ##
     # Create resource in remote infrastructure
     #
     def create!
-      raise NotImplementedError
+      Kozo.logger.info "#{address}: creating resource"
+
+      create
+
+      Kozo.logger.info "#{address}: created resource"
     end
 
     ##
     # Update resource in remote infrastructure
     #
     def update!
-      raise NotImplementedError
+      Kozo.logger.info "#{address}: updating resource"
+
+      update
+
+      Kozo.logger.info "#{address}: updated resource"
     end
 
     ##
     # Destroy resource in remote infrastructure
     #
     def destroy!
+      Kozo.logger.info "#{address}: destroying resource"
+
+      destroy
+
+      Kozo.logger.info "#{address}: destroyed resource"
+    end
+
+    protected
+
+    def refresh
+      raise NotImplementedError
+    end
+
+    def create
+      raise NotImplementedError
+    end
+
+    def update
+      raise NotImplementedError
+    end
+
+    def destroy
       raise NotImplementedError
     end
 
