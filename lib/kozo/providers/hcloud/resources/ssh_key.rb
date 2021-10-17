@@ -10,42 +10,30 @@ module Kozo
           attribute :name
           attribute :public_key
 
-          def refresh!
-            Kozo.logger.info "#{address}: refreshing state"
+          protected
 
+          def refresh
             ssh_key = ::HCloud::SSHKey.find(id)
 
             attribute_names
               .excluding(:id)
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
-
-            Kozo.logger.info "#{address}: refreshed state"
           end
 
-          def create!
-            Kozo.logger.info "#{address}: creating resource"
-
+          def create
             ssh_key = ::HCloud::SSHKey.new(**attributes.except(:id))
             ssh_key.create
 
             attribute_names
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
-
-            Kozo.logger.info "#{address}: created resource"
           end
 
-          def destroy!
-            Kozo.logger.info "#{address}: destroying resource"
-
+          def destroy
             ssh_key = ::HCloud::SSHKey.find(id)
             ssh_key.delete
-
-            Kozo.logger.info "#{address}: destroyed resource"
           end
 
-          def update!
-            Kozo.logger.info "#{address}: updating resource"
-
+          def update
             ssh_key = ::HCloud::SSHKey.find(id)
             ssh_key.name = name
             ssh_key.public_key = public_key
@@ -54,8 +42,6 @@ module Kozo
             attribute_names
               .excluding(:id)
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
-
-            Kozo.logger.info "#{address}: updated resource"
           end
         end
       end
