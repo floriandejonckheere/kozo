@@ -14,7 +14,7 @@ module Kozo
 
     module ClassMethods
       def argument(name, type = ActiveModel::Type::Value.new, **options)
-        name = name.to_s
+        name = name.to_sym
         type = ActiveModel::Type.lookup(type, **options.except(:default)) if type.is_a?(Symbol)
 
         self.argument_types = argument_types.merge(name => type)
