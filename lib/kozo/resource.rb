@@ -89,16 +89,16 @@ module Kozo
     end
 
     ##
-    # Destroy resource in remote infrastructure
+    # Update resource in remote infrastructure
     #
-    def destroy!
+    def update!
       raise NotImplementedError
     end
 
     ##
-    # Update resource in remote infrastructure
+    # Destroy resource in remote infrastructure
     #
-    def update!
+    def destroy!
       raise NotImplementedError
     end
 

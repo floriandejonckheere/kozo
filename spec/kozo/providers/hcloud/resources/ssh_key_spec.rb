@@ -54,23 +54,6 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
     end
   end
 
-  describe "#destroy!" do
-    it "destroys a resource" do
-      allow(ssh_key_class)
-        .to receive(:find)
-        .with(resource.id)
-        .and_return ssh_key
-
-      allow(ssh_key)
-        .to receive(:delete)
-
-      resource.destroy!
-
-      expect(ssh_key)
-        .to have_received(:delete)
-    end
-  end
-
   describe "#update!" do
     it "updates a resource" do
       ssh_key = OpenStruct.new(name: "new_name", public_key: "new_public_key", update: true)
@@ -90,6 +73,23 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
 
       expect(ssh_key.name).to eq "old_name"
       expect(ssh_key.public_key).to eq "old_public_key"
+    end
+  end
+
+  describe "#destroy!" do
+    it "destroys a resource" do
+      allow(ssh_key_class)
+        .to receive(:find)
+        .with(resource.id)
+        .and_return ssh_key
+
+      allow(ssh_key)
+        .to receive(:delete)
+
+      resource.destroy!
+
+      expect(ssh_key)
+        .to have_received(:delete)
     end
   end
 end

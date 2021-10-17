@@ -28,11 +28,6 @@ module Kozo
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
           end
 
-          def destroy
-            ssh_key = ::HCloud::SSHKey.find(id)
-            ssh_key.delete
-          end
-
           def update
             ssh_key = ::HCloud::SSHKey.find(id)
             ssh_key.name = name
@@ -42,6 +37,11 @@ module Kozo
             attribute_names
               .excluding(:id)
               .each { |attr| send(:"#{attr}=", ssh_key.send(attr)) }
+          end
+
+          def destroy
+            ssh_key = ::HCloud::SSHKey.find(id)
+            ssh_key.delete
           end
         end
       end
