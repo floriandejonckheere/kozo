@@ -93,3 +93,6 @@ Style/PercentLiteralDelimiters:
     "%r": "()"
     "%w": "()"
     "%W": "()"
+
+Style/WordArray:
+  EnforcedStyle: brackets

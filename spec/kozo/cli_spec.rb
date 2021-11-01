@@ -7,7 +7,7 @@ describe Kozo::CLI do
 
   describe "options" do
     describe "--directory" do
-      let(:args) { %w(--directory /foo/bar/..) }
+      let(:args) { ["--directory", "/foo/bar/.."] }
 
       it "sets the working directory" do
         cli
@@ -17,7 +17,7 @@ describe Kozo::CLI do
     end
 
     describe "--verbose" do
-      let(:args) { %w(--verbose) }
+      let(:args) { ["--verbose"] }
 
       it "turns on verbose output" do
         cli
@@ -27,7 +27,7 @@ describe Kozo::CLI do
     end
 
     describe "--help" do
-      let(:args) { %w(--help) }
+      let(:args) { ["--help"] }
 
       it "prints usage and exits" do
         expect { expect { cli }.to raise_error Kozo::ExitError }.to log "[global options]"
@@ -37,7 +37,7 @@ describe Kozo::CLI do
 
   describe "#start" do
     context "when no command is given" do
-      let(:args) { %w() }
+      let(:args) { [] }
 
       it "prints usage and exits" do
         expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
@@ -45,7 +45,7 @@ describe Kozo::CLI do
     end
 
     describe "a command without subcommands" do
-      let(:args) { %w(init foo) }
+      let(:args) { ["init", "foo"] }
 
       it "instantiates a command" do
         expect(Kozo::Commands::Init)
@@ -57,7 +57,7 @@ describe Kozo::CLI do
       end
 
       context "when an invalid command is given" do
-        let(:args) { %w(foo) }
+        let(:args) { ["foo"] }
 
         it "prints usage and exits" do
           expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
@@ -66,7 +66,7 @@ describe Kozo::CLI do
     end
 
     describe "a command with subcommands" do
-      let(:args) { %w(state list foo) }
+      let(:args) { ["state", "list", "foo"] }
 
       it "instantiates a subcommand" do
         expect(Kozo::Commands::State::List)
@@ -78,7 +78,7 @@ describe Kozo::CLI do
       end
 
       context "when no subcommand is given" do
-        let(:args) { %w(state) }
+        let(:args) { ["state"] }
 
         it "prints usage and exits" do
           expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
@@ -86,7 +86,7 @@ describe Kozo::CLI do
       end
 
       context "when an invalid subcommand is given" do
-        let(:args) { %w(state foo) }
+        let(:args) { ["state", "foo"] }
 
         it "prints usage and exits" do
           expect { expect { cli.start }.to raise_error Kozo::ExitError }.to log "[global options]"
