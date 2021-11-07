@@ -24,7 +24,7 @@ RSpec.describe Kozo::Providers::HCloud::Resources::Server do
   it { is_expected.to respond_to :ssh_keys, :ssh_keys= }
   it { is_expected.to respond_to :volumes, :volumes= }
 
-  it { is_expected.to have_arguments :automount, :start_after_create}
+  it { is_expected.to have_arguments :automount, :start_after_create }
 
   it "has a name" do
     expect(described_class.resource_name).to eq "hcloud_server"
