@@ -10,6 +10,9 @@ AllCops:
     - bin/**/*
   TargetRubyVersion: 3.0
 
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
 Layout/LineLength:
   Enabled: false
 
@@ -72,7 +75,7 @@ Style/Documentation:
   Enabled: false
 
 Style/DoubleNegation:
-  EnforcedStyle: forbidden
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

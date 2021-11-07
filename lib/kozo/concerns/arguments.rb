@@ -5,22 +5,34 @@ module Kozo
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :argument_types, :_default_arguments
+      class_attribute :argument_types, :argument_defaults
       attr_reader :arguments
 
       self.argument_types = {}
-      self._default_arguments = {}
+      self.argument_defaults = {}
     end
 
     module ClassMethods
-      def argument(name, type = ActiveModel::Type::Value.new, **options)
+      def argument(name, **options)
         name = name.to_sym
-        type = ActiveModel::Type.lookup(type, **options.except(:default)) if type.is_a?(Symbol)
+        type = options.fetch(:type) { ActiveModel::Type::Value.new }
+        type = ActiveModel::Type.lookup(type) if type.is_a?(Symbol)
 
-        self.argument_types = argument_types.merge(name => type)
-        _default_arguments[name] = options[:default]
+        self.argument_types = argument_types.merge(name => {
+          multiple: !!options[:multiple],
+          type: type,
+        })
 
-        attr_accessor name
+        argument_defaults[name] = options[:default]
+
+        define_method name do
+          @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
+        end
+        private name
+
+        define_method :"#{name}=" do |value|
+          @arguments[name] = argument_types[name][:type].cast(value)
+        end
       end
 
       def argument_names
@@ -29,7 +41,7 @@ module Kozo
     end
 
     def initialize(...)
-      @arguments = self.class._default_arguments.deep_dup
+      @arguments = self.class.argument_defaults.deep_dup
 
       super
     end
