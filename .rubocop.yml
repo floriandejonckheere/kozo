@@ -54,6 +54,7 @@ RSpec/ExampleLength:
 RSpec/FilePath:
   CustomTransform:
     HCloud: hcloud
+  SpecSuffixOnly: true
 
 RSpec/MessageSpies:
   Enabled: false
