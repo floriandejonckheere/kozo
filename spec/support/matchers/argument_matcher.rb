@@ -7,3 +7,5 @@ RSpec::Matchers.define :have_arguments do |expected|
     expect(actual.argument_names).to include expected
   end
 end
+
+RSpec::Matchers.alias_matcher :have_argument, :have_arguments

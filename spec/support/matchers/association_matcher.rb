@@ -7,3 +7,5 @@ RSpec::Matchers.define :have_associations do |expected|
     expect(actual.association_names).to include expected
   end
 end
+
+RSpec::Matchers.alias_matcher :have_association, :have_associations
