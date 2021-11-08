@@ -10,14 +10,7 @@ RSpec.describe Kozo::Providers::HCloud::Resources::Server do
 
   before { stub_const("HCloud::Server", server_class) }
 
-  it { is_expected.to respond_to :name, :name= }
-  it { is_expected.to respond_to :image, :image= }
-  it { is_expected.to respond_to :server_type, :server_type= }
-  it { is_expected.to respond_to :location, :location= }
-  it { is_expected.to respond_to :datacenter, :datacenter= }
-
-  it { is_expected.to respond_to :user_data, :user_data= }
-  it { is_expected.to respond_to :labels, :labels= }
+  it { is_expected.to have_attributes :name, :image, :server_type, :location, :datacenter, :user_data, :labels }
 
   it { is_expected.to have_associations :firewalls, :networks, :ssh_keys, :volumes }
 

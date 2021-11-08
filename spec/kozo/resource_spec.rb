@@ -3,7 +3,8 @@
 RSpec.describe Kozo::Resource do
   subject(:resource) { build(:dummy_resource, id: "id", state_name: "state_name") }
 
-  it { is_expected.to respond_to :id, :id= }
+  it { is_expected.to have_attribute :id }
+
   it { is_expected.to respond_to :provider, :provider= }
   it { is_expected.to respond_to :state_name, :state_name= }
 
@@ -12,14 +13,6 @@ RSpec.describe Kozo::Resource do
 
     it { is_expected.to respond_to :resource_name, :resource_name= }
     it { is_expected.to respond_to :provider_name, :provider_name= }
-  end
-
-  describe "constructor" do
-    subject(:resource) { described_class.new(id: "id") }
-
-    it "initializes with attributes" do
-      expect(resource.id).to eq "id"
-    end
   end
 
   describe "#address" do

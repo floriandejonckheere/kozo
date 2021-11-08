@@ -3,7 +3,5 @@
 RSpec.describe Kozo::Providers::Dummy::Resources::Dummy do
   subject(:resource) { build(:dummy_resource) }
 
-  it "has a name" do
-    expect(described_class.resource_name).to eq "dummy"
-  end
+  it { is_expected.to have_attribute :name }
 end

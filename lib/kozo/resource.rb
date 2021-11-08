@@ -2,9 +2,9 @@
 
 module Kozo
   class Resource
-    include ActiveModel::AttributeAssignment
-    include ActiveModel::Attributes
     include ActiveModel::Dirty
+
+    include Attributes
     include Arguments
     include Associations
     include Dirty
