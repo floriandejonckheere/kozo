@@ -19,10 +19,7 @@ RSpec.describe Kozo::Providers::HCloud::Resources::Server do
   it { is_expected.to respond_to :user_data, :user_data= }
   it { is_expected.to respond_to :labels, :labels= }
 
-  it { is_expected.to respond_to :firewalls, :firewalls= }
-  it { is_expected.to respond_to :networks, :networks= }
-  it { is_expected.to respond_to :ssh_keys, :ssh_keys= }
-  it { is_expected.to respond_to :volumes, :volumes= }
+  it { is_expected.to have_associations :firewalls, :networks, :ssh_keys, :volumes }
 
   it { is_expected.to have_arguments :automount, :start_after_create }
 

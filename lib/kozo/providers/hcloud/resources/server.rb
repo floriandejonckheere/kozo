@@ -16,10 +16,10 @@ module Kozo
           attribute :user_data
           attribute :labels
 
-          attribute :firewalls, default: []
-          attribute :networks, default: []
-          attribute :ssh_keys, default: []
-          attribute :volumes, default: []
+          association :firewalls, multiple: true
+          association :networks, multiple: true
+          association :ssh_keys, multiple: true
+          association :volumes, multiple: true
 
           argument :automount
           argument :start_after_create
