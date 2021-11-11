@@ -58,6 +58,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  ffi
   jekyll (~> 3.6.3)
   jekyll-feed (~> 0.6)
   just-the-docs
