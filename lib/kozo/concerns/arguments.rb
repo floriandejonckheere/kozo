@@ -25,14 +25,21 @@ module Kozo
 
         argument_defaults[name] = options[:default]
 
-        define_method name do
-          @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
+        # Define private getter (if not defined already)
+        unless method_defined? name
+          define_method name do
+            @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
+          end
+          private name
         end
-        private name
 
-        define_method :"#{name}=" do |value|
-          @arguments[name] = argument_types[name][:type].cast(value)
+        # Define setter (if not defined already), and force public visibility
+        unless method_defined? name
+          define_method :"#{name}=" do |value|
+            @arguments[name] = argument_types[name][:type].cast(value)
+          end
         end
+        public :"#{name}="
       end
 
       def argument_names

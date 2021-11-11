@@ -29,8 +29,8 @@ RSpec.describe Kozo::Attributes do
 
   describe "#attributes" do
     it "returns the attributes" do
-      object.single = "one"
-      object.multiple = ["two", "three"]
+      object.send(:single=, "one")
+      object.send(:multiple=, ["two", "three"])
 
       expect(object.attributes).to include single: "one", multiple: ["two", "three"]
     end
@@ -38,71 +38,71 @@ RSpec.describe Kozo::Attributes do
 
   describe "#single" do
     it "raises because the method is private" do
-      expect { object.single }.to raise_error NoMethodError
+      expect { object.single = "one" }.to raise_error NoMethodError
     end
 
     it "returns nil when uninitialized" do
-      expect(object.send(:single)).to eq nil
+      expect(object.single).to eq nil
     end
 
     it "returns the value" do
-      object.single = "one"
+      object.send(:single=, "one")
 
-      expect(object.send(:single)).to eq "one"
+      expect(object.single).to eq "one"
     end
   end
 
   describe "#multiple" do
     it "raises because the method is private" do
-      expect { object.multiple }.to raise_error NoMethodError
+      expect { object.multiple = ["two", "three"] }.to raise_error NoMethodError
     end
 
     it "returns empty when uninitialized" do
-      expect(object.send(:multiple)).to be_empty
+      expect(object.multiple).to be_empty
     end
 
     it "returns the value" do
-      object.multiple = ["two", "three"]
+      object.send(:multiple=, ["two", "three"])
 
-      expect(object.send(:multiple)).to match_array ["two", "three"]
+      expect(object.multiple).to match_array ["two", "three"]
     end
 
     it "appends to the array" do
-      object.send(:multiple) << "four"
+      object.multiple << "four"
 
-      expect(object.send(:multiple)).to match_array ["four"]
+      expect(object.multiple).to match_array ["four"]
     end
   end
 
   describe "#type" do
     it "raises because the method is private" do
-      expect { object.type }.to raise_error NoMethodError
+      expect { object.type = "1" }.to raise_error NoMethodError
     end
 
     it "returns nil when uninitialized" do
-      expect(object.send(:type)).to eq nil
+      expect(object.type).to eq nil
     end
 
     it "returns the value" do
-      object.type = "1"
+      object.send(:type=, "1")
 
-      expect(object.send(:type)).to eq 1
+      expect(object.type).to eq 1
     end
   end
 
   describe "#default" do
     it "raises because the method is private" do
-      expect { object.default }.to raise_error NoMethodError
+      expect { object.default = "value" }.to raise_error NoMethodError
     end
 
     it "returns the default when uninitialized" do
-      expect(object.send(:default)).to eq "a_default"
+      expect(object.default).to eq "a_default"
     end
 
     it "returns the value" do
-      object.default = "value"
+      object.send(:default=, "value")
 
-      expect(object.send(:default)).to eq "value"
+      expect(object.default).to eq "value"
     end
   end
 end

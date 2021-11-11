@@ -13,6 +13,7 @@ module Kozo
     end
 
     module ClassMethods
+      # rubocop:disable Style/GuardClause
       def attribute(name, **options)
         name = name.to_sym
         type = options.fetch(:type) { ActiveModel::Type::Value.new }
@@ -25,15 +26,23 @@ module Kozo
 
         attribute_defaults[name] = options[:default]
 
-        define_method name do
-          @attributes[name] ||= (attribute_defaults[name].dup || attribute_types[name][:multiple] ? [] : nil)
+        # Define public getter (if not defined already), and force public visibility
+        unless method_defined? name
+          define_method name do
+            @attributes[name] ||= (attribute_defaults[name].dup || attribute_types[name][:multiple] ? [] : nil)
+          end
         end
-        private name
+        public name
 
-        define_method :"#{name}=" do |value|
-          @attributes[name] = attribute_types[name][:type].cast(value)
+        # Define private setter (if not defined already)
+        unless method_defined? :"#{name}="
+          define_method :"#{name}=" do |value|
+            @attributes[name] = attribute_types[name][:type].cast(value)
+          end
+          private :"#{name}="
         end
       end
+      # rubocop:enable Style/GuardClause
 
       def attribute_names
         attribute_types.keys
