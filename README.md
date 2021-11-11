@@ -20,6 +20,12 @@ Execute `kozo --help` to see all available commands and their arguments.
 
 See [TUTORIAL.md](TUTORIAL.md) for a quick tutorial on how to work with Kozo.
 
+## Documentation
+
+A documentation site is provided at `docs/`.
+Run `bundle exec jekyll serve` to build and serve the site locally.
+Once pushed to Github, the documentation site is automatically built and published.
+
 ## Release
 
 Update the changelog and bump the version using the `bin/version` tool.
