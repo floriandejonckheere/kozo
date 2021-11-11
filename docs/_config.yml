@@ -16,7 +16,7 @@
 title: Kozo
 description: Declaratively create, modify and destroy cloud infrastructure in your favourite language
 email: info@kozo.dev
-baseurl: "/docs/" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://kozo.dev" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
 github_username:  floriandejonckheere
