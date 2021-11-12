@@ -61,14 +61,6 @@ module Kozo
         .tap { |r| r.state_name = hash.dig(:meta, :name) }
     end
 
-    def attributes
-      super.symbolize_keys
-    end
-
-    def attribute_names
-      super.map(&:to_sym)
-    end
-
     ##
     # Refetch resource from remote infrastructure
     #
