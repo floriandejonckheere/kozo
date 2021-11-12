@@ -7,6 +7,8 @@ module Kozo
     include Attributes
     include Arguments
     include Associations
+
+    include Assignment
     include Dirty
 
     attr_accessor :provider, :state_name
@@ -14,12 +16,6 @@ module Kozo
     attribute :id
 
     class_attribute :resource_name, :provider_name
-
-    def initialize(attributes = {})
-      super()
-
-      assign_attributes(attributes) if attributes
-    end
 
     def address
       "#{resource_name}.#{state_name}"
