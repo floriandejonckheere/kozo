@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :resource, class: "Kozo::Resource" do
+    initialize_with { new(**attributes) }
+
     id { SecureRandom.hex }
     state_name { FFaker::Lorem.word.downcase }
 
