@@ -35,7 +35,10 @@ module Kozo
         attribute_defaults[name] = options[:default]
 
         # Define public getter (if not defined already), and force public visibility
-        define_method(name) { read_attribute(name) } unless method_defined? name
+        unless method_defined? name
+          define_method(name) { read_attribute(name) }
+          define_method(:"#{name}?") { !!read_attribute(name) }
+        end
         public name
 
         # Define private setter (if not defined already)

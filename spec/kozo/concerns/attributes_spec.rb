@@ -49,6 +49,7 @@ RSpec.describe Kozo::Attributes do
       object.send(:single=, "one")
 
       expect(object.single).to eq "one"
+      expect(object).to be_single
     end
   end
 
@@ -65,6 +66,7 @@ RSpec.describe Kozo::Attributes do
       object.send(:multiple=, ["two", "three"])
 
       expect(object.multiple).to match_array ["two", "three"]
+      expect(object).to be_multiple
     end
 
     it "appends to the array" do
@@ -87,6 +89,7 @@ RSpec.describe Kozo::Attributes do
       object.send(:type=, "1")
 
       expect(object.type).to eq 1
+      expect(object).to be_type
     end
   end
 
@@ -103,6 +106,7 @@ RSpec.describe Kozo::Attributes do
       object.send(:default=, "value")
 
       expect(object.default).to eq "value"
+      expect(object).to be_default
     end
   end
 end

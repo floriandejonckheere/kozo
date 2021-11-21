@@ -36,6 +36,8 @@ module Kozo
         # Define private getter (if not defined already)
         unless method_defined? name
           define_method(name) { read_argument(name) }
+          define_method(:"#{name}?") { !!read_attribute(name) }
+
           private name
         end
 
