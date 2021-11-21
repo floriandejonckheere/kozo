@@ -10,6 +10,14 @@ module Kozo
 
       self.attribute_types = {}
       self.attribute_defaults = {}
+
+      def read_attribute(name)
+        @attributes[name] ||= (attribute_defaults[name].dup || attribute_types[name][:multiple] ? [] : nil)
+      end
+
+      def write_attribute(name, value)
+        @attributes[name] = attribute_types[name][:type].cast(value)
+      end
     end
 
     module ClassMethods
@@ -27,18 +35,13 @@ module Kozo
         attribute_defaults[name] = options[:default]
 
         # Define public getter (if not defined already), and force public visibility
-        unless method_defined? name
-          define_method name do
-            @attributes[name] ||= (attribute_defaults[name].dup || attribute_types[name][:multiple] ? [] : nil)
-          end
-        end
+        define_method(name) { read_attribute(name) } unless method_defined? name
         public name
 
         # Define private setter (if not defined already)
         unless method_defined? :"#{name}="
-          define_method :"#{name}=" do |value|
-            @attributes[name] = attribute_types[name][:type].cast(value)
-          end
+          define_method(:"#{name}=") { |value| write_attribute(name, value) }
+
           private :"#{name}="
         end
       end

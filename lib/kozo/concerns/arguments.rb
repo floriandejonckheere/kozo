@@ -10,6 +10,14 @@ module Kozo
 
       self.argument_types = {}
       self.argument_defaults = {}
+
+      def read_argument(name)
+        @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
+      end
+
+      def write_argument(name, value)
+        @arguments[name] = argument_types[name][:type].cast(value)
+      end
     end
 
     module ClassMethods
@@ -27,18 +35,12 @@ module Kozo
 
         # Define private getter (if not defined already)
         unless method_defined? name
-          define_method name do
-            @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
-          end
+          define_method(name) { read_argument(name) }
           private name
         end
 
         # Define setter (if not defined already), and force public visibility
-        unless method_defined? name
-          define_method :"#{name}=" do |value|
-            @arguments[name] = argument_types[name][:type].cast(value)
-          end
-        end
+        define_method(:"#{name}=") { |value| write_argument(name, value) } unless method_defined? name
         public :"#{name}="
       end
 
