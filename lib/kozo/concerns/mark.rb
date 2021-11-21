@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Kozo
-  module Dirty
+  module Mark
     def mark_for_deletion!
       @status = :delete
     end

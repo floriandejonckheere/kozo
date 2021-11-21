@@ -9,7 +9,7 @@ module Kozo
     include Associations
 
     include Assignment
-    include Dirty
+    include Mark
 
     attr_accessor :provider, :state_name
 
