@@ -16,7 +16,11 @@ module Kozo
       end
 
       def write_attribute(name, value)
-        @attributes[name] = attribute_types[name][:type].cast(value)
+        @attributes[name] = if attribute_types[name][:multiple]
+                              value.map { |v| attribute_types[name][:type].cast(v) }
+                            else
+                              attribute_types[name][:type].cast(value)
+                            end
       end
     end
 
@@ -24,8 +28,7 @@ module Kozo
       # rubocop:disable Style/GuardClause
       def attribute(name, **options)
         name = name.to_sym
-        type = options.fetch(:type) { ActiveModel::Type::Value.new }
-        type = ActiveModel::Type.lookup(type) if type.is_a?(Symbol)
+        type = Type.lookup(options.fetch(:type, :string))
 
         self.attribute_types = attribute_types.merge(name => {
           multiple: !!options[:multiple],

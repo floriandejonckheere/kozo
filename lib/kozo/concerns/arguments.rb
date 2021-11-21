@@ -16,15 +16,18 @@ module Kozo
       end
 
       def write_argument(name, value)
-        @arguments[name] = argument_types[name][:type].cast(value)
+        @arguments[name] = if argument_types[name][:multiple]
+                             value.map { |v| argument_types[name][:type].cast(v) }
+                           else
+                             argument_types[name][:type].cast(value)
+                           end
       end
     end
 
     module ClassMethods
       def argument(name, **options)
         name = name.to_sym
-        type = options.fetch(:type) { ActiveModel::Type::Value.new }
-        type = ActiveModel::Type.lookup(type) if type.is_a?(Symbol)
+        type = Type.lookup(options.fetch(:type, :string))
 
         self.argument_types = argument_types.merge(name => {
           multiple: !!options[:multiple],
@@ -36,7 +39,7 @@ module Kozo
         # Define private getter (if not defined already)
         unless method_defined? name
           define_method(name) { read_argument(name) }
-          define_method(:"#{name}?") { !!read_attribute(name) }
+          define_method(:"#{name}?") { !!read_argument(name) }
 
           private name
         end
