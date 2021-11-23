@@ -5,10 +5,8 @@ module Kozo
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :association_types
+      class_attribute :association_types, default: {}
       attr_reader :associations
-
-      self.association_types = {}
     end
 
     module ClassMethods

@@ -5,10 +5,8 @@ module Kozo
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :argument_types, :argument_defaults
-
-      self.argument_types = {}
-      self.argument_defaults = {}
+      class_attribute :argument_types, default: {}
+      class_attribute :argument_defaults, default: {}
 
       def read_argument(name)
         instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (argument_defaults[name].dup || (argument_types[name][:multiple] ? [] : nil)))

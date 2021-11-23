@@ -5,10 +5,8 @@ module Kozo
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :attribute_types, :attribute_defaults
-
-      self.attribute_types = {}
-      self.attribute_defaults = {}
+      class_attribute :attribute_types, default: {}
+      class_attribute :attribute_defaults, default: {}
 
       def read_attribute(name)
         instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_defaults[name].dup || (attribute_types[name][:multiple] ? [] : nil)))
