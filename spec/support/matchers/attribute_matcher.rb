@@ -2,9 +2,9 @@
 
 RSpec::Matchers.define :have_attributes do |expected|
   match do |actual|
-    @actual = actual.argument_names
+    @actual = actual.attribute_names
 
-    expect(actual.argument_names).to include expected
+    expect(actual.attribute_names).to include expected
   end
 end
 
