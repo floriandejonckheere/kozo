@@ -32,6 +32,7 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
+  Max: 30
   Exclude:
     - spec/**/*
     - "*.gemspec"

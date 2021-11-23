@@ -8,6 +8,24 @@ module Kozo
       class_attribute :attribute_types, default: {}
       class_attribute :attribute_defaults, default: {}
 
+      def initialize(...)
+        @attributes = self.class.attribute_defaults.deep_dup
+
+        super
+      end
+
+      def attributes
+        attribute_names
+          .map { |name| [name, read_attribute(name)] }
+          .to_h
+      end
+
+      def attribute_names
+        @attributes.keys
+      end
+
+      private
+
       def read_attribute(name)
         instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_defaults[name].dup || (attribute_types[name][:multiple] ? [] : nil)))
       end
@@ -57,22 +75,6 @@ module Kozo
       def attribute_names
         attribute_types.keys
       end
-    end
-
-    def initialize(...)
-      @attributes = self.class.attribute_defaults.deep_dup
-
-      super
-    end
-
-    def attributes
-      attribute_names
-        .map { |name| [name, read_attribute(name)] }
-        .to_h
-    end
-
-    def attribute_names
-      @attributes.keys
     end
   end
 end
