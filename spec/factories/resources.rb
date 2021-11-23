@@ -7,7 +7,7 @@ FactoryBot.define do
     id { SecureRandom.hex }
     state_name { FFaker::Lorem.word.downcase }
 
-    # Persist changes after build, because FactoryBot uses accessors to set attributes
-    after(:build, &:changes_applied)
+    # Clear dirty state of object
+    after(:build, &:clear_changes)
   end
 end

@@ -24,7 +24,7 @@ module Kozo
           .state
           .resources
           .map(&:dup)
-          .each(&:changes_applied)
+          .each(&:clear_changes)
           .each do |resource|
           configured = resources.find { |r| r.address == resource.address }
 
