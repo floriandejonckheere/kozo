@@ -11,7 +11,8 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
   before { stub_const("HCloud::SSHKey", ssh_key_class) }
 
   it { is_expected.to have_arguments :name, :public_key, :labels }
-  it { is_expected.to have_attributes :name, :public_key, :fingerprint, :labels, :created }
+
+  it { is_expected.to have_attributes :name, :public_key, :labels, :created }
 
   it "has a name" do
     expect(described_class.resource_name).to eq "hcloud_ssh_key"

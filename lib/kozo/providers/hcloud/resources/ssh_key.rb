@@ -13,11 +13,9 @@ module Kozo
 
           attribute :name
           attribute :public_key
-
-          attribute :fingerprint
-
-          attribute :created
           attribute :labels, multiple: true
+
+          attribute :created, type: :time
         end
       end
     end
