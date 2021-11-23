@@ -15,6 +15,8 @@ module Kozo
       end
 
       def write_argument(name, value)
+        try(:track_change!, name, value)
+
         value = if argument_types[name][:multiple]
                   value.map { |v| argument_types[name][:type].cast(v) }
                 else

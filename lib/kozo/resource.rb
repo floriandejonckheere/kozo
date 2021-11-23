@@ -2,14 +2,13 @@
 
 module Kozo
   class Resource
-    include ActiveModel::Dirty
-
     include Attributes
     include Arguments
     include Associations
 
     include Assignment
     include Mark
+    include Track
 
     attr_accessor :provider, :state_name
 
