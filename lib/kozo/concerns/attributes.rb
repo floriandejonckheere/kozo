@@ -43,16 +43,21 @@ module Kozo
       end
     end
 
-    module ClassMethods
+    class_methods do
+      def inherited(sub_class)
+        sub_class.attribute_types = attribute_types.clone
+        sub_class.attribute_defaults = attribute_defaults.clone
+      end
+
       # rubocop:disable Style/GuardClause
       def attribute(name, **options)
         name = name.to_sym
         type = Type.lookup(options.fetch(:type, :string))
 
-        self.attribute_types = attribute_types.merge(name => {
+        attribute_types[name] = {
           multiple: !!options[:multiple],
           type: type,
-        })
+        }
 
         attribute_defaults[name] = options[:default]
 

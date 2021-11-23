@@ -43,15 +43,20 @@ module Kozo
       end
     end
 
-    module ClassMethods
+    class_methods do
+      def inherited(sub_class)
+        sub_class.argument_types = argument_types.clone
+        sub_class.argument_defaults = argument_defaults.clone
+      end
+
       def argument(name, **options)
         name = name.to_sym
         type = Type.lookup(options.fetch(:type, :string))
 
-        self.argument_types = argument_types.merge(name => {
+        argument_types[name] = {
           multiple: !!options[:multiple],
           type: type,
-        })
+        }
 
         argument_defaults[name] = options[:default]
 
