@@ -6,21 +6,22 @@ module Kozo
 
     included do
       class_attribute :attribute_types, :attribute_defaults
-      attr_reader :attributes
 
       self.attribute_types = {}
       self.attribute_defaults = {}
 
       def read_attribute(name)
-        @attributes[name] ||= (attribute_defaults[name].dup || attribute_types[name][:multiple] ? [] : nil)
+        instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_defaults[name].dup || (attribute_types[name][:multiple] ? [] : nil)))
       end
 
       def write_attribute(name, value)
-        @attributes[name] = if attribute_types[name][:multiple]
-                              value.map { |v| attribute_types[name][:type].cast(v) }
-                            else
-                              attribute_types[name][:type].cast(value)
-                            end
+        value = if attribute_types[name][:multiple]
+                  value.map { |v| attribute_types[name][:type].cast(v) }
+                else
+                  attribute_types[name][:type].cast(value)
+                end
+
+        instance_variable_set(:"@#{name}", value)
       end
     end
 
@@ -62,6 +63,12 @@ module Kozo
       @attributes = self.class.attribute_defaults.deep_dup
 
       super
+    end
+
+    def attributes
+      attribute_names
+        .map { |name| [name, read_attribute(name)] }
+        .to_h
     end
 
     def attribute_names

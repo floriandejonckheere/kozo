@@ -6,21 +6,22 @@ module Kozo
 
     included do
       class_attribute :argument_types, :argument_defaults
-      attr_reader :arguments
 
       self.argument_types = {}
       self.argument_defaults = {}
 
       def read_argument(name)
-        @arguments[name] ||= (argument_defaults[name].dup || argument_types[name][:multiple] ? [] : nil)
+        instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (argument_defaults[name].dup || (argument_types[name][:multiple] ? [] : nil)))
       end
 
       def write_argument(name, value)
-        @arguments[name] = if argument_types[name][:multiple]
-                             value.map { |v| argument_types[name][:type].cast(v) }
-                           else
-                             argument_types[name][:type].cast(value)
-                           end
+        value = if argument_types[name][:multiple]
+                  value.map { |v| argument_types[name][:type].cast(v) }
+                else
+                  argument_types[name][:type].cast(value)
+                end
+
+        instance_variable_set(:"@#{name}", value)
       end
     end
 
@@ -58,6 +59,12 @@ module Kozo
       @arguments = self.class.argument_defaults.deep_dup
 
       super
+    end
+
+    def arguments
+      argument_names
+        .map { |name| [name, read_argument(name)] }
+        .to_h
     end
 
     def argument_names
