@@ -27,6 +27,8 @@ module Kozo
 
     class_methods do
       def inherited(sub_class)
+        super
+
         sub_class.argument_types = argument_types.clone
         sub_class.argument_defaults = argument_defaults.clone
       end

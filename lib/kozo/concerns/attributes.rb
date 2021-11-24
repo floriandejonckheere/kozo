@@ -27,6 +27,8 @@ module Kozo
 
     class_methods do
       def inherited(sub_class)
+        super
+
         sub_class.attribute_types = attribute_types.clone
         sub_class.attribute_defaults = attribute_defaults.clone
       end
