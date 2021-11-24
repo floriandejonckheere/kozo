@@ -7,6 +7,8 @@ FactoryBot.define do
 
   factory :hcloud_resource, parent: :resource, class: "Kozo::Providers::HCloud::Resource" do
     provider { build(:hcloud) }
+
+    id { FFaker::Random.rand(111_111_111..999_999_999) }
   end
 
   factory :hcloud_ssh_key, parent: :hcloud_resource, class: "Kozo::Providers::HCloud::Resources::SSHKey" do
