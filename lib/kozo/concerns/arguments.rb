@@ -8,24 +8,6 @@ module Kozo
       class_attribute :argument_types, default: {}
       class_attribute :argument_defaults, default: {}
 
-      def initialize(...)
-        @arguments = self.class.argument_defaults.deep_dup
-
-        super
-      end
-
-      def arguments
-        argument_names
-          .map { |name| [name, read_argument(name)] }
-          .to_h
-      end
-
-      def argument_names
-        @arguments.keys
-      end
-
-      private
-
       def read_argument(name)
         instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (argument_defaults[name].dup || (argument_types[name][:multiple] ? [] : nil)))
       end
@@ -76,6 +58,22 @@ module Kozo
       def argument_names
         argument_types.keys
       end
+    end
+
+    def initialize(...)
+      @arguments = self.class.argument_defaults.deep_dup
+
+      super
+    end
+
+    def arguments
+      argument_names
+        .map { |name| [name, read_argument(name)] }
+        .to_h
+    end
+
+    def argument_names
+      @arguments.keys
     end
   end
 end
