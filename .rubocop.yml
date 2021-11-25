@@ -78,6 +78,9 @@ Style/Documentation:
 Style/DoubleNegation:
   Enabled: false
 
+Style/OpenStructUse:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

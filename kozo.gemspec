@@ -25,6 +25,10 @@ Gem::Specification.new do |spec|
   spec.executables   = ["bin/kozo"]
   spec.require_paths = ["lib"]
 
+  spec.metadata = {
+    "rubygems_mfa_required" => "true",
+  }
+
   spec.add_runtime_dependency "activemodel", "~> 6.0"
   spec.add_runtime_dependency "activesupport", "~> 6.0"
   spec.add_runtime_dependency "colorize", "~> 0.8"
