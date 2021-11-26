@@ -33,12 +33,12 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
   end
 
   describe "#create!" do
-    it "creates a resgit_specource" do
+    it "creates a resource" do
       ssh_key = OpenStruct.new(id: 12_345, name: "new_name", public_key: "new_public_key", create: true)
 
       allow(ssh_key_class)
         .to receive(:new)
-        .with(name: "old_name", public_key: "old_public_key")
+        .with(include name: "old_name", public_key: "old_public_key")
         .and_return ssh_key
 
       allow(ssh_key)
