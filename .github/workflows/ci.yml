@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apk add build-base curl-dev git
+          apk add build-base curl-dev git tzdata
           apk add tar
 
       - name: Cache Gems
