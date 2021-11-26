@@ -19,6 +19,12 @@ RSpec.describe Kozo::Track do
       expect(object).not_to be_changed
     end
 
+    it "is not changed when it is the same value" do
+      object.property = nil
+
+      expect(object).not_to be_changed
+    end
+
     it "is changed when changing a property" do
       object.property = "property"
 

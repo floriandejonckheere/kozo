@@ -24,7 +24,7 @@ module Kozo
       end
 
       def track_change!(name, value)
-        changes[name] = [send(name), value]
+        changes[name] = [send(name), value] unless send(name) == value
       end
     end
 
