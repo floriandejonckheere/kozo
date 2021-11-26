@@ -16,7 +16,7 @@ module Kozo
         try(:track_change!, name, value)
 
         value = if argument_types[name][:multiple]
-                  value.map { |v| argument_types[name][:type].cast(v) }
+                  Array(value).map { |v| argument_types[name][:type].cast(v) }
                 else
                   argument_types[name][:type].cast(value)
                 end
