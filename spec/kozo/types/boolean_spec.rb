@@ -4,8 +4,8 @@ RSpec.describe Kozo::Types::Boolean do
   subject(:type) { described_class.new }
 
   describe ".cast" do
-    it "casts a falsy value" do
-      described_class::FALSE_VALUES.each do |value|
+    described_class::FALSE_VALUES.each do |value|
+      it "casts a falsey value: #{value}" do
         expect(described_class.cast(value)).to eq false
       end
     end
