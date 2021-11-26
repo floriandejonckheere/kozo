@@ -37,6 +37,8 @@ module Kozo
         name = name.to_sym
         type = Type.lookup(options.fetch(:type, :string))
 
+        try(:track, name)
+
         argument_types[name] = {
           multiple: !!options[:multiple],
           type: type,

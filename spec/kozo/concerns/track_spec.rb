@@ -48,4 +48,32 @@ RSpec.describe Kozo::Track do
       expect(object.property).to eq "one"
     end
   end
+
+  describe "#*_change" do
+    it "returns the change" do
+      object.property = "property"
+
+      expect(object.property_change).to eq [nil, "property"]
+    end
+  end
+
+  describe "#*_changed?" do
+    it "returns true if it changed" do
+      object.property = "property"
+
+      expect(object).to be_property_changed
+    end
+
+    it "returns false if it did not change" do
+      expect(object).not_to be_property_changed
+    end
+  end
+
+  describe "#*_was" do
+    it "returns the previous value" do
+      object.property = "property"
+
+      expect(object.property_was).to eq nil
+    end
+  end
 end
