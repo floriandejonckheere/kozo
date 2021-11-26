@@ -4,7 +4,9 @@ module Kozo
   module Types
     class String < Type
       def self.cast(value)
-        value.to_s
+        return unless value
+
+        send :String, value
       end
 
       def self.serialize(value)

@@ -4,6 +4,10 @@ RSpec.describe Kozo::Types::Float do
   subject(:type) { described_class.new }
 
   describe ".cast" do
+    it "does not cast nil" do
+      expect(described_class.cast(nil)).to eq nil
+    end
+
     it "casts a float value" do
       expect(described_class.cast("3.14")).to eq 3.14
       expect(described_class.cast("3")).to eq 3.0
@@ -15,6 +19,10 @@ RSpec.describe Kozo::Types::Float do
   end
 
   describe ".serialize" do
+    it "does not serialize nil" do
+      expect(described_class.serialize(nil)).to eq nil
+    end
+
     it "serializes floats correctly" do
       expect(described_class.serialize(3.14)).to eq 3.14
     end

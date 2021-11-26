@@ -4,11 +4,13 @@ module Kozo
   module Types
     class Time < Type
       def self.cast(value)
+        return unless value
+
         ::Time.parse(value)
       end
 
       def self.serialize(value)
-        value.iso8601
+        value&.iso8601
       end
     end
   end

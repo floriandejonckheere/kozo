@@ -17,6 +17,8 @@ module Kozo
       # rubocop:enable Lint/BooleanSymbol
 
       def self.cast(value)
+        return if value.nil?
+
         !FALSE_VALUES.include?(value)
       end
 
