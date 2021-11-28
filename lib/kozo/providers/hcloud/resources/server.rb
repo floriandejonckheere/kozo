@@ -15,7 +15,7 @@ module Kozo
 
           argument :user_data
 
-          argument :labels, multiple: true
+          argument :labels, type: :hash
 
           argument :ssh_keys, multiple: true
 
@@ -29,7 +29,7 @@ module Kozo
 
           attribute :locked, type: :boolean
 
-          attribute :labels, multiple: true
+          attribute :labels, type: :hash
 
           attribute :created, type: :time
 
