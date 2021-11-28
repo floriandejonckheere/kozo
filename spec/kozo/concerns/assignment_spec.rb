@@ -7,13 +7,11 @@ RSpec.describe Kozo::Assignment do
     Class.new do
       include Kozo::Arguments
       include Kozo::Attributes
-      include Kozo::Associations
 
       include Kozo::Assignment
 
       argument :argument
       attribute :attribute
-      association :association
     end
   end
 
@@ -29,12 +27,6 @@ RSpec.describe Kozo::Assignment do
 
       expect(object.attribute).to eq "an_attribute"
     end
-
-    it "assigns associations" do
-      object = object_class.new(association: "an_association")
-
-      expect(object.association).to eq "an_association"
-    end
   end
 
   describe "#assign_attributes" do
@@ -48,12 +40,6 @@ RSpec.describe Kozo::Assignment do
       object.assign_attributes(attribute: "an_attribute")
 
       expect(object.attribute).to eq "an_attribute"
-    end
-
-    it "assigns associations" do
-      object.assign_attributes(association: "an_association")
-
-      expect(object.association).to eq "an_association"
     end
   end
 end

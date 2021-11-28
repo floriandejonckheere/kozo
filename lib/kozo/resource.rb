@@ -4,7 +4,6 @@ module Kozo
   class Resource
     include Attributes
     include Arguments
-    include Associations
 
     include Assignment
     include Mark
