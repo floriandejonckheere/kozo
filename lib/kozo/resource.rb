@@ -39,19 +39,6 @@ module Kozo
       }
     end
 
-    def to_s
-      # Max attribute name length
-      l = attribute_names.map(&:length).max || 1
-
-      <<~DSL.chomp
-        #{"# #{address}:".bold}
-        resource "#{resource_name}", "#{state_name}" do |r|
-          #{attributes.map { |k, v| "r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp}\"" }.join("\n  ")}
-        end
-
-      DSL
-    end
-
     def self.from_h(hash)
       Kozo
         .container

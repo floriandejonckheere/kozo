@@ -56,7 +56,7 @@ module Kozo
 
           raise StateError, "no such resource address: #{address}" unless resource
 
-          Kozo.logger.info resource.to_s
+          Kozo.logger.info Operations::Show.new(resource).to_s
         end
       end
     end

@@ -8,7 +8,7 @@ module Kozo
       def start
         state
           .resources
-          .each { |r| Kozo.logger.info r.to_s }
+          .each { |r| Kozo.logger.info Operations::Show.new(r).to_s }
       end
     end
   end
