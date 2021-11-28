@@ -7,18 +7,6 @@ module Kozo
         class Server < Resource
           self.resource_name = "hcloud_server"
 
-          argument :name
-          argument :image
-          argument :server_type
-          argument :location
-          argument :datacenter
-
-          argument :user_data
-
-          argument :labels, type: :hash
-
-          argument :ssh_keys, multiple: true
-
           attribute :name
           attribute :image
           attribute :server_type
@@ -27,13 +15,13 @@ module Kozo
 
           attribute :user_data
 
-          attribute :locked, type: :boolean
-
           attribute :labels, type: :hash
 
-          attribute :created, type: :time
+          attribute :ssh_keys, multiple: true
 
-          association :ssh_keys, multiple: true
+          attribute :locked, argument: false, type: :boolean
+
+          attribute :created, argument: false, type: :time
         end
       end
     end

@@ -6,10 +6,9 @@ module Kozo
 
     included do
       class_attribute :attribute_types, default: {}
-      class_attribute :attribute_defaults, default: {}
 
       def read_attribute(name)
-        instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_defaults[name].dup || (attribute_types[name][:multiple] ? [] : nil)))
+        instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_types[name][:default].dup || (attribute_types[name][:multiple] ? [] : nil)))
       end
 
       def write_attribute(name, value)
@@ -25,54 +24,57 @@ module Kozo
       end
     end
 
+    # rubocop:disable Metrics/BlockLength
     class_methods do
       def inherited(sub_class)
         super
 
         sub_class.attribute_types = attribute_types.clone
-        sub_class.attribute_defaults = attribute_defaults.clone
       end
 
-      # rubocop:disable Style/GuardClause
       def attribute(name, **options)
         name = name.to_sym
         type = Type.lookup(options.fetch(:type, :string))
 
         try(:track, name)
 
-        attribute_types[name] = {
+        options = attribute_types[name] = {
           multiple: !!options[:multiple],
+          attribute: !!options.fetch(:attribute, true),
+          argument: !!options.fetch(:argument, true),
           type: type,
+          default: options[:default],
         }
 
-        attribute_defaults[name] = options[:default]
-
-        # Define public getter (if not defined already), and force public visibility
+        # Define getter
         unless method_defined? name
           define_method(name) { read_attribute(name) }
           define_method(:"#{name}?") { !!read_attribute(name) }
         end
-        public name
 
-        # Define private setter (if not defined already)
-        unless method_defined? :"#{name}="
-          define_method(:"#{name}=") { |value| write_attribute(name, value) }
+        # Set visibility to public if it's an attribute
+        options[:attribute] ? public(name) : private(name)
 
-          private :"#{name}="
-        end
+        # Define setter
+        define_method(:"#{name}=") { |value| write_attribute(name, value) } unless method_defined? :"#{name}="
+
+        # Set visibility to public if it's an argument
+        options[:argument] ? public(:"#{name}=") : private(:"#{name}=")
       end
-      # rubocop:enable Style/GuardClause
 
       def attribute_names
-        attribute_types.keys
+        @attribute_names ||= attribute_types
+          .select { |_k, v| v[:attribute] }
+          .keys
+      end
+
+      def argument_names
+        @argument_names ||= attribute_types
+          .select { |_k, v| v[:argument] }
+          .keys
       end
     end
-
-    def initialize(...)
-      @attributes = self.class.attribute_defaults.deep_dup
-
-      super
-    end
+    # rubocop:enable Metrics/BlockLength
 
     def attributes
       attribute_names
@@ -80,8 +82,13 @@ module Kozo
         .to_h
     end
 
-    def attribute_names
-      @attributes.keys
+    def arguments
+      argument_names
+        .map { |name| [name, read_attribute(name)] }
+        .to_h
     end
+
+    delegate :attribute_names, to: :class
+    delegate :argument_names, to: :class
   end
 end

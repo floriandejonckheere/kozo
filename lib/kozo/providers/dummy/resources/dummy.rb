@@ -7,9 +7,6 @@ module Kozo
         class Dummy < Resource
           self.resource_name = "dummy"
 
-          argument :name
-          argument :description
-
           attribute :name
           attribute :description
         end

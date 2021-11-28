@@ -5,12 +5,10 @@ RSpec.describe Kozo::Assignment do
 
   let(:object_class) do
     Class.new do
-      include Kozo::Arguments
       include Kozo::Attributes
 
       include Kozo::Assignment
 
-      argument :argument
       attribute :attribute
     end
   end

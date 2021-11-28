@@ -3,7 +3,6 @@
 module Kozo
   class Resource
     include Attributes
-    include Arguments
 
     include Assignment
     include Mark
