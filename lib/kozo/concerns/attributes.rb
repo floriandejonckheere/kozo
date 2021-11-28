@@ -8,7 +8,12 @@ module Kozo
       class_attribute :attribute_types, default: {}
 
       def read_attribute(name)
-        instance_variable_get(:"@#{name}") || instance_variable_set(:"@#{name}", (attribute_types[name][:default].dup || (attribute_types[name][:multiple] ? [] : nil)))
+        value = instance_variable_get(:"@#{name}")
+
+        return value unless value.nil?
+
+        # Set default
+        instance_variable_set(:"@#{name}", (attribute_types[name][:default].dup || (attribute_types[name][:multiple] ? [] : nil)))
       end
 
       def write_attribute(name, value)

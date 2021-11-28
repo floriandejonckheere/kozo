@@ -18,13 +18,15 @@ RSpec.describe Kozo::Attributes do
 
       attribute :type_argument, type: :integer, attribute: false
       attribute :default_argument, default: "a_default", attribute: false
+
+      attribute :boolean_attribute, type: :boolean, default: true
     end
   end
 
   describe "attributes" do
     describe ".attribute_names" do
       it "returns the names of the attributes" do
-        expect(object_class.attribute_names).to match_array [:single_attribute, :multiple_attribute, :type_attribute, :default_attribute]
+        expect(object_class.attribute_names).to match_array [:single_attribute, :multiple_attribute, :type_attribute, :default_attribute, :boolean_attribute]
       end
     end
 
@@ -115,13 +117,19 @@ RSpec.describe Kozo::Attributes do
         expect(object.default_attribute).to eq "value"
         expect(object).to be_default_attribute
       end
+
+      it "returns a default attribute for boolean types" do
+        object.boolean_attribute = false
+
+        expect(object.boolean_attribute).to eq false
+      end
     end
   end
 
   describe "arguments" do
     describe ".argument_names" do
       it "returns the names of the arguments" do
-        expect(object_class.argument_names).to match_array [:single_argument, :multiple_argument, :type_argument, :default_argument]
+        expect(object_class.argument_names).to match_array [:single_argument, :multiple_argument, :type_argument, :default_argument, :boolean_attribute]
       end
     end
 
