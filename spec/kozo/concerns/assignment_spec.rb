@@ -14,12 +14,6 @@ RSpec.describe Kozo::Assignment do
   end
 
   describe "#initialize" do
-    it "assigns arguments" do
-      object = object_class.new(argument: "an_argument")
-
-      expect(object.send(:argument)).to eq "an_argument"
-    end
-
     it "assigns attributes" do
       object = object_class.new(attribute: "an_attribute")
 
@@ -28,12 +22,6 @@ RSpec.describe Kozo::Assignment do
   end
 
   describe "#assign_attributes" do
-    it "assigns arguments" do
-      object.assign_attributes(argument: "an_argument")
-
-      expect(object.send(:argument)).to eq "an_argument"
-    end
-
     it "assigns attributes" do
       object.assign_attributes(attribute: "an_attribute")
 
