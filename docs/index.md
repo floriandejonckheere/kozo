@@ -5,6 +5,7 @@
 layout: home
 title: Home
 nav_order: 0
+permalink: /
 ---
 
 # Kozo Documentation
@@ -14,3 +15,11 @@ It leverages the power and flexibility of the [Ruby](https://www.ruby-lang.org/e
 
 Create, change, delete and version your infrastructural cloud resources such as networks, servers and DNS records.
 Kozo makes sure that your cloud resources always match the configuration you have defined in your Kozo files.
+
+**Please note that Kozo is still in early development, and features may be unstable, break or not even be implemented.**
+
+# Get started
+
+- Learn about [Infrastructure as Code](introduction) and how Kozo keeps your cloud infrastructure in line with what your configuration determines.
+- Install Kozo and get working with cloud infrastructure quickly using the [quickstart guide](quickstart)
+- Browse the supported [providers](providers) and see the resources you can manage

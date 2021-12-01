@@ -64,7 +64,7 @@ If you wish Kozo to ignore certain files or patterns, create a `.kzignore` file 
 ```
 
 The `kozo { ... }` block sets up the basic configuration of Kozo, such as the storage backend where the infrastructure state will be kept.
-Please refer to [Backends](#backends.md) to see a list of all supported backends.
+Please refer to [Backends](backends.md) to see a list of all supported backends.
 
 Next, initialize the local state backend:
 
@@ -90,7 +90,7 @@ provider "hcloud" do |p|
 end
 ```
 
-The `provider` directive instructs Kozo to register a new [provider](#providers.md) with the name `hcloud`.
+The `provider` directive instructs Kozo to register a new [provider](providers.md) with the name `hcloud`.
 Passed to the block is the provider instance, which can be configured with the right credentials.
 
 Create an `.env` file with the Hetzner Cloud token:
