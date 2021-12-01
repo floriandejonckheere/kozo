@@ -12,7 +12,7 @@ module Kozo
       configuration = Configuration.new(directory)
       dsl = DSL.new(configuration)
 
-      Dir[File.join(directory, "main.kz"), File.join(directory, "*.kz")]
+      Dir[File.join(directory, "main.kz"), File.join(directory, "**", "*.kz")]
         .uniq
         .each { |file| dsl.instance_eval(File.read(file)) }
 
