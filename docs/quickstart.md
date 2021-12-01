@@ -32,7 +32,7 @@ Initialized empty Git repository in /home/user/my_app/.git/
 
 Add some useful exceptions to `.gitignore`:
 
-```gitignore
+```
 ### Kozo ###
 *.kzstate
 *.kzbackup
@@ -58,7 +58,7 @@ Kozo will look at any files with the extension `.kz` in the current directory an
 You are free to structure your code however you see fit: multiple files, subdirectories, ...
 If you wish Kozo to ignore certain files or patterns, create a `.kzignore` file and add them to it:
 
-```gitignore
+```
 /tmp/
 *.bak.kz
 ```
@@ -74,14 +74,7 @@ Kozo initialized in /home/user/my_app
 ```
 
 This creates the data structures for the infrastructure state as configured in the `kozo { ... }` block.
-For the local state, this is merely an empty YAML file at `kozo.kzstate`:
-
-```yaml
----
-version: 1
-kozo_version: 0.1.0
-resources: []
-```
+For the local state, this is merely an empty `kozo.kzstate` file.
 
 ## Set up provider
 
@@ -96,6 +89,9 @@ provider "hcloud" do |p|
   p.key = ENV.fetch("HCLOUD_TOKEN")
 end
 ```
+
+The `provider` directive instructs Kozo to register a new [provider](#providers.md) with the name `hcloud`.
+Passed to the block is the provider instance, which can be configured with the right credentials.
 
 Create an `.env` file with the Hetzner Cloud token:
 
