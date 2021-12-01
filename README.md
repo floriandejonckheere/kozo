@@ -18,13 +18,13 @@ gem install kozo
 
 Execute `kozo --help` to see all available commands and their arguments.
 
-See [TUTORIAL.md](TUTORIAL.md) for a quick tutorial on how to work with Kozo.
+See the [documentation site](https://www.kozo.dev/) or the [quickstart guide](https://www.kozo.dev/quickstart) for a more detailed description on how to work with Kozo.
 
 ## Documentation
 
 A documentation site is provided at `docs/`.
 Run `bundle exec jekyll serve` to build and serve the site locally.
-Once pushed to Github, the documentation site is automatically built and published.
+Once pushed to Github, the [documentation site](https://www.kozo.dev/) is automatically built and published.
 
 ## Release
 
