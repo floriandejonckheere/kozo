@@ -23,7 +23,10 @@ module Kozo
         end
 
         Kozo.logger.info "Kozo analyzed the state and created the following execution plan. Actions are indicated by the following symbols:"
-        Operation.descendants.each { |o| Kozo.logger.info " #{o.display_symbol} #{o.name.demodulize.downcase}" }
+
+        [:create, :update, :destroy]
+          .map { |c| "Kozo::Operations::#{c.to_s.camelize}".constantize }
+          .each { |o| Kozo.logger.info " #{o.display_symbol} #{o.name.demodulize.downcase}" }
 
         Kozo.logger.info "\nKozo will perform the following actions:"
 
