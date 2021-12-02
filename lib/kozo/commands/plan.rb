@@ -28,9 +28,9 @@ module Kozo
           .map { |c| "Kozo::Operations::#{c.to_s.camelize}".constantize }
           .each { |o| Kozo.logger.info " #{o.display_symbol} #{o.name.demodulize.downcase}" }
 
-        Kozo.logger.info "\nKozo will perform the following actions:"
+        return Kozo.logger.info "\nNo actions have to be performed." if operations.empty?
 
-        Kozo.logger.info "\nNo actions have to be performed." if operations.empty?
+        Kozo.logger.info "\nKozo will perform the following actions:"
 
         operations.each { |o| Kozo.logger.info o.to_s }
       end
