@@ -21,7 +21,7 @@ module Kozo
 
         resource
           .attributes
-          .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = #{v ? "\"#{v.to_s.chomp.truncate(75)}\"" : '(known after apply)'}" }
+          .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = #{v.blank? ? '(known after apply)' : "\"#{v.to_s.chomp.truncate(75)}\""}" }
           .join("\n  ")
       end
     end
