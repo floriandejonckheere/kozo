@@ -100,3 +100,127 @@ HCLOUD_TOKEN = my_token
 ```
 
 Kozo will automatically load this file before evaluating your code, and is available under the Ruby `ENV` variable.
+
+## Create a resource
+
+First, generate a public/private keypair:
+
+```sh
+ssh-keygen -f id_rsa -b 4096 -C "SSH Key" -P ""
+```
+
+Append to `main.kz`:
+
+```ruby
+###
+# Resources
+#
+resource "hcloud_ssh_key", "default" do |s|
+  s.name = "default"
+  s.public_key = File.read("id_rsa.pub")
+end
+```
+
+The `resource` directive instructs Kozo to create a new resource of type `hcloud_ssh_key` with name `default`.
+Subsequently, the resource can be configured by setting properties on the yielded object.
+In this case, the name and contents of the public key can be set.
+
+The first step of syncing configuration using Kozo is checking the execution plan:
+
+```sh
+$ kozo plan
+Kozo analyzed the state and created the following execution plan. Actions are indicated by the following symbols:
+ + create
+ ~ update
+ - destroy
+
+Kozo will perform the following actions:
+# hcloud_ssh_key.default:
++ resource "hcloud_ssh_key", "default" do |r|
+     r.id         = (known after apply)
+  +  r.name       = "default"
+  +  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+     r.labels     = (known after apply)
+     r.created    = (known after apply)
+end
+
+```
+
+You can see in the execution plan that Kozo will create one resource with the properties configured in the `main.kz` file.
+
+Next, actually create the resource by applying the changes:
+
+```sh
+$ kozo apply
+Kozo analyzed the state and created the following execution plan. Actions are indicated by the following symbols:
+ + create
+ ~ update
+ - destroy
+
+Kozo will perform the following actions:
+# hcloud_ssh_key.default:
++ resource "hcloud_ssh_key", "default" do |r|
+     r.id         = (known after apply)
+  +  r.name       = "default"
+  +  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+     r.labels     = (known after apply)
+     r.created    = (known after apply)
+end
+
+hcloud_ssh_key.default: creating resource
+hcloud_ssh_key.default: created resource
+
+```
+
+And that's that, the SSH key was created successfully.
+
+## Update a resource
+
+Now change the name of the SSH key in the configuration file and run `kozo plan` again.
+You'll see something similar to this:
+
+```sh
+$ kozo plan
+...
+
+# hcloud_ssh_key.default:
+~ resource "hcloud_ssh_key", "default" do |r|
+     r.id         = (known after apply)
+  ~  r.name       = "new_default"
+     r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+     r.labels     = (known after apply)
+     r.created    = (known after apply)
+end
+
+...
+```
+
+Try changing the name of the SSH key in the Hetzner Cloud panel as well.
+You'll see that Kozo tries to revert the name change.
+
+## Destroy a resource
+
+Instruct Kozo that the resource should be deleted simply by removing the relevant lines in the `main.kz` file.
+Running `kozo plan` gives you the following:
+
+```sh
+$ kozo plan
+...
+
+# hcloud_ssh_key.default:
+- resource "hcloud_ssh_key", "default" do |r|
+  -  r.id         = "5025601"
+  -  r.name       = "default"
+  -  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+  -  r.labels     = "{}"
+  -  r.created    = "2021-12-02 20:50:34 UTC"
+end
+
+```
+
+Indicating that the resource is to be deleted.
+
+## Conclusion
+
+This quickstart guide barely scratches the surface of what Kozo can do.
+Check out the [introduction](introduction) to learn more about Infrastructure as Code, or browse the [provider documentation](providers) to get an idea of what resources can be manipulated by Kozo.
