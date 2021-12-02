@@ -28,7 +28,7 @@ module Kozo
         Kozo.logger.debug "Reading local state in #{path}"
 
         YAML
-          .safe_load(File.read(path))
+          .safe_load(File.read(path), [Time, Date])
           .deep_symbolize_keys
       rescue Errno::ENOENT, Errno::ENOTDIR
         raise StateError, "local state at #{path} not initialized"
