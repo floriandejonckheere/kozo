@@ -50,7 +50,7 @@ RSpec.describe Kozo::Configuration do
         resource = configuration.changes.first
 
         expect(resource).to be_marked_for_deletion
-        expect(resource.changes.symbolize_keys).to eq id: ["id", nil], name: ["name", nil], description: ["description", nil]
+        expect(resource.changes.symbolize_keys).to eq name: ["name", nil], description: ["description", nil]
       end
     end
   end
