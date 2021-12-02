@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features|docs|bin|.github|.rspec|.rubocop.yml)/}) }
   end
   spec.bindir        = "bin"
-  spec.executables   = ["bin/kozo"]
+  spec.executables   = ["kozo"]
   spec.require_paths = ["lib"]
 
   spec.metadata = {
