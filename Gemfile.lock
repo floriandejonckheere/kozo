@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    kozo (0.1.0)
+    kozo (0.2.0)
       activemodel (~> 6.0)
       activesupport (~> 6.0)
       colorize (~> 0.8)
