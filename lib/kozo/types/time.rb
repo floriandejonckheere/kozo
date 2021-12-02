@@ -5,6 +5,7 @@ module Kozo
     class Time < Type
       def self.cast(value)
         return unless value
+        return value if value.is_a?(::Time)
 
         ::Time.parse(value)
       end

@@ -8,6 +8,10 @@ RSpec.describe Kozo::Types::Time do
       expect(described_class.cast(nil)).to eq nil
     end
 
+    it "does not cast time" do
+      expect(described_class.cast(Time.new(2000, 1, 1))).to eq Time.new(2000, 1, 1)
+    end
+
     it "casts a time value" do
       expect(described_class.cast("2000-01-01")).to eq Time.new(2000, 1, 1)
       expect(described_class.cast("2000-01-01T12:00:00Z")).to eq Time.new(2000, 1, 1, 12).in_time_zone("UTC")

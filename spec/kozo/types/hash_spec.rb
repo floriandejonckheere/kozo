@@ -8,6 +8,10 @@ RSpec.describe Kozo::Types::Hash do
       expect(described_class.cast(nil)).to eq nil
     end
 
+    it "does not cast a hash" do
+      expect(described_class.cast({ foo: "bar" })).to eq({ foo: "bar" })
+    end
+
     it "casts a nested array" do
       expect(described_class.cast([[:foo, "bar"]])).to eq foo: "bar"
     end

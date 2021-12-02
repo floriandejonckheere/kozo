@@ -5,6 +5,7 @@ module Kozo
     class Date < Type
       def self.cast(value)
         return unless value
+        return value if value.is_a?(::Date)
 
         ::Date.parse(value)
       rescue ::Date::Error => e
