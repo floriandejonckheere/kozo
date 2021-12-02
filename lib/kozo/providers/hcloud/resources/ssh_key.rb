@@ -9,7 +9,7 @@ module Kozo
 
           attribute :name
           attribute :public_key
-          attribute :labels, multiple: true
+          attribute :labels, type: :hash
 
           attribute :created, type: :time, argument: false
         end
