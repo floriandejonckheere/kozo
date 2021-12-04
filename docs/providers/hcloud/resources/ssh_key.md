@@ -25,14 +25,14 @@ end
 
 ## Arguments
 
-- `name` - The name of the SSH key (String)
-- `public_key` - The public key (String)
+- `name` - Name of the SSH key (String)
+- `public_key` - RSA public key (String)
 - `labels` - User-defined labels (Hash)
 
 ## Attributes
 
-- `id` - The unique ID of the SSH key (Integer)
-- `name` - The name of the SSH key (String)
-- `public_key` - The public key (String)
+- `id` - Unique ID of the SSH key (Integer)
+- `name` - Name of the SSH key (String)
+- `public_key` - RSA public key (String)
 - `labels` - User-defined labels (Hash)
 - `created` - Timestamp of creation (Time)
