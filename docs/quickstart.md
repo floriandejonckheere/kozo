@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Quickstart
-nav_order: 2
+nav_order: 3
 ---
 
 # Quickstart
@@ -54,7 +54,7 @@ kozo do
 end
 ```
 
-Kozo will look at any files with the extension `.kz` in the current directory and evaluate these in alphabetic order, except `main.kz` which is **always evaluated first**.
+Kozo will look at any files with the extension `.kz` in the current directory and evaluate these in alphabetical order, except `main.kz` which is **always evaluated first**.
 You are free to structure your code however you see fit: multiple files, subdirectories, ...
 If you wish Kozo to ignore certain files or patterns, create a `.kzignore` file and add them to it:
 
