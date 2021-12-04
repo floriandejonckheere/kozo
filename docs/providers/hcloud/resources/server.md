@@ -1,12 +1,12 @@
 ---
 layout: home
-title: hcloud_server
+title: Server
 nav_order: 0
 parent: HCloud
 grand_parent: Providers
 ---
 
-# hcloud_server
+# Server
 
 A Hetzner Cloud server resource.
 

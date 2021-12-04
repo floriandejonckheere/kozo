@@ -1,12 +1,12 @@
 ---
 layout: home
-title: hcloud_ssh_key
+title: SSH key
 nav_order: 0
 parent: HCloud
 grand_parent: Providers
 ---
 
-# hcloud_ssh_key
+# SSH key
 
 A Hetzner Cloud SSH key resource to manage server access.
 
