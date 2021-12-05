@@ -12,6 +12,8 @@ module Kozo
       end
 
       def start
+        Refresh.new.start
+
         @operations += configuration.changes.filter_map do |resource|
           if resource.marked_for_creation?
             Operations::Create.new(resource)
