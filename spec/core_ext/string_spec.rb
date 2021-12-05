@@ -22,6 +22,9 @@ RSpec.describe CoreExt::String do
   describe "#as_s" do
     it "serializes correctly" do
       expect("a string".as_s).to eq "\"a string\""
+
+      expect("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".as_s)
+        .to eq "\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst...\""
     end
   end
 end

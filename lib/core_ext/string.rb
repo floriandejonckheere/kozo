@@ -16,12 +16,15 @@ module CoreExt
     ].freeze
     # rubocop:enable Lint/BooleanSymbol
 
+    # Maximum number of characters displayed
+    LENGTH = 75
+
     def to_b
       self == "" ? nil : FALSE_VALUES.exclude?(self)
     end
 
     def as_s
-      "\"#{self}\""
+      "\"#{chomp.truncate(LENGTH)}\""
     end
   end
 end
