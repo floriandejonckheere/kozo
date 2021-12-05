@@ -14,7 +14,9 @@ RSpec.describe Kozo::Types::Time do
 
     it "casts a time value" do
       expect(described_class.cast("2000-01-01")).to eq Time.new(2000, 1, 1)
-      expect(described_class.cast("2000-01-01T12:00:00Z")).to eq Time.new(2000, 1, 1, 12).in_time_zone("UTC")
+      expect(described_class.cast("2000-01-01T12:00:00Z")).to eq Time.find_zone("UTC").local(2000, 1, 1, 12)
+
+      ActiveSupport::TimeZone
     end
 
     it "does not cast invalid values" do
@@ -28,7 +30,7 @@ RSpec.describe Kozo::Types::Time do
     end
 
     it "serializes times correctly" do
-      expect(described_class.as_json(Time.new(2000, 1, 1, 12).in_time_zone("UTC"))).to eq "2000-01-01T12:00:00Z"
+      expect(described_class.as_json(Time.find_zone("UTC").local(2000, 1, 1, 12))).to eq "2000-01-01T12:00:00Z"
     end
   end
 end
