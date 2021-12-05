@@ -14,15 +14,21 @@ module Kozo
         state.resources << resource
       end
 
-      protected
-
-      def attributes_to_s
+      def to_s
         l = resource.attribute_names.map(&:length).max || 1
 
-        resource
+        attrs = resource
           .attributes
-          .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = #{v.blank? ? '(known after apply)' : "\"#{v.to_s.chomp.truncate(75)}\""}" }
-          .join("\n  ")
+          .map { |k, v| "  #{resource.changes.key?(k) ? display_symbol : ' '} r.#{k.to_s.ljust(l)} = #{v.blank? ? '(known after apply)' : (v.as_s.indent(6)[6..]).to_s}" }
+          .join("\n")
+
+        <<~DSL.chomp
+          #{"# #{resource.address}:".bold}
+          #{display_symbol} resource "#{resource.resource_name}", "#{resource.state_name}" do |r|
+          #{attrs}
+          end
+
+        DSL
       end
     end
   end

@@ -14,15 +14,21 @@ module Kozo
         state.resources.delete(resource)
       end
 
-      protected
-
-      def attributes_to_s
+      def to_s
         l = resource.attribute_names.map(&:length).max || 1
 
-        resource
+        attrs = resource
           .attribute_names
-          .map { |k| "#{display_symbol}  r.#{k.to_s.ljust(l)} = \"#{resource.send(:"#{k}_was").to_s.chomp.truncate(75)}\"" }
-          .join("\n  ")
+          .map { |k| "  #{display_symbol} r.#{k.to_s.ljust(l)} = #{resource.send(:"#{k}_was").as_s.indent(4)[4..]}" }
+          .join("\n")
+
+        <<~DSL.chomp
+          #{"# #{resource.address}:".bold}
+          #{display_symbol} resource "#{resource.resource_name}", "#{resource.state_name}" do |r|
+          #{attrs}
+          end
+
+        DSL
       end
     end
   end

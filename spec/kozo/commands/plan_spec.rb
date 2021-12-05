@@ -7,7 +7,7 @@ RSpec.describe Kozo::Commands::Plan do
   let(:resource1) { build(:dummy_resource, state_name: "resource1", name: "name1", description: "description1") }
   let(:resource2) { build(:dummy_resource, state_name: "resource2", name: "name2", description: "description2") }
 
-  let(:resource1_modified) { resource1.dup.tap { |r| r.name = "old name1" } }
+  let(:resource1_modified) { build(:dummy_resource, state_name: "resource1", id: resource1.id, name: "old name1", description: "description1") }
 
   let(:state) { build(:state, resources: [resource1_modified, resource2]) }
   let(:configuration) { build(:configuration, backend: build(:memory_backend, state: state), resources: [resource0, resource1]) }
@@ -16,9 +16,9 @@ RSpec.describe Kozo::Commands::Plan do
     expect { command.start }.to log <<~LOG.chomp
       # dummy.resource0:
       + resource "dummy", "resource0" do |r|
-           r.id          = (known after apply)
-        +  r.name        = "name0"
-        +  r.description = "description0"
+          r.id          = (known after apply)
+        + r.name        = "name0"
+        + r.description = "description0"
       end
     LOG
   end
@@ -27,9 +27,9 @@ RSpec.describe Kozo::Commands::Plan do
     expect { command.start }.to log <<~LOG.chomp
       # dummy.resource1:
       ~ resource "dummy", "resource1" do |r|
-           r.id          = "#{resource1.id}"
-        ~  r.name        = "name1"
-           r.description = "description1"
+          r.id          = "#{resource1.id}"
+        ~ r.name        = "name1"
+          r.description = "description1"
       end
     LOG
   end
@@ -38,9 +38,9 @@ RSpec.describe Kozo::Commands::Plan do
     expect { command.start }.to log <<~LOG.chomp
       # dummy.resource2:
       - resource "dummy", "resource2" do |r|
-        -  r.id          = ""
-        -  r.name        = "name2"
-        -  r.description = "description2"
+        - r.id          = nil
+        - r.name        = "name2"
+        - r.description = "description2"
       end
     LOG
   end

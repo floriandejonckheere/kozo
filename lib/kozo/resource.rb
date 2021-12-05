@@ -30,6 +30,22 @@ module Kozo
       [self.class, id].hash
     end
 
+    def to_dsl(prefix = nil)
+      l = attribute_names.map(&:length).max || 1
+
+      attribute_dsl = attributes
+        .map { |k, v| "  #{changes.key?(k) ? prefix : '  '}r.#{k.to_s.ljust(l)} = #{v.as_s.indent(4)[4..]}" }
+        .join("\n")
+
+      <<~DSL.chomp
+        #{"# #{address}:".bold}
+        #{prefix}resource "#{resource_name}", "#{state_name}" do |r|
+        #{attribute_dsl}
+        end
+
+      DSL
+    end
+
     def to_h
       {
         meta: meta,
