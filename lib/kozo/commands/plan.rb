@@ -32,7 +32,7 @@ module Kozo
 
         return Kozo.logger.info "\nNo actions have to be performed." if operations.empty?
 
-        Kozo.logger.info "\nKozo will perform the following actions:"
+        Kozo.logger.info "\nKozo will perform the following actions:\n"
 
         operations.each { |o| Kozo.logger.info o.to_s }
       end
