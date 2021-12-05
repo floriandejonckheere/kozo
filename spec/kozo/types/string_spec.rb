@@ -13,14 +13,4 @@ RSpec.describe Kozo::Types::String do
       expect(described_class.cast(3.14)).to eq "3.14"
     end
   end
-
-  describe ".as_json" do
-    it "does not serialize nil" do
-      expect(described_class.as_json(nil)).to eq nil
-    end
-
-    it "serializes strings correctly" do
-      expect(described_class.as_json("string")).to eq "string"
-    end
-  end
 end

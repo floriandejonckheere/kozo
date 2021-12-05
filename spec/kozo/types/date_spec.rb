@@ -21,14 +21,4 @@ RSpec.describe Kozo::Types::Date do
       expect { described_class.cast("invalid") }.to raise_error ArgumentError
     end
   end
-
-  describe ".as_json" do
-    it "does not serialize nil" do
-      expect(described_class.as_json(nil)).to eq nil
-    end
-
-    it "serializes dates correctly" do
-      expect(described_class.as_json(Date.new(2000, 1, 1))).to eq "2000-01-01"
-    end
-  end
 end

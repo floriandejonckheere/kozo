@@ -11,10 +11,6 @@ module Kozo
       rescue TypeError, NoMethodError => e
         raise ArgumentError, e
       end
-
-      def self.as_json(value)
-        value
-      end
     end
   end
 end

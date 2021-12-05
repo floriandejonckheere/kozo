@@ -11,9 +11,5 @@ module Kozo
     def self.cast(value)
       value
     end
-
-    def self.as_json(value)
-      value
-    end
   end
 end

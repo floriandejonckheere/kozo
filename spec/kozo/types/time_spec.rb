@@ -23,14 +23,4 @@ RSpec.describe Kozo::Types::Time do
       expect { described_class.cast("invalid") }.to raise_error ArgumentError
     end
   end
-
-  describe ".as_json" do
-    it "does not serialize nil" do
-      expect(described_class.as_json(nil)).to eq nil
-    end
-
-    it "serializes times correctly" do
-      expect(described_class.as_json(Time.find_zone("UTC").local(2000, 1, 1, 12))).to eq "2000-01-01T12:00:00Z"
-    end
-  end
 end

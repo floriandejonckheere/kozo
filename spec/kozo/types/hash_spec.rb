@@ -21,14 +21,4 @@ RSpec.describe Kozo::Types::Hash do
       expect { described_class.cast("invalid") }.to raise_error ArgumentError
     end
   end
-
-  describe ".as_json" do
-    it "does not serialize nil" do
-      expect(described_class.as_json(nil)).to eq nil
-    end
-
-    it "serializes hashes correctly" do
-      expect(described_class.as_json({ foo: "bar" })).to eq foo: "bar"
-    end
-  end
 end

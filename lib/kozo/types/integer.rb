@@ -8,10 +8,6 @@ module Kozo
 
         send :Integer, value
       end
-
-      def self.as_json(value)
-        value
-      end
     end
   end
 end

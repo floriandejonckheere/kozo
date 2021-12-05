@@ -11,10 +11,6 @@ module Kozo
       rescue ::Date::Error => e
         raise ArgumentError, e
       end
-
-      def self.as_json(value)
-        value&.iso8601
-      end
     end
   end
 end

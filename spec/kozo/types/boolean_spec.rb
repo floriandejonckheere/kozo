@@ -20,15 +20,4 @@ RSpec.describe Kozo::Types::Boolean do
       expect(described_class.cast(:foo)).to eq true
     end
   end
-
-  describe ".as_json" do
-    it "does not serialize nil" do
-      expect(described_class.as_json(nil)).to eq nil
-    end
-
-    it "serializes correctly" do
-      expect(described_class.as_json(true)).to eq true
-      expect(described_class.as_json(false)).to eq false
-    end
-  end
 end
