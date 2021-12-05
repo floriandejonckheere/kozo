@@ -33,4 +33,14 @@ RSpec.describe Kozo::Types::Time do
       expect(described_class.as_json(Time.find_zone("UTC").local(2000, 1, 1, 12))).to eq "2000-01-01T12:00:00Z"
     end
   end
+
+  describe ".as_s" do
+    it "serializes nil" do
+      expect(described_class.as_s(nil)).to eq "nil"
+    end
+
+    it "serializes times correctly" do
+      expect(described_class.as_s(Time.find_zone("UTC").local(2000, 1, 1, 12))).to eq "2000-01-01 12:00:00 UTC"
+    end
+  end
 end

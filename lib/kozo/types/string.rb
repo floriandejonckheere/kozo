@@ -12,6 +12,10 @@ module Kozo
       def self.as_json(value)
         value
       end
+
+      def self.as_s(value)
+        value.nil? ? "nil" : "\"#{value}\""
+      end
     end
   end
 end

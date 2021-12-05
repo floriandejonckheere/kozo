@@ -23,4 +23,14 @@ RSpec.describe Kozo::Types::String do
       expect(described_class.as_json("string")).to eq "string"
     end
   end
+
+  describe ".as_s" do
+    it "serializes nil" do
+      expect(described_class.as_s(nil)).to eq "nil"
+    end
+
+    it "serializes strings correctly" do
+      expect(described_class.as_s("string")).to eq "\"string\""
+    end
+  end
 end

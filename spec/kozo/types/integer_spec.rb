@@ -27,4 +27,14 @@ RSpec.describe Kozo::Types::Integer do
       expect(described_class.as_json(3)).to eq 3
     end
   end
+
+  describe ".as_s" do
+    it "serializes nil" do
+      expect(described_class.as_s(nil)).to eq "nil"
+    end
+
+    it "serializes integers correctly" do
+      expect(described_class.as_s(3)).to eq "3"
+    end
+  end
 end
