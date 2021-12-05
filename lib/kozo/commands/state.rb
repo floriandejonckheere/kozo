@@ -42,11 +42,9 @@ module Kozo
         attr_reader :address
 
         def initialize(*args)
-          address = args.shift
+          @address = args.shift
 
           raise UsageError, "address not specified" unless address
-
-          @address = address
         end
 
         def start
@@ -57,6 +55,34 @@ module Kozo
           raise StateError, "no such resource address: #{address}" unless resource
 
           Kozo.logger.info Operations::Show.new(resource).to_s
+        end
+      end
+
+      class Delete < State
+        self.description = "Delete a resource from the state"
+
+        attr_reader :address
+
+        def initialize(*args)
+          @address = args.shift
+
+          raise UsageError, "address not specified" unless address
+        end
+
+        def start
+          resource = state
+            .resources
+            .extract! { |r| r.address == address }
+            &.first
+
+          raise StateError, "no such resource address: #{address}" unless resource
+
+          Kozo.logger.info resource.address
+
+          # Write state
+          configuration
+            .backend
+            .state = state
         end
       end
     end
