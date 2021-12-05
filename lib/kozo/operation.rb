@@ -35,7 +35,7 @@ module Kozo
 
       resource
         .attributes
-        .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = \"#{v.to_s.chomp.truncate(75)}\"" }
+        .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '}  r.#{k.to_s.ljust(l)} = #{v.as_s}" }
         .join("\n  ")
     end
   end
