@@ -16,6 +16,8 @@ module Kozo
           attribute_names
             .excluding(:id)
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
+        rescue ::HCloud::Errors::NotFound => e
+          raise StateError, "#{address}: #{e.message}"
         end
 
         def create
@@ -38,11 +40,15 @@ module Kozo
           attribute_names
             .excluding(:id)
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
+        rescue ::HCloud::Errors::NotFound => e
+          raise StateError, "#{address}: #{e.message}"
         end
 
         def destroy
           resource = resource_class.find(id)
           resource.delete
+        rescue ::HCloud::Errors::NotFound => e
+          raise StateError, "#{address}: #{e.message}"
         end
 
         private
