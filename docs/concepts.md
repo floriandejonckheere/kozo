@@ -37,6 +37,16 @@ Abstract entities such as assignments (volume is attached to server) are also mo
 
 Please refer to the documentation of specific [providers](providers) for more information on the available resources and how to use them.
 
+### Address
+
+Once configured, a resource has an address which you can refer to:
+
+```ruby
+resource "hcloud_ssh_key", "default" { ... }
+```
+
+You can use `hcloud_ssh_key.default` as address when manipulating the state using `kozo state` subcommands, or when referring to the resource from within another resource configuration.
+
 ## Backend
 
 Backends are ways that Kozo stores its local state.

@@ -122,6 +122,7 @@ end
 ```
 
 The `resource` directive instructs Kozo to create a new resource of type `hcloud_ssh_key` with name `default`.
+The latter two can be combined to form the resource's address: `hcloud_ssh_key.default`.
 Subsequently, the resource can be configured by setting properties on the yielded object.
 In this case, the name and contents of the public key can be set.
 
