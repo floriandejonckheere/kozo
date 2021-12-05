@@ -15,7 +15,7 @@ RSpec.describe Kozo::Commands::State do
   end
 
   describe Kozo::Commands::State::Show do
-    subject(:command) { build(:state_show_command, state: state, args: "dummy.dummy") }
+    subject(:command) { build(:state_show_command, state: state, args: address) }
 
     it "shows a resource in the state" do
       expect { command.start }.to log(/id *= "dummy"/)

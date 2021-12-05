@@ -72,10 +72,13 @@ module Kozo
         def start
           resource = state
             .resources
-            .extract! { |r| r.address == address }
-            &.first
+            .find { |r| r.address == address }
 
           raise StateError, "no such resource address: #{address}" unless resource
+
+          state
+            .resources
+            .delete_if { |r| r.address == address }
 
           Kozo.logger.info resource.address
 
