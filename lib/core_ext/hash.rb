@@ -5,8 +5,10 @@ module CoreExt
     def as_s
       return "{}" if empty?
 
-      map { |k, v| "  #{k} = #{v}" }
+      map { |k, v| "  #{k} = #{v.as_s}" }
         .intersperse(",")
+        .each_slice(2)
+        .map(&:join)
         .prepend("{")
         .append("}")
         .join("\n")
