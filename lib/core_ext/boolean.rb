@@ -5,6 +5,10 @@ module CoreExt
     def to_b
       self
     end
+
+    def as_s
+      to_s
+    end
   end
 end
 

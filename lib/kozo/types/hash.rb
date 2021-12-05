@@ -15,18 +15,6 @@ module Kozo
       def self.as_json(value)
         value
       end
-
-      def self.as_s(value)
-        return "nil" if value.nil?
-        return "{}" if value.empty?
-
-        value
-          .map { |k, v| "  #{k} = #{v}" }
-          .intersperse(",")
-          .prepend("{")
-          .append("}")
-          .join("\n")
-      end
     end
   end
 end

@@ -31,15 +31,4 @@ RSpec.describe Kozo::Types::Boolean do
       expect(described_class.as_json(false)).to eq false
     end
   end
-
-  describe ".as_s" do
-    it "serializes nil to empty string" do
-      expect(described_class.as_s(nil)).to eq "nil"
-    end
-
-    it "serializes correctly" do
-      expect(described_class.as_s(true)).to eq "true"
-      expect(described_class.as_s(false)).to eq "false"
-    end
-  end
 end

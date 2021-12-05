@@ -19,6 +19,10 @@ module CoreExt
     def to_b
       self == "" ? nil : FALSE_VALUES.exclude?(self)
     end
+
+    def as_s
+      "\"#{self}\""
+    end
   end
 end
 

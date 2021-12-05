@@ -8,4 +8,10 @@ RSpec.describe CoreExt::NilClass do
       expect(nil.to_b).to eq nil
     end
   end
+
+  describe "#as_s" do
+    it "serializes correctly" do
+      expect(nil.as_s).to eq "nil"
+    end
+  end
 end

@@ -27,14 +27,4 @@ RSpec.describe Kozo::Types::Float do
       expect(described_class.as_json(3.14)).to eq 3.14
     end
   end
-
-  describe ".as_s" do
-    it "serializes nil" do
-      expect(described_class.as_s(nil)).to eq "nil"
-    end
-
-    it "serializes floats correctly" do
-      expect(described_class.as_s(3.14)).to eq "3.14"
-    end
-  end
 end

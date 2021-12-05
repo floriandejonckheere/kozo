@@ -18,4 +18,10 @@ RSpec.describe CoreExt::String do
       expect("1".to_b).to eq true
     end
   end
+
+  describe "#as_s" do
+    it "serializes correctly" do
+      expect("a string".as_s).to eq "\"a string\""
+    end
+  end
 end

@@ -15,10 +15,6 @@ module Kozo
       def self.as_json(value)
         value&.iso8601
       end
-
-      def self.as_s(value)
-        value.nil? ? "nil" : value.iso8601
-      end
     end
   end
 end

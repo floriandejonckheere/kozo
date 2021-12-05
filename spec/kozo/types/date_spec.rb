@@ -31,14 +31,4 @@ RSpec.describe Kozo::Types::Date do
       expect(described_class.as_json(Date.new(2000, 1, 1))).to eq "2000-01-01"
     end
   end
-
-  describe ".as_s" do
-    it "serializes nil" do
-      expect(described_class.as_s(nil)).to eq "nil"
-    end
-
-    it "serializes dates correctly" do
-      expect(described_class.as_s(Date.new(2000, 1, 1))).to eq "2000-01-01"
-    end
-  end
 end

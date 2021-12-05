@@ -12,4 +12,11 @@ RSpec.describe CoreExt::Boolean do
       expect(false.to_b).to eq false
     end
   end
+
+  describe "#as_s" do
+    it "serializes correctly" do
+      expect(true.as_s).to eq "true"
+      expect(false.as_s).to eq "false"
+    end
+  end
 end

@@ -31,17 +31,4 @@ RSpec.describe Kozo::Types::Hash do
       expect(described_class.as_json({ foo: "bar" })).to eq foo: "bar"
     end
   end
-
-  describe ".as_s" do
-    it "serializes nil" do
-      expect(described_class.as_s(nil)).to eq "nil"
-    end
-
-    it "serializes hashes correctly" do
-      expect(described_class.as_s({})).to eq "{}"
-      expect(described_class.as_s({ foo: "bar" })).to eq "{
-  foo = bar
-}"
-    end
-  end
 end
