@@ -18,13 +18,13 @@ RSpec.describe Kozo::Types::Integer do
     end
   end
 
-  describe ".serialize" do
+  describe ".as_json" do
     it "does not serialize nil" do
-      expect(described_class.serialize(nil)).to eq nil
+      expect(described_class.as_json(nil)).to eq nil
     end
 
     it "serializes integers correctly" do
-      expect(described_class.serialize(3)).to eq 3
+      expect(described_class.as_json(3)).to eq 3
     end
   end
 end

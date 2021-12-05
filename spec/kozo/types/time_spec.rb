@@ -22,13 +22,13 @@ RSpec.describe Kozo::Types::Time do
     end
   end
 
-  describe ".serialize" do
+  describe ".as_json" do
     it "does not serialize nil" do
-      expect(described_class.serialize(nil)).to eq nil
+      expect(described_class.as_json(nil)).to eq nil
     end
 
     it "serializes times correctly" do
-      expect(described_class.serialize(Time.new(2000, 1, 1, 12).in_time_zone("UTC"))).to eq "2000-01-01T12:00:00Z"
+      expect(described_class.as_json(Time.new(2000, 1, 1, 12).in_time_zone("UTC"))).to eq "2000-01-01T12:00:00Z"
     end
   end
 end

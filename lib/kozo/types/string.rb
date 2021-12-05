@@ -9,7 +9,7 @@ module Kozo
         send :String, value
       end
 
-      def self.serialize(value)
+      def self.as_json(value)
         value
       end
     end

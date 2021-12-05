@@ -10,6 +10,6 @@ module Kozo
 
     def self.cast(value); end
 
-    def self.serialize(value); end
+    def self.as_json(value); end
   end
 end

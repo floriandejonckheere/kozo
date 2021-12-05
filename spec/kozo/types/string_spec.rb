@@ -14,13 +14,13 @@ RSpec.describe Kozo::Types::String do
     end
   end
 
-  describe ".serialize" do
+  describe ".as_json" do
     it "does not serialize nil" do
-      expect(described_class.serialize(nil)).to eq nil
+      expect(described_class.as_json(nil)).to eq nil
     end
 
     it "serializes strings correctly" do
-      expect(described_class.serialize("string")).to eq "string"
+      expect(described_class.as_json("string")).to eq "string"
     end
   end
 end

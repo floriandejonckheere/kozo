@@ -10,7 +10,7 @@ module Kozo
         ::Time.parse(value)
       end
 
-      def self.serialize(value)
+      def self.as_json(value)
         value&.iso8601
       end
     end

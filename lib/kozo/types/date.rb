@@ -12,7 +12,7 @@ module Kozo
         raise ArgumentError, e
       end
 
-      def self.serialize(value)
+      def self.as_json(value)
         value&.iso8601
       end
     end
