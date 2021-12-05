@@ -72,3 +72,4 @@ build-iPhoneSimulator/
 ### Kozo ###
 *.kz
 *.kzstate
+cloud-init.yml
