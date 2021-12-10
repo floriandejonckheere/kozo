@@ -13,7 +13,7 @@ module Kozo
 
         attrs = resource
           .attributes
-          .map { |k, v| "  r.#{k.to_s.ljust(l)} = #{v.as_s.indent(4)[4..]}" }
+          .map { |k, v| "  r.#{k.to_s.ljust(l)} = #{v.as_s.indent(2)[2..]}" }
           .join("\n")
 
         <<~DSL.chomp
