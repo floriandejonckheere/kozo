@@ -11,6 +11,8 @@ module Kozo
         protected
 
         def refresh
+          return unless id
+
           resource = resource_class.find(id)
 
           attribute_names
