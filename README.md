@@ -6,6 +6,8 @@
 _Kōzō_ (構造) is an open-source tool to manage your cloud resources based on the [infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code) principle.
 It leverages the power of [Ruby](https://www.ruby-lang.org/en/) to allow you to declare your infrastructure in your favourite language.
 
+Read more about the project on [kozo.dev](https://kozo.dev).
+
 ## Installation
 
 Install the gem using your operating system's package manager, or using RubyGems:
