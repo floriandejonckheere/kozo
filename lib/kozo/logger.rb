@@ -12,15 +12,11 @@ module Kozo
     private
 
     def level
-      Kozo.options.verbose? ? "debug" : ENV.fetch("LOG_LEVEL", "info")
+      Kozo.options.verbose? ? "debug" : "info"
     end
 
     def formatter
-      Formatter.new
-    end
-
-    class Formatter < ::Logger::Formatter
-      def call(severity, _time, _progname, msg)
+      proc do |severity, _time, _progname, msg|
         abort("#{File.basename($PROGRAM_NAME)}: #{msg}".white.on_red) if severity == "FATAL"
 
         msg = "#{msg}\n"
@@ -28,6 +24,16 @@ module Kozo
         msg = msg.red if severity == "ERROR"
 
         msg
+      end
+    end
+
+    class Debug < Logger
+      def level
+        Kozo.options.debug? ? "debug" : "fatal"
+      end
+
+      def formatter
+        ->(_severity, _time, _progname, msg) { msg.magenta }
       end
     end
   end

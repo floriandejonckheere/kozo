@@ -26,6 +26,16 @@ describe Kozo::CLI do
       end
     end
 
+    describe "--debug" do
+      let(:args) { ["--debug"] }
+
+      it "turns on debug output" do
+        cli
+
+        expect(Kozo.options).to be_debug
+      end
+    end
+
     describe "--help" do
       let(:args) { ["--help"] }
 

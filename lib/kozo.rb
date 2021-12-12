@@ -28,6 +28,10 @@ module Kozo
       @logger ||= Logger.new
     end
 
+    def debug_logger
+      @debug_logger ||= Logger::Debug.new
+    end
+
     def setup
       @loader = Zeitwerk::Loader.for_gem
 

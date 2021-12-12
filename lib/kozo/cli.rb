@@ -12,6 +12,7 @@ module Kozo
         o.on("Global options:")
         o.on("-d", "--directory=DIRECTORY", "Set working directory")
         o.on("-v", "--verbose", "Turn on verbose logging")
+        o.on("-D", "--debug", "Turn on debug logging")
         o.on("-h", "--help", "Display this message") { usage }
         o.separator("\n")
         o.on("Commands:")

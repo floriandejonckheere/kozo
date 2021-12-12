@@ -28,6 +28,18 @@ module Kozo
       verbose.present?
     end
 
+    def debug=(value)
+      @debug = value.present?
+    end
+
+    def debug
+      @debug ||= false
+    end
+
+    def debug?
+      debug.present?
+    end
+
     def [](key)
       send(key)
     end
