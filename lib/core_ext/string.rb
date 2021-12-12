@@ -24,7 +24,7 @@ module CoreExt
     end
 
     def as_s
-      "\"#{chomp.truncate(LENGTH)}\""
+      "\"#{chomp.tr("\n", ' ').truncate(LENGTH)}\""
     end
   end
 end

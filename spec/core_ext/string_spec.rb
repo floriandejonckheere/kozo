@@ -25,6 +25,8 @@ RSpec.describe CoreExt::String do
 
       expect("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".as_s)
         .to eq "\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst...\""
+
+      expect("abc\ndef".as_s).to eq "\"abc def\""
     end
   end
 end
