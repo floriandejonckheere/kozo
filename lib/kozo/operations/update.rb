@@ -20,7 +20,7 @@ module Kozo
 
         attrs = resource
           .attributes
-          .map { |k, v| "#{resource.changes.key?(k) ? display_symbol : ' '} r.#{k.to_s.ljust(l)} = #{v.as_s.indent(4)[4..]}" }
+          .map { |k, v| "  #{resource.changes.key?(k) ? display_symbol : ' '} r.#{k.to_s.ljust(l)} = #{v.as_s.indent(4)[4..]}" }
           .join("\n")
 
         <<~DSL.chomp
