@@ -74,11 +74,11 @@ module Kozo
     end
 
     def commands
-      Command.subclasses.sort_by(&:name).map do |k|
+      Command.descendants.select { |d| d.module_parent == Commands }.sort_by(&:name).map do |k|
         [
           k.name.demodulize.underscore,
           k.description,
-          k.descendants.sort_by(&:name).map { |s| [s.name.demodulize.underscore, s.description] },
+          k.constants.sort_by(&:name).map { |s| [s.to_s.underscore, k.const_get(s).description] },
         ]
       end
     end
