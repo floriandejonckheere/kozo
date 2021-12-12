@@ -53,4 +53,13 @@ RSpec.describe Kozo::DSL do
       expect(configuration.resources).to include build(:dummy_resource, id: nil, state_name: "bar")
     end
   end
+
+  describe "references" do
+    it "configured a reference" do
+      reference = dsl.send(:dummy).send(:bar)
+
+      expect(reference.resource_class).to eq build(:dummy_resource).class
+      expect(reference.state_name).to eq "bar"
+    end
+  end
 end

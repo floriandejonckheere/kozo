@@ -45,6 +45,21 @@ module Kozo
       configuration.resources << resource
     end
 
+    def method_missing(method_name, *arguments, &block)
+      resource_class = Kozo
+        .container
+        .resolve("resource.#{method_name}")
+        .class
+
+      Reference.new(resource_class, configuration)
+    rescue Dinja::Container::DependencyNotRegistered
+      super
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      Kozo.container.resolve!("resource.#{method_name}").present? || super
+    end
+
     private
 
     def resolve(resource, type, *args)
