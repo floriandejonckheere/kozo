@@ -17,7 +17,7 @@ module Kozo
 
           attribute :labels, type: :hash
 
-          attribute :ssh_keys, multiple: true
+          attribute :ssh_keys, multiple: true, type: :reference
 
           attribute :locked, argument: false, type: :boolean
 
