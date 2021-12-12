@@ -40,24 +40,4 @@ RSpec.describe Kozo::Backend do
       expect(backend.data).to include resources: [resource.to_h]
     end
   end
-
-  describe "#validate!" do
-    it "raises when version does not match" do
-      backend.data = { version: 0, kozo_version: Kozo::VERSION }
-
-      expect { backend.validate! }.to raise_error Kozo::StateError
-    end
-
-    it "raises when kozo version does not match" do
-      backend.data = { version: Kozo::State::VERSION, kozo_version: 0 }
-
-      expect { backend.validate! }.to raise_error Kozo::StateError
-    end
-
-    it "validates the state file" do
-      backend.data = { version: Kozo::State::VERSION, kozo_version: Kozo::VERSION }
-
-      expect { backend.validate! }.not_to raise_error
-    end
-  end
 end

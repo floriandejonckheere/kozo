@@ -11,24 +11,13 @@ module Kozo
 
     def state
       @state ||= State
-        .new(resources)
+        .new(resources, data[:version], data[:kozo_version])
     end
 
     def state=(value)
       @state = value
 
       self.data = value.to_h
-    end
-
-    def validate!
-      state_version = data.fetch(:version)
-      kozo_version = data.fetch(:kozo_version)
-
-      raise StateError, "invalid version in state: got #{state_version}, expected #{State::VERSION}" unless state_version == State::VERSION
-
-      return if kozo_version == Kozo::VERSION
-
-      raise StateError, "invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}"
     end
 
     ##
