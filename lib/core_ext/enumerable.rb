@@ -5,6 +5,18 @@ module CoreExt
     def intersperse(value)
       flat_map { |h| [h, value] }.tap(&:pop)
     end
+
+    def as_s
+      return "[" if empty?
+
+      map { |k| "  #{k.as_s}" }
+        .intersperse(",")
+        .each_slice(2)
+        .map(&:join)
+        .prepend("[")
+        .append("]")
+        .join("\n")
+    end
   end
 end
 
