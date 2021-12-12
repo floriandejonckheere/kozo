@@ -28,6 +28,8 @@ module Kozo
 
           attribute_names
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
+        rescue ::HCloud::Errors::UniquenessError => e
+          raise ResourceError, "#{address}: #{e.message}"
         end
 
         def update
@@ -44,6 +46,8 @@ module Kozo
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::NotFound => e
           raise StateError, "#{address}: #{e.message}"
+        rescue ::HCloud::Errors::UniquenessError => e
+          raise ResourceError, "#{address}: #{e.message}"
         end
 
         def destroy
