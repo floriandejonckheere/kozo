@@ -15,11 +15,16 @@ module Kozo
         Refresh.new.start
 
         @operations += configuration.changes.filter_map do |resource|
-          if resource.marked_for_creation?
-            Operations::Create.new(resource)
-          elsif resource.marked_for_deletion?
-            Operations::Destroy.new(resource)
+          if !resource.id?
+            if resource.id_changed?
+              # ID changed to nil (resource should be destroyed)
+              Operations::Destroy.new(resource)
+            else
+              # ID is nil (resource should be created)
+              Operations::Create.new(resource)
+            end
           elsif resource.changed?
+            # Resource should be updated
             Operations::Update.new(resource)
           end
         end

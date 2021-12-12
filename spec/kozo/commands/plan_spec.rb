@@ -38,7 +38,7 @@ RSpec.describe Kozo::Commands::Plan do
     expect { command.start }.to log <<~LOG.chomp
       # dummy.resource2:
       - resource "dummy", "resource2" do |r|
-        - r.id          = nil
+        - r.id          = "#{resource2.id}"
         - r.name        = "name2"
         - r.description = "description2"
       end
@@ -47,6 +47,9 @@ RSpec.describe Kozo::Commands::Plan do
 
   context "when nothing can be done" do
     let(:state) { build(:state, resources: [resource0, resource1]) }
+
+    # Resource must have an ID, otherwise it is marked as to be created
+    before { resource0.id = "id0" }
 
     it "plans nothing" do
       expect { command.start }.to log("No actions have to be performed")

@@ -5,7 +5,6 @@ module Kozo
     include Attributes
 
     include Assignment
-    include Mark
     include Track
 
     attr_accessor :provider, :state_name
