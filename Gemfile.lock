@@ -12,7 +12,6 @@ PATH
   remote: .
   specs:
     kozo (0.2.0)
-      activemodel (~> 6.0)
       activesupport (~> 6.0)
       colorize (~> 0.8)
       dinja (~> 2.0)
