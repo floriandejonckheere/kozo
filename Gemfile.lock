@@ -12,7 +12,7 @@ PATH
   remote: .
   specs:
     kozo (0.2.0)
-      activesupport (~> 6.0)
+      activesupport (>= 6.0, < 7.1)
       colorize (~> 0.8)
       dinja (~> 2.0)
       dotenv (~> 2.7)
@@ -22,14 +22,13 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (6.1.4.4)
-      activesupport (= 6.1.4.4)
-    activesupport (6.1.4.4)
+    activemodel (7.0.0)
+      activesupport (= 7.0.0)
+    activesupport (7.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)

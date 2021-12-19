@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
     "rubygems_mfa_required" => "true",
   }
 
-  spec.add_runtime_dependency "activesupport", "~> 6.0"
+  spec.add_runtime_dependency "activesupport", ">= 6.0", "< 7.1"
   spec.add_runtime_dependency "colorize", "~> 0.8"
   spec.add_runtime_dependency "dinja", "~> 2.0"
   spec.add_runtime_dependency "dotenv", "~> 2.7"
