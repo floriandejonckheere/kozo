@@ -14,7 +14,7 @@ module Kozo
       def start
         Refresh.new.start
 
-        @operations += configuration.changes.filter_map do |resource|
+        @operations = changes.filter_map do |resource|
           if !resource.id?
             if resource.id_changed?
               # ID changed to nil (resource should be destroyed)
