@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dinja", "~> 2.0"
   spec.add_runtime_dependency "dotenv", "~> 2.7"
   spec.add_runtime_dependency "git", "~> 1.9"
+  spec.add_runtime_dependency "hetznercloud", "~> 1.3"
   spec.add_runtime_dependency "zeitwerk", "~> 2.4"
 
   spec.add_development_dependency "rubocop"
