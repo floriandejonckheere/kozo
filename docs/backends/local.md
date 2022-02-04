@@ -9,6 +9,8 @@ parent: Backends
 
 The local backend stores the Kozo state in a YAML file.
 
+State files are only written if the state changed.
+
 ## Configuration
 
 Minimal configuration:

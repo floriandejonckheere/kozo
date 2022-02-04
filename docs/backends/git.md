@@ -11,6 +11,8 @@ The git backend stores the Kozo state in a YAML file, in a git repository.
 A commit is made on the current branch (defaults to master) when the state file is written.
 The repository will be initialized when initializing the state.
 
+State files are only written and committed if the state changed.
+
 ## Configuration
 
 ```ruby
