@@ -7,8 +7,9 @@ module Kozo
     attr_reader :args
     attr_writer :state, :configuration
 
-    def initialize(*args)
+    def initialize(*args, configuration: nil)
       @args = args
+      @configuration = configuration
     end
 
     def start

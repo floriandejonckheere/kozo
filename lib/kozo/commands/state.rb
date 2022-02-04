@@ -7,7 +7,7 @@ module Kozo
 
       attr_reader :subcommand
 
-      def initialize(*args)
+      def initialize(...)
         subcommand = args.shift
 
         raise UsageError unless subcommand
@@ -16,7 +16,7 @@ module Kozo
 
         raise UsageError, "unknown subcommand: state #{subcommand}" unless klass
 
-        @subcommand = klass.new(*args)
+        @subcommand = klass.new(...)
       end
 
       def start
