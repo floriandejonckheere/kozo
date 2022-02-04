@@ -52,8 +52,12 @@ module Kozo
 
       raise UsageError, "unknown command: #{command}" unless klass
 
+      configuration = Parser
+        .new(Kozo.options.directory)
+        .call
+
       klass
-        .new(*command_args)
+        .new(*command_args, configuration: configuration)
         .start
     rescue UsageError => e
       # Don't print tail if no message was passed

@@ -5,7 +5,7 @@ module Kozo
     class_attribute :description
 
     attr_reader :args
-    attr_writer :state, :configuration
+    attr_accessor :configuration
 
     def initialize(*args, configuration: nil)
       @args = args
@@ -44,14 +44,8 @@ module Kozo
       end
     end
 
-    def configuration
-      @configuration ||= Parser
-        .new(Kozo.options.directory)
-        .call
-    end
-
     def state
-      @state ||= configuration
+      configuration
         .state
     end
   end

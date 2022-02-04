@@ -6,7 +6,9 @@ module Kozo
       class List < State
         self.description = "List resources in the state"
 
-        def initialize(*_args); end
+        def initialize(*_args, configuration: nil)
+          @configuration = configuration
+        end
 
         def start
           state
