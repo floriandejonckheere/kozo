@@ -49,6 +49,32 @@ RSpec.describe Kozo::Backends::Local do
         expect(File.read("#{file}.#{DateTime.current.to_i}.kzbackup")).to eq "---\nbar: foo\n"
       end
     end
+
+    context "when the fingerprint is the same" do
+      it "does not write a local file" do
+        backend.data = state
+
+        File.unlink(file)
+
+        backend.data = state
+
+        expect(File).not_to exist file
+      end
+
+      it "does not write the file if the fingerprint is equal" do
+        backend.backups = true
+
+        backend.data = state
+
+        File.unlink(file)
+
+        Timecop.freeze do
+          backend.data = state
+
+          expect(File).not_to exist "#{file}.#{DateTime.current.to_i}.kzbackup"
+        end
+      end
+    end
   end
 
   describe "#file=" do

@@ -8,6 +8,7 @@ module Kozo
     class Local < Kozo::Backend
       attr_writer :file
       attr_accessor :backups
+      attr_reader :fingerprint
 
       def initialize(configuration, directory)
         super
@@ -39,10 +40,12 @@ module Kozo
       def data=(value)
         Kozo.logger.debug "Writing local state in #{path}"
 
+        return if @data.hash == value.hash
+
         @data = value
 
         # Write backup state file
-        FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups
+        FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups && File.exist?(path)
 
         # Write local state file
         File.write(path, value.deep_stringify_keys.to_yaml)
