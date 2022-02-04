@@ -21,7 +21,7 @@ module Kozo
       end
 
       def data=(value)
-        super
+        return unless super
 
         git.add(file)
         git.commit("Update Kozo resource state")

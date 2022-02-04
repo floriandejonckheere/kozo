@@ -32,7 +32,7 @@ RSpec.describe Kozo::Backends::Git do
     it "creates a commit" do
       backend.initialize!
 
-      expect(Dir.chdir(repository) { `git rev-list HEAD --count` }.chomp).to eq "1"
+      expect(commits).to eq 1
     end
 
     it "adds a remote" do
@@ -69,7 +69,36 @@ RSpec.describe Kozo::Backends::Git do
     it "creates a commit" do
       backend.data = state
 
-      expect(Dir.chdir(repository) { `git rev-list HEAD --count` }.chomp).to eq "2"
+      expect(commits).to eq 2
     end
+
+    context "when the fingerprint is the same" do
+      it "does not write a local file" do
+        backend.data = state
+
+        File.unlink(file)
+
+        backend.data = state
+
+        expect(File).not_to exist file
+      end
+
+      it "does not create a commit" do
+        backend.data = state
+
+        File.unlink(file)
+
+        backend.data = state
+
+        expect(commits).to eq 2
+      end
+    end
+  end
+
+  def commits
+    Dir
+      .chdir(repository) { `git rev-list HEAD --count` }
+      .chomp
+      .to_i
   end
 end
