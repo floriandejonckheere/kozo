@@ -83,14 +83,12 @@ module Kozo
 
     def attributes
       attribute_names
-        .map { |name| [name, read_attribute(name)] }
-        .to_h
+        .to_h { |name| [name, read_attribute(name)] }
     end
 
     def arguments
       argument_names
-        .map { |name| [name, read_attribute(name)] }
-        .to_h
+        .to_h { |name| [name, read_attribute(name)] }
     end
 
     delegate :attribute_names, to: :class
