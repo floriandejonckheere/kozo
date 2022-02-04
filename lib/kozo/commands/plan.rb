@@ -7,12 +7,14 @@ module Kozo
 
       attr_reader :operations
 
-      def initialize(*_args)
+      def initialize(configuration, *_args)
+        super(configuration)
+
         @operations = []
       end
 
       def start
-        Refresh.new(configuration: configuration).start
+        Refresh.new(configuration).start
 
         @operations = changes.filter_map do |resource|
           if !resource.id?

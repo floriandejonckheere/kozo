@@ -7,7 +7,9 @@ module Kozo
 
       attr_reader :address, :id
 
-      def initialize(*args)
+      def initialize(configuration, *args)
+        super(configuration)
+
         address = args.shift
 
         raise UsageError, "address not specified" unless address

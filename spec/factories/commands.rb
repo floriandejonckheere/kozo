@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :command, class: "Kozo::Command" do
-    initialize_with { new(args) }
+    initialize_with { new(nil, args) }
 
     transient do
       args { [] }

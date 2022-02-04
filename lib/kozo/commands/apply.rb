@@ -7,8 +7,8 @@ module Kozo
 
       attr_reader :parser, :options
 
-      def initialize(*args)
-        super()
+      def initialize(configuration, *args)
+        super(configuration)
 
         @options = {
           yes: false,

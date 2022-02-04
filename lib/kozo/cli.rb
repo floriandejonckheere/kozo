@@ -57,7 +57,7 @@ module Kozo
         .call
 
       klass
-        .new(*command_args, configuration: configuration)
+        .new(configuration, *command_args)
         .start
     rescue UsageError => e
       # Don't print tail if no message was passed
