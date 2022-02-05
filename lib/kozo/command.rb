@@ -27,11 +27,13 @@ module Kozo
           # Find resource in configuration
           configured = configuration.resources.find { |r| r.address == resource.address }
 
-          # Assign updated attributes (mark for update)
-          resource.assign_attributes(configured&.updatable_attributes || resource.updatable_attributes.transform_values { nil })
-
-          # Set ID to nil (mark for destruction)
-          resource.id = nil unless configured
+          if configured
+            # Assign updated attributes (mark for update)
+            resource.assign_attributes(configured&.updatable_attributes)
+          else
+            # Set attributes to nil (mark for destruction)
+            resource.assign_attributes(resource.attributes.transform_values { nil })
+          end
         end
 
         # Append resources not in state (mark for creation)

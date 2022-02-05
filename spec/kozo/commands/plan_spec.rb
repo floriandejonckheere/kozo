@@ -28,7 +28,7 @@ RSpec.describe Kozo::Commands::Plan do
       # dummy.resource1:
       ~ resource "dummy", "resource1" do |r|
           r.id          = "#{resource1.id}"
-        ~ r.name        = "name1"
+        ~ r.name        = "old name1" -> "name1"
           r.description = "description1"
       end
     LOG
