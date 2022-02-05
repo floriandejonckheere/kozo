@@ -11,7 +11,15 @@ module Kozo
           attribute :public_key
           attribute :labels, type: :hash
 
-          attribute :created, argument: false, type: :time
+          attribute :created, type: :time
+
+          def creatable_attributes
+            [:name, :public_key, :labels]
+          end
+
+          def updatable_attributes
+            [:name, :labels]
+          end
         end
       end
     end
