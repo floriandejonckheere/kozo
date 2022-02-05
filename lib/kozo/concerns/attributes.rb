@@ -45,8 +45,7 @@ module Kozo
 
         options = attribute_types[name] = {
           multiple: !!options[:multiple],
-          attribute: !!options.fetch(:attribute, true),
-          argument: !!options.fetch(:argument, true),
+          readonly: !!options.fetch(:readonly, false),
           type: type,
           default: options[:default],
         }
@@ -57,25 +56,24 @@ module Kozo
           define_method(:"#{name}?") { !!read_attribute(name) }
         end
 
-        # Set visibility to public if it's an attribute
-        options[:attribute] ? public(name) : private(name)
+        # Set getter visibility to public
+        public(name)
 
         # Define setter
         define_method(:"#{name}=") { |value| write_attribute(name, value) } unless method_defined? :"#{name}="
 
-        # Set visibility to public if it's an argument
-        options[:argument] ? public(:"#{name}=") : private(:"#{name}=")
+        # Set setter visibility to private if it's readonly
+        private(:"#{name}=") if options[:readonly]
       end
 
       def attribute_names
         @attribute_names ||= attribute_types
-          .select { |_k, v| v[:attribute] }
           .keys
       end
 
       def argument_names
         @argument_names ||= attribute_types
-          .select { |_k, v| v[:argument] }
+          .reject { |_k, v| v[:readonly] }
           .keys
       end
     end

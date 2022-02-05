@@ -11,7 +11,7 @@ module Kozo
           attribute :public_key
           attribute :labels, type: :hash
 
-          attribute :created, argument: false, type: :time
+          attribute :created, type: :time, readonly: true
         end
       end
     end
