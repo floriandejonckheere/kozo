@@ -11,7 +11,7 @@ module Kozo
         protected
 
         def refresh
-          return unless id
+          raise NotPersisted unless id
 
           resource = resource_class.find(id)
 
@@ -35,6 +35,8 @@ module Kozo
         end
 
         def update
+          raise NotPersisted unless id
+
           resource = resource_class.find(id)
 
           # Set remote attributes from local resource
@@ -53,7 +55,10 @@ module Kozo
         end
 
         def destroy
-          resource = resource_class.find(id_was)
+          # Use rid, because id will have been blanked
+          raise NotPersisted unless rid
+
+          resource = resource_class.find(rid)
           resource.delete
         rescue ::HCloud::Errors::NotFound => e
           raise StateError, "#{address}: #{e.message}"

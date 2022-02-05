@@ -6,8 +6,8 @@ module Kozo
 
     attr_accessor :resources
 
-    def initialize(resources = nil, version = VERSION, kozo_version = Kozo::VERSION)
-      @resources = Set.new(resources)
+    def initialize(resources = [], version = VERSION, kozo_version = Kozo::VERSION)
+      @resources = Array(resources)
 
       raise StateError, "invalid version in state: got #{version}, expected #{State::VERSION}" unless version == State::VERSION
       raise StateError, "invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}" unless kozo_version == Kozo::VERSION

@@ -21,9 +21,14 @@ module Kozo
       "#{resource_name}.#{state_name}"
     end
 
+    # Catchall for id, also works when the resource will be deleted
+    def rid
+      id || id_was
+    end
+
     def ==(other)
       self.class == other.class &&
-        id == other.id &&
+        rid == other.rid &&
         state_name == other.state_name
     end
 

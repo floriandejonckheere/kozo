@@ -18,4 +18,7 @@ module Kozo
 
   # Raised when state invalid or resource not found in state
   class StateError < Error; end
+
+  # Raised when performing an operation on a resource that was not persisted yet
+  class NotPersisted < Error; end
 end
