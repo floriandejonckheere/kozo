@@ -53,7 +53,7 @@ module Kozo
         end
 
         def destroy
-          resource = resource_class.find(id)
+          resource = resource_class.find(id_was)
           resource.delete
         rescue ::HCloud::Errors::NotFound => e
           raise StateError, "#{address}: #{e.message}"
