@@ -4,6 +4,8 @@ module Kozo
   module Attributes
     extend ActiveSupport::Concern
 
+    USES = [:create, :read, :update, :delete, :none].freeze
+
     included do
       class_attribute :attribute_types, default: {}
 
@@ -45,8 +47,7 @@ module Kozo
 
         options = attribute_types[name] = {
           multiple: !!options[:multiple],
-          attribute: !!options.fetch(:attribute, true),
-          argument: !!options.fetch(:argument, true),
+          uses: USES & Array(options.fetch(:only, USES)),
           type: type,
           default: options[:default],
         }
@@ -57,25 +58,25 @@ module Kozo
           define_method(:"#{name}?") { !!read_attribute(name) }
         end
 
-        # Set visibility to public if it's an attribute
-        options[:attribute] ? public(name) : private(name)
+        # Set visibility to public if it's returned from the API
+        options[:uses].include?(:read) ? public(name) : private(name)
 
         # Define setter
         define_method(:"#{name}=") { |value| write_attribute(name, value) } unless method_defined? :"#{name}="
 
-        # Set visibility to public if it's an argument
-        options[:argument] ? public(:"#{name}=") : private(:"#{name}=")
+        # Set visibility to public if it's used for creation
+        ([:create, :update, :delete] & options[:uses]).any? ? public(:"#{name}=") : private(:"#{name}=")
       end
 
       def attribute_names
         @attribute_names ||= attribute_types
-          .select { |_k, v| v[:attribute] }
+          .select { |_k, v| v[:uses].include?(:read) }
           .keys
       end
 
       def argument_names
         @argument_names ||= attribute_types
-          .select { |_k, v| v[:argument] }
+          .select { |_k, v| ([:create, :update, :delete] & v[:uses]).any? }
           .keys
       end
     end

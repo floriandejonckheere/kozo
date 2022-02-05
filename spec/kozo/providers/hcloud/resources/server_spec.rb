@@ -10,8 +10,6 @@ RSpec.describe Kozo::Providers::HCloud::Resources::Server do
 
   before { stub_const("HCloud::Server", server_class) }
 
-  it { is_expected.to have_arguments :name, :image, :server_type, :location, :datacenter, :user_data, :labels, :ssh_keys }
-
   it { is_expected.to have_attributes :name, :image, :server_type, :location, :datacenter, :user_data, :locked, :labels, :crated, :ssh_keys }
 
   it "has a name" do
