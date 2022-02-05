@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 module Kozo
   module Attributes
     extend ActiveSupport::Concern
@@ -27,9 +28,31 @@ module Kozo
 
         instance_variable_set(:"@#{name}", value)
       end
+
+      def attributes
+        attribute_names
+          .to_h { |name| [name, read_attribute(name)] }
+      end
+
+      def arguments
+        argument_names
+          .to_h { |name| [name, read_attribute(name)] }
+      end
+
+      def creatable_attributes
+        attributes
+          .slice(*creatable_attribute_names)
+      end
+
+      def updatable_attributes
+        attributes
+          .slice(*updatable_attribute_names)
+      end
+
+      delegate :attribute_names, to: :class
+      delegate :argument_names, to: :class
     end
 
-    # rubocop:disable Metrics/BlockLength
     class_methods do
       def inherited(sub_class)
         super
@@ -77,19 +100,6 @@ module Kozo
           .keys
       end
     end
-    # rubocop:enable Metrics/BlockLength
-
-    def attributes
-      attribute_names
-        .to_h { |name| [name, read_attribute(name)] }
-    end
-
-    def arguments
-      argument_names
-        .to_h { |name| [name, read_attribute(name)] }
-    end
-
-    delegate :attribute_names, to: :class
-    delegate :argument_names, to: :class
   end
 end
+# rubocop:enable Metrics/BlockLength

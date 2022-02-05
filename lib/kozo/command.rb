@@ -28,7 +28,7 @@ module Kozo
           configured = configuration.resources.find { |r| r.address == resource.address }
 
           # Assign updated attributes (mark for update)
-          resource.assign_attributes(configured&.arguments&.except(:id) || resource.arguments.except(:id).transform_values { nil })
+          resource.assign_attributes(configured&.updatable_attributes || resource.updatable_attributes.transform_values { nil })
 
           # Set ID to nil (mark for destruction)
           resource.id = nil unless configured

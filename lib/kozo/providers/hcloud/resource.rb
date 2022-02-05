@@ -6,7 +6,7 @@ module Kozo
       class Resource < Kozo::Resource
         self.provider_name = "hcloud"
 
-        attribute :id, type: :integer
+        attribute :id, type: :integer, readonly: true
 
         protected
 
@@ -15,6 +15,7 @@ module Kozo
 
           resource = resource_class.find(id)
 
+          # Set local attributes from remote resource
           attribute_names
             .excluding(:id)
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
@@ -23,9 +24,10 @@ module Kozo
         end
 
         def create
-          resource = resource_class.new(**attributes.except(:id))
+          resource = resource_class.new(creatable_attributes)
           resource.create
 
+          # Set local attributes from remote resource
           attribute_names
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::UniquenessError => e
@@ -35,8 +37,8 @@ module Kozo
         def update
           resource = resource_class.find(id)
 
-          attribute_names
-            .excluding(:id)
+          # Set remote attributes from local resource
+          updatable_attribute_names
             .each { |attr| resource.send(:"#{attr}=", send(attr)) }
 
           resource.update

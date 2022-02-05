@@ -7,6 +7,9 @@ module Kozo
         class Dummy < Resource
           self.resource_name = "dummy"
 
+          self.creatable_attribute_names = [:name, :description]
+          self.updatable_attribute_names = [:name, :description]
+
           attribute :name
           attribute :description
         end

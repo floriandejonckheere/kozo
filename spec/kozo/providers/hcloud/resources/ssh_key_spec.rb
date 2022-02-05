@@ -71,7 +71,9 @@ RSpec.describe Kozo::Providers::HCloud::Resources::SSHKey do
         .to have_received(:update)
 
       expect(ssh_key.name).to eq "old_name"
-      expect(ssh_key.public_key).to eq "old_public_key"
+
+      # public_key doesn't get updated
+      expect(ssh_key.public_key).to eq "new_public_key"
     end
   end
 

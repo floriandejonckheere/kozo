@@ -13,6 +13,10 @@ module Kozo
 
     class_attribute :resource_name, :provider_name
 
+    class_attribute :creatable_attribute_names,
+                    :updatable_attribute_names,
+                    default: []
+
     def address
       "#{resource_name}.#{state_name}"
     end
