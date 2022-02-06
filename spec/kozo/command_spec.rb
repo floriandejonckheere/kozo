@@ -45,7 +45,7 @@ RSpec.describe Kozo::Command do
         resource = command.changes.first
 
         expect(resource.id).to be_nil
-        expect(resource.changes.symbolize_keys).to eq id: ["id", nil], name: ["name", nil], description: ["description", nil]
+        expect(resource.changes.symbolize_keys).to include id: ["id", nil], name: ["name", nil], description: ["description", nil]
       end
     end
   end

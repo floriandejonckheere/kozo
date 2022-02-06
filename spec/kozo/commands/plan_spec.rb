@@ -3,11 +3,11 @@
 RSpec.describe Kozo::Commands::Plan do
   subject(:command) { build(:plan_command, configuration: configuration) }
 
-  let(:resource0) { build(:dummy_resource, state_name: "resource0", name: "name0", description: "description0", id: nil) }
-  let(:resource1) { build(:dummy_resource, state_name: "resource1", name: "name1", description: "description1") }
-  let(:resource2) { build(:dummy_resource, state_name: "resource2", name: "name2", description: "description2") }
+  let(:resource0) { build(:dummy_resource, state_name: "resource0", name: "name0", description: "description0", location: "eu", locked: false, id: nil) }
+  let(:resource1) { build(:dummy_resource, state_name: "resource1", name: "name1", description: "description1", location: "eu", locked: false) }
+  let(:resource2) { build(:dummy_resource, state_name: "resource2", name: "name2", description: "description2", location: "eu", locked: false) }
 
-  let(:resource1_modified) { build(:dummy_resource, state_name: "resource1", id: resource1.id, name: "old name1", description: "description1") }
+  let(:resource1_modified) { build(:dummy_resource, state_name: "resource1", id: resource1.id, name: "old name1", description: "description1", location: "eu", locked: false) }
 
   let(:state) { build(:state, resources: [resource1_modified, resource2]) }
   let(:configuration) { build(:configuration, backend: build(:memory_backend, state: state), resources: [resource0, resource1]) }
@@ -19,6 +19,9 @@ RSpec.describe Kozo::Commands::Plan do
           r.id          = (known after apply)
         + r.name        = "name0"
         + r.description = "description0"
+          r.location    = (known after apply)
+          r.locked      = (known after apply)
+          r.labels      = (known after apply)
       end
     LOG
   end
@@ -30,6 +33,9 @@ RSpec.describe Kozo::Commands::Plan do
           r.id          = "#{resource1.id}"
         ~ r.name        = "old name1" -> "name1"
           r.description = "description1"
+          r.location    = "eu"
+          r.locked      = false
+          r.labels      = []
       end
     LOG
   end
@@ -41,6 +47,9 @@ RSpec.describe Kozo::Commands::Plan do
         - r.id          = "#{resource2.id}"
         - r.name        = "name2"
         - r.description = "description2"
+        - r.location    = "eu"
+        - r.locked      = false
+        - r.labels      = []
       end
     LOG
   end

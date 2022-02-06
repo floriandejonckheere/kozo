@@ -8,5 +8,10 @@ FactoryBot.define do
 
     name { "dummy" }
     description { "Dummy resource" }
+
+    location { "eu" }
+    locked { false }
+
+    labels { [] }
   end
 end

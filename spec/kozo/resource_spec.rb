@@ -24,7 +24,7 @@ RSpec.describe Kozo::Resource do
   describe "#to_h" do
     it "transforms resource into a hash" do
       expect(resource.to_h).to include meta: { name: "state_name", provider: "dummy", resource: "dummy" },
-                                       data: { id: "id", name: "dummy", description: "Dummy resource" }
+                                       data: { id: "id", name: "dummy", description: "Dummy resource", location: "eu", locked: false, labels: [] }
     end
   end
 
