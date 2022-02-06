@@ -9,7 +9,7 @@ module Kozo
 
     attr_accessor :provider, :state_name
 
-    attribute :id
+    attribute :id, readonly: true
 
     class_attribute :resource_name, :provider_name
 

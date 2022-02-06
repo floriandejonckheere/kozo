@@ -58,7 +58,7 @@ RSpec.describe Kozo::Commands::Plan do
     let(:state) { build(:state, resources: [resource0, resource1]) }
 
     # Resource must have an ID, otherwise it is marked as to be created
-    before { resource0.id = "id0" }
+    before { resource0.send(:id=, "id0") }
 
     it "plans nothing" do
       expect { command.start }.to log("No actions have to be performed")
