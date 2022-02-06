@@ -44,6 +44,8 @@ module Kozo
 
         @data = value
 
+        return if Kozo.options.dry_run?
+
         # Write backup state file
         FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups && File.exist?(path)
 

@@ -50,6 +50,16 @@ RSpec.describe Kozo::Backends::Local do
       end
     end
 
+    context "when dry run is enabled" do
+      it "does not write a local file" do
+        Kozo.options.dry_run = true
+
+        backend.data = state
+
+        expect(File).not_to exist file
+      end
+    end
+
     context "when the fingerprint is the same" do
       it "does not write a local file" do
         backend.data = state
