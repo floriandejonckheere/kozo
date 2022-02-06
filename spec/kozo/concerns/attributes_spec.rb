@@ -7,117 +7,117 @@ RSpec.describe Kozo::Attributes do
     Class.new do
       include Kozo::Attributes
 
-      attribute :single_attribute
-      attribute :multiple_attribute, multiple: true
-      attribute :type_attribute, type: :integer
-      attribute :default_attribute, default: "a_default"
-      attribute :boolean_attribute, type: :boolean, default: true
-      attribute :readonly_attribute, readonly: true
+      attribute :single
+      attribute :multiple, multiple: true
+      attribute :type, type: :integer
+      attribute :default, default: "a_default"
+      attribute :boolean, type: :boolean, default: true
+      attribute :readonly, readonly: true
     end
   end
 
   describe ".attribute_names" do
     it "returns the names of the attributes" do
-      expect(object_class.attribute_names).to match_array [:single_attribute, :multiple_attribute, :type_attribute, :default_attribute, :boolean_attribute, :readonly_attribute]
+      expect(object_class.attribute_names).to match_array [:single, :multiple, :type, :default, :boolean, :readonly]
     end
   end
 
   describe ".attribute_types" do
     it "returns the types of the attributes" do
-      expect(object_class.attribute_types).to include single_attribute: include(multiple: false), multiple_attribute: include(multiple: true)
+      expect(object_class.attribute_types).to include single: include(multiple: false), multiple: include(multiple: true)
     end
   end
 
   describe "#attributes" do
     it "returns the attributes" do
-      object.single_attribute = "one"
-      object.multiple_attribute = ["two", "three"]
-      object.send(:readonly_attribute=, "four")
+      object.single = "one"
+      object.multiple = ["two", "three"]
+      object.send(:readonly=, "four")
 
-      expect(object.attributes).to include single_attribute: "one", multiple_attribute: ["two", "three"], readonly_attribute: "four"
+      expect(object.attributes).to include single: "one", multiple: ["two", "three"], readonly: "four"
     end
   end
 
   describe ".argument_names" do
     it "returns the names of the arguments" do
-      expect(object_class.argument_names).not_to include :readonly_attribute
+      expect(object_class.argument_names).not_to include :readonly
     end
   end
 
   describe "#arguments" do
     it "returns the arguments" do
-      object.send(:readonly_attribute=, "one")
+      object.send(:readonly=, "one")
 
-      expect(object.arguments).not_to include readonly_attribute: "one"
+      expect(object.arguments).not_to include readonly: "one"
     end
   end
 
-  describe "#single_attribute" do
+  describe "#single" do
     it "returns nil when uninitialized" do
-      expect(object.single_attribute).to eq nil
+      expect(object.single).to eq nil
     end
 
     it "returns the value" do
-      object.single_attribute = "one"
+      object.single = "one"
 
-      expect(object.single_attribute).to eq "one"
-      expect(object).to be_single_attribute
+      expect(object.single).to eq "one"
+      expect(object).to be_single
     end
   end
 
-  describe "#multiple_attribute" do
+  describe "#multiple" do
     it "returns empty when uninitialized" do
-      expect(object.multiple_attribute).to be_empty
+      expect(object.multiple).to be_empty
     end
 
     it "returns the value" do
-      object.multiple_attribute = ["two", "three"]
+      object.multiple = ["two", "three"]
 
-      expect(object.multiple_attribute).to match_array ["two", "three"]
-      expect(object).to be_multiple_attribute
+      expect(object.multiple).to match_array ["two", "three"]
+      expect(object).to be_multiple
     end
 
     it "appends to the array" do
-      object.multiple_attribute << "four"
+      object.multiple << "four"
 
-      expect(object.multiple_attribute).to match_array ["four"]
+      expect(object.multiple).to match_array ["four"]
     end
   end
 
-  describe "#type_attribute" do
+  describe "#type" do
     it "returns nil when uninitialized" do
-      expect(object.type_attribute).to eq nil
+      expect(object.type).to eq nil
     end
 
     it "returns the value" do
-      object.type_attribute = "1"
+      object.type = "1"
 
-      expect(object.type_attribute).to eq 1
-      expect(object).to be_type_attribute
+      expect(object.type).to eq 1
+      expect(object).to be_type
     end
   end
 
-  describe "#default_attribute" do
-    it "returns the default_attribute when uninitialized" do
-      expect(object.default_attribute).to eq "a_default"
+  describe "#default" do
+    it "returns the default when uninitialized" do
+      expect(object.default).to eq "a_default"
     end
 
     it "returns the value" do
-      object.default_attribute = "value"
+      object.default = "value"
 
-      expect(object.default_attribute).to eq "value"
-      expect(object).to be_default_attribute
+      expect(object.default).to eq "value"
+      expect(object).to be_default
     end
 
     it "returns a default attribute for boolean types" do
-      object.boolean_attribute = false
+      object.boolean = false
 
-      expect(object.boolean_attribute).to eq false
+      expect(object.boolean).to eq false
     end
   end
 
-  describe "#readonly_attribute" do
-    it { is_expected.to respond_to :readonly_attribute }
-    it { is_expected.not_to respond_to :readonly_attribute= }
+  describe "#readonly" do
+    it { is_expected.to respond_to :readonly }
+    it { is_expected.not_to respond_to :readonly= }
   end
 end
