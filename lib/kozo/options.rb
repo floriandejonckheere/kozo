@@ -40,6 +40,18 @@ module Kozo
       debug.present?
     end
 
+    def dry_run=(value)
+      @dry_run = value.present?
+    end
+
+    def dry_run
+      @dry_run ||= false
+    end
+
+    def dry_run?
+      dry_run.present?
+    end
+
     def [](key)
       send(key)
     end

@@ -13,6 +13,7 @@ module Kozo
         o.on("-d", "--directory=DIRECTORY", "Set working directory")
         o.on("-v", "--verbose", "Turn on verbose logging")
         o.on("-D", "--debug", "Turn on debug logging")
+        o.on("-n", "--dry_run", "Dry run all operations")
         o.on("-h", "--help", "Display this message") { usage }
         o.separator("\n")
         o.on("Commands:")
@@ -55,6 +56,8 @@ module Kozo
       configuration = Parser
         .new(Kozo.options.directory)
         .call
+
+      Kozo.logger.info "Dry running all operations" if Kozo.options.dry_run?
 
       klass
         .new(configuration, *command_args)

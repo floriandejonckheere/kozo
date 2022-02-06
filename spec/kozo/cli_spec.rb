@@ -36,6 +36,16 @@ describe Kozo::CLI do
       end
     end
 
+    describe "--dry-run" do
+      let(:args) { ["--dry-run"] }
+
+      it "turns on dry run" do
+        cli
+
+        expect(Kozo.options).to be_dry_run
+      end
+    end
+
     describe "--help" do
       let(:args) { ["--help"] }
 

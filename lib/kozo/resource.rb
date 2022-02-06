@@ -86,7 +86,7 @@ module Kozo
     def create!
       Kozo.logger.info "#{address}: creating resource"
 
-      create
+      create unless Kozo.options.dry_run?
 
       Kozo.logger.info "#{address}: created resource"
     end
@@ -97,7 +97,7 @@ module Kozo
     def update!
       Kozo.logger.info "#{address}: updating resource"
 
-      update
+      update unless Kozo.options.dry_run?
 
       Kozo.logger.info "#{address}: updated resource"
     end
@@ -108,7 +108,7 @@ module Kozo
     def destroy!
       Kozo.logger.info "#{address}: destroying resource"
 
-      destroy
+      destroy unless Kozo.options.dry_run?
 
       Kozo.logger.info "#{address}: destroyed resource"
     end
