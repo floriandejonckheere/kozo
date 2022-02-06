@@ -14,7 +14,7 @@ RSpec.describe CoreExt::NilClass do
       subject(:enumerable) { [] }
 
       it "serializes correctly" do
-        expect(enumerable.as_s).to eq "["
+        expect(enumerable.as_s).to eq "[]"
       end
     end
 

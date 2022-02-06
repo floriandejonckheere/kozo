@@ -7,7 +7,7 @@ module CoreExt
     end
 
     def as_s
-      return "[" if empty?
+      return "[]" if empty?
 
       map { |k| "  #{k.as_s}" }
         .intersperse(",")
