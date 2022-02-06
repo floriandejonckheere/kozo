@@ -3,8 +3,10 @@
 RSpec.describe Kozo::Reference do
   subject(:reference) { described_class.new(resource.class, configuration) }
 
-  let(:resource) { build(:dummy_resource, state_name: "dummy") }
-  let(:configuration) { build(:configuration, resources: [resource]) }
+  let(:resource) { build(:dummy_resource, id: "id", state_name: "dummy") }
+
+  let(:state) { build(:state, resources: [resource]) }
+  let(:configuration) { build(:configuration, backend: build(:memory_backend, state: state), resources: [resource]) }
 
   describe "#state_name" do
     it "sets the state name" do

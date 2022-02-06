@@ -23,16 +23,24 @@ module Kozo
     end
 
     def as_s
-      raise StateError, "invalid resource address: #{address}" unless state_name
-
-      resource = configuration
-        .changes
-        .find { |r| r.address == address }
-
-      raise StateError, "no such resource address: #{address}" unless resource
-
       resource.id? ? resource.id.as_s : "(known after apply)"
     end
+
+    def resource
+      @resource ||= begin
+        raise StateError, "invalid resource address: #{address}" unless state_name
+
+        resource = configuration
+          .changes
+          .find { |r| r.address == address }
+
+        raise StateError, "no such resource address: #{address}" unless resource
+
+        resource
+      end
+    end
+
+    delegate :id, to: :resource
 
     private
 
