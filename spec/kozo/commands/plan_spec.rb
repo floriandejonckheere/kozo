@@ -21,7 +21,7 @@ RSpec.describe Kozo::Commands::Plan do
         + r.description = "description0"
           r.location    = (known after apply)
           r.locked      = (known after apply)
-          r.labels      = (known after apply)
+          r.labels      = []
       end
     LOG
   end
