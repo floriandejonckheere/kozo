@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :command, class: "Kozo::Command" do
-    initialize_with { new(nil, args) }
+    initialize_with { new(nil, *args) }
 
     transient do
       args { [] }
@@ -14,6 +14,8 @@ FactoryBot.define do
     factory :state_show_command, class: "Kozo::Commands::State::Show"
     factory :state_delete_command, class: "Kozo::Commands::State::Delete"
   end
+
+  factory :import_command, parent: :command, class: "Kozo::Commands::Import"
 
   factory :plan_command, parent: :command, class: "Kozo::Commands::Plan"
 

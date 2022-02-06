@@ -32,7 +32,7 @@ module Kozo
 
         # Set ID and fetch attributes
         resource
-          .tap { |r| r.id = id }
+          .tap { |r| r.send(:id=, id) }
           .refresh!
 
         # Add or replace resource to in-memory state
