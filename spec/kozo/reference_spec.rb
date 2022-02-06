@@ -12,6 +12,12 @@ RSpec.describe Kozo::Reference do
 
       expect(reference.state_name).to eq "name"
     end
+
+    it "sets the state name only once" do
+      reference.name
+
+      expect { reference.another_name }.to raise_error NoMethodError
+    end
   end
 
   describe "#as_s" do

@@ -10,6 +10,9 @@ module Kozo
     end
 
     def method_missing(method_name, *_arguments)
+      # Raise NoMethodError when `state_name` was already set (usually because of a programming error)
+      return super if @state_name
+
       @state_name = method_name.to_s
 
       self
