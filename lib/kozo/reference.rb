@@ -23,13 +23,11 @@ module Kozo
       raise StateError, "invalid resource address: #{address}" unless state_name
 
       resource = configuration
-        .resources
+        .changes
         .find { |r| r.address == address }
 
       raise StateError, "no such resource address: #{address}" unless resource
 
-      # FIXME: will always be nil for existing resources, since the configuration does not contain this information
-      # FIXME: will be solved once a unified state is introduced
       resource.id? ? resource.id.as_s : "(known after apply)"
     end
 
