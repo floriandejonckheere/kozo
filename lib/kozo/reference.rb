@@ -22,6 +22,12 @@ module Kozo
       true
     end
 
+    def to_h
+      {
+        id: id,
+      }
+    end
+
     def as_s
       resource.id? ? resource.id.as_s : "(known after apply)"
     end

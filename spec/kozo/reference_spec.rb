@@ -22,6 +22,14 @@ RSpec.describe Kozo::Reference do
     end
   end
 
+  describe "#to_h" do
+    it "transforms reference into a hash" do
+      reference.dummy
+
+      expect(reference.to_h).to include id: "id"
+    end
+  end
+
   describe "#as_s" do
     it "serializes correctly" do
       reference.dummy
