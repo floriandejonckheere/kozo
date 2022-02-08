@@ -5,6 +5,8 @@ RSpec.describe Kozo::Options do
 
   it { is_expected.to respond_to :directory, :directory?, :directory= }
   it { is_expected.to respond_to :verbose, :verbose?, :verbose= }
+  it { is_expected.to respond_to :debug, :debug?, :debug= }
+  it { is_expected.to respond_to :dry_run, :dry_run?, :dry_run= }
 
   describe "#[]" do
     it "gets the option value" do
