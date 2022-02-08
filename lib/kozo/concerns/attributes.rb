@@ -39,9 +39,15 @@ module Kozo
           .to_h { |name| [name, read_attribute(name)] }
       end
 
+      def references
+        reference_names
+          .map { |name| [name, read_attribute(name)] }
+          .to_h
+      end
+
       def creatable_attributes
-        attributes
-          .slice(*creatable_attribute_names)
+        creatable_attribute_names
+          .to_h { |name| [name, attribute_types[name][:reference] ? read_attribute(name).send_wrap(:id) : read_attribute(name)] }
       end
 
       def updatable_attributes
@@ -69,6 +75,8 @@ module Kozo
         options = attribute_types[name] = {
           multiple: !!options[:multiple],
           readonly: !!options.fetch(:readonly, false),
+          unwrap: !!options.fetch(:unwrap, false),
+          reference: options.fetch(:type, :string) == :reference,
           type: type,
           default: options[:default],
         }
@@ -97,6 +105,12 @@ module Kozo
       def argument_names
         @argument_names ||= attribute_types
           .reject { |_k, v| v[:readonly] }
+          .keys
+      end
+
+      def reference_names
+        @reference_names ||= attribute_types
+          .select { |_k, v| v[:reference] }
           .keys
       end
     end

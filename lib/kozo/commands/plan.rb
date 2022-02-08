@@ -14,7 +14,7 @@ module Kozo
       end
 
       def start
-        Refresh.new(configuration).start
+        # Refresh.new(configuration).start
 
         @operations = changes.filter_map do |resource|
           if !resource.id?

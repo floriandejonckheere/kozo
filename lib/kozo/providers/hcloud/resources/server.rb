@@ -11,16 +11,16 @@ module Kozo
           self.updatable_attribute_names = [:name, :labels]
 
           attribute :name
-          attribute :image
-          attribute :server_type
-          attribute :location
-          attribute :datacenter
+          attribute :image, unwrap: true
+          attribute :server_type, unwrap: true
+          attribute :location, unwrap: true
+          attribute :datacenter, unwrap: true
 
           attribute :user_data
 
           attribute :labels, type: :hash
 
-          attribute :ssh_keys, multiple: true, type: :reference
+          attribute :ssh_keys, type: :reference, multiple: true
 
           attribute :locked, type: :boolean, readonly: true
 

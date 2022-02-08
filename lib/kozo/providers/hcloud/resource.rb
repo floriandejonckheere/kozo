@@ -26,10 +26,21 @@ module Kozo
         def create
           resource = resource_class.new(creatable_attributes)
           resource.create
+          byebug
 
           # Set local attributes from remote resource
-          attribute_names
-            .each { |attr| send(:"#{attr}=", resource.send(attr)) }
+          attribute_types.map do |attr, options|
+            value = resource.send(attr)
+            value = value&.send_wrap(:name) if options[:unwrap]
+            value = value&.send_wrap { |v| Reference.new(v) } if options[:reference]
+
+            send(:"#{attr}=", value)
+          end
+
+          byebug
+
+          # attribute_names
+          #   .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::UniquenessError => e
           raise ResourceError, "#{address}: #{e.message}"
         end

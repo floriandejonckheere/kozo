@@ -13,6 +13,8 @@ RSpec.describe Kozo::Attributes do
       attribute :default, default: "a_default"
       attribute :boolean, type: :boolean, default: true
       attribute :readonly, readonly: true
+
+      attribute :reference, reference: true
     end
   end
 
@@ -119,5 +121,21 @@ RSpec.describe Kozo::Attributes do
   describe "#readonly" do
     it { is_expected.to respond_to :readonly }
     it { is_expected.not_to respond_to :readonly= }
+  end
+
+  describe "references" do
+    describe ".reference_names" do
+      it "returns the names of the references" do
+        expect(object_class.reference_names).to match_array [:reference]
+      end
+    end
+
+    describe "#references" do
+      it "returns the references" do
+        object.reference = "one"
+
+        expect(object.references).to include reference: "one"
+      end
+    end
   end
 end
