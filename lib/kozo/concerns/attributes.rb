@@ -18,14 +18,20 @@ module Kozo
       end
 
       def write_attribute(name, value)
+        attribute_types[name] => { multiple:, type:, wrapped: }
+
         try(:track_change!, name, value)
 
-        value = if attribute_types[name][:multiple]
-                  Array(value).map { |v| attribute_types[name][:type].cast(v) }
-                else
-                  attribute_types[name][:type].cast(value)
-                end
+        # Unwrap value(s) (call #name on receiver)
+        value = value.send_wrap { |v| v.try(:name) || v } if wrapped
 
+        # Cast value(s)
+        value = value.send_wrap { |v| type.cast(v) }
+
+        # Convert value(s) to array
+        value = Array(value) if multiple
+
+        # Set value(s)
         instance_variable_set(:"@#{name}", value)
       end
 
@@ -69,6 +75,7 @@ module Kozo
         options = attribute_types[name] = {
           multiple: !!options[:multiple],
           readonly: !!options.fetch(:readonly, false),
+          wrapped: !!options.fetch(:wrapped, false),
           type: type,
           default: options[:default],
         }

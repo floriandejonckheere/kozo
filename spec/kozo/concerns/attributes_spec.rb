@@ -13,12 +13,13 @@ RSpec.describe Kozo::Attributes do
       attribute :default, default: "a_default"
       attribute :boolean, type: :boolean, default: true
       attribute :readonly, readonly: true
+      attribute :wrapped, wrapped: true
     end
   end
 
   describe ".attribute_names" do
     it "returns the names of the attributes" do
-      expect(object_class.attribute_names).to match_array [:single, :multiple, :type, :default, :boolean, :readonly]
+      expect(object_class.attribute_names).to match_array [:single, :multiple, :type, :default, :boolean, :readonly, :wrapped]
     end
   end
 
@@ -119,5 +120,17 @@ RSpec.describe Kozo::Attributes do
   describe "#readonly" do
     it { is_expected.to respond_to :readonly }
     it { is_expected.not_to respond_to :readonly= }
+  end
+
+  describe "#wrapped" do
+    it "unwraps the value" do
+      object.wrapped = OpenStruct.new(name: "value")
+
+      expect(object.wrapped).to eq "value"
+
+      object.wrapped = "another_value"
+
+      expect(object.wrapped).to eq "another_value"
+    end
   end
 end

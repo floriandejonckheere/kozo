@@ -11,10 +11,11 @@ module Kozo
           self.updatable_attribute_names = [:name, :labels]
 
           attribute :name
-          attribute :image
-          attribute :server_type
-          attribute :location
-          attribute :datacenter
+
+          attribute :image, wrapped: true
+          attribute :server_type, wrapped: true
+          attribute :location, wrapped: true
+          attribute :datacenter, wrapped: true
 
           attribute :user_data
 
