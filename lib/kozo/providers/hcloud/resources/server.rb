@@ -8,7 +8,7 @@ module Kozo
           self.resource_name = "hcloud_server"
 
           self.creatable_attribute_names = [:name, :image, :server_type, :location, :datacenter, :user_data, :ssh_keys, :labels]
-          self.updatable_attribute_names = [:name, :labels]
+          self.updatable_attribute_names = [:name, :ssh_keys, :labels]
 
           attribute :name
 
