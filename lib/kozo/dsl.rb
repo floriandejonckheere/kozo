@@ -51,7 +51,7 @@ module Kozo
         .resolve("resource.#{method_name}")
         .class
 
-      Reference.new(resource_class, configuration)
+      Reference.new(configuration, resource_class: resource_class)
     rescue Dinja::Container::DependencyNotRegistered
       super
     end

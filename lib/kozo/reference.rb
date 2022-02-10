@@ -4,9 +4,10 @@ module Kozo
   class Reference
     attr_reader :resource_class, :state_name, :configuration
 
-    def initialize(resource_class, configuration)
+    def initialize(configuration, resource_class: nil, resource: nil)
       @resource_class = resource_class
       @configuration = configuration
+      @resource = resource
     end
 
     def method_missing(method_name, *_arguments)

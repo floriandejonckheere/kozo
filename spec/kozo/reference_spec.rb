@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::Reference do
-  subject(:reference) { described_class.new(resource.class, configuration) }
+  subject(:reference) { described_class.new(configuration, resource_class: resource.class) }
 
   let(:resource) { build(:dummy_resource, id: "id", state_name: "dummy") }
 
