@@ -19,6 +19,12 @@ RSpec.describe CoreExt::String do
     end
   end
 
+  describe "#as_h" do
+    it "returns the string representation" do
+      expect(string.as_h).to eq "a string"
+    end
+  end
+
   describe "#as_s" do
     it "serializes correctly" do
       expect("a string".as_s).to eq "\"a string\""

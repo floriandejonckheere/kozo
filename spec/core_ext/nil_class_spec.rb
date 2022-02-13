@@ -5,7 +5,13 @@ RSpec.describe CoreExt::NilClass do
 
   describe "#to_b" do
     it "returns nil" do
-      expect(nil.to_b).to eq nil
+      expect(nil.to_b).to be_nil
+    end
+  end
+
+  describe "#as_h" do
+    it "returns nil" do
+      expect(nil.as_h).to be_nil
     end
   end
 

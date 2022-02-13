@@ -22,6 +22,16 @@ RSpec.describe Kozo::Reference do
     end
   end
 
+  describe "#as_h" do
+    it "returns the ID as representation" do
+      reference.dummy
+
+      reference.resolve(configuration)
+
+      expect(reference.as_h).to eq "id"
+    end
+  end
+
   describe "#to_h" do
     it "transforms reference into a hash" do
       reference.dummy

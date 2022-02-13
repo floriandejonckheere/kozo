@@ -6,6 +6,10 @@ module CoreExt
       self
     end
 
+    def as_h
+      self
+    end
+
     def as_s
       to_s
     end

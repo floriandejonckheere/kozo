@@ -2,6 +2,10 @@
 
 module CoreExt
   module Hash
+    def as_h
+      transform_values(&:as_h)
+    end
+
     def as_s
       return "{}" if empty?
 

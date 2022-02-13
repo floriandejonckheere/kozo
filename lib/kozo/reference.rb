@@ -29,6 +29,10 @@ module Kozo
       }
     end
 
+    def as_h
+      id
+    end
+
     def as_s
       resource.id? ? resource.id.as_s : "(known after apply)"
     end

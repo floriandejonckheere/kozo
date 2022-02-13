@@ -2,7 +2,9 @@
 
 module CoreExt
   module Symbol
-    delegate :as_s, to: :to_s
+    delegate :as_h,
+             :as_s,
+             to: :to_s
   end
 end
 

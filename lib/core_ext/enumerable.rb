@@ -6,6 +6,10 @@ module CoreExt
       flat_map { |h| [h, value] }.tap(&:pop)
     end
 
+    def as_h
+      map(&:as_h)
+    end
+
     def as_s
       return "[]" if empty?
 

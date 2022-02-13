@@ -46,13 +46,13 @@ module Kozo
       end
 
       def creatable_attributes
-        attributes
-          .slice(*creatable_attribute_names)
+        creatable_attribute_names
+          .to_h { |name| [name, read_attribute(name).send_wrap(:as_h)] }
       end
 
       def updatable_attributes
-        attributes
-          .slice(*updatable_attribute_names)
+        updatable_attribute_names
+          .to_h { |name| [name, read_attribute(name).send_wrap(:as_h)] }
       end
 
       delegate :attribute_names, to: :class

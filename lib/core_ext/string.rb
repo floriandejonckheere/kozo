@@ -23,6 +23,10 @@ module CoreExt
       self == "" ? nil : FALSE_VALUES.exclude?(self)
     end
 
+    def as_h
+      self
+    end
+
     def as_s
       "\"#{chomp.tr("\n", ' ').truncate(LENGTH)}\""
     end

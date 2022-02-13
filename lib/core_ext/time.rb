@@ -2,6 +2,10 @@
 
 module CoreExt
   module Time
+    def as_h
+      iso8601
+    end
+
     def as_s
       iso8601
     end

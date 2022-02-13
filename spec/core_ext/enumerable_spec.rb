@@ -9,6 +9,20 @@ RSpec.describe CoreExt::NilClass do
     end
   end
 
+  describe "#as_h" do
+    context "when the enumerable is empty" do
+      subject(:enumerable) { [] }
+
+      it "returns an empty array" do
+        expect(enumerable.as_h).to be_empty
+      end
+    end
+
+    it "sends #as_h to every element" do
+      expect(enumerable.as_h).to eq ["foo", "bar", "baz"]
+    end
+  end
+
   describe "#as_s" do
     context "when the enumerable is empty" do
       subject(:enumerable) { [] }
