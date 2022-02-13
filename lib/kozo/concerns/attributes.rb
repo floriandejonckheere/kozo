@@ -72,12 +72,13 @@ module Kozo
 
         try(:track, name)
 
-        options = attribute_types[name] = {
+        attribute_types[name] = {
           multiple: !!options[:multiple],
-          readonly: !!options.fetch(:readonly, false),
           wrapped: !!options.fetch(:wrapped, false),
           type: type,
           default: options[:default],
+          read: read?,
+          write: write?,
         }
 
         # Define getter
@@ -86,14 +87,14 @@ module Kozo
           define_method(:"#{name}?") { !!read_attribute(name) }
         end
 
-        # Set getter visibility to public
-        public(name)
+        # Set getter visibility to private if it's writeonly
+        private(name) if writeonly?
 
         # Define setter
         define_method(:"#{name}=") { |value| write_attribute(name, value) } unless method_defined? :"#{name}="
 
         # Set setter visibility to private if it's readonly
-        private(:"#{name}=") if options[:readonly]
+        private(:"#{name}=") if readonly?
       end
 
       def attribute_names
@@ -103,7 +104,7 @@ module Kozo
 
       def argument_names
         @argument_names ||= attribute_types
-          .reject { |_k, v| v[:readonly] }
+          .select { |_k, v| v[:write] }
           .keys
       end
     end
