@@ -1,21 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe Kozo::State do
-  subject(:state) { build(:state, resources: [resource]) }
+  subject(:state) { build(:state, resources: [resource], version: version) }
 
   let(:resource) { build(:dummy_resource) }
+  let(:version) { described_class::VERSION }
 
-  describe ".new" do
-    it "raises when version does not match" do
-      expect { described_class.new([resource], 0, Kozo::VERSION) }.to raise_error Kozo::StateError
-    end
+  describe "#compatible?" do
+    it { is_expected.to be_compatible }
 
-    it "raises when kozo version does not match" do
-      expect { described_class.new([resource], described_class::VERSION, 0) }.to raise_error Kozo::StateError
-    end
+    context "when the state version does not match the current version" do
+      let(:version) { 0 }
 
-    it "validates the state file" do
-      expect { described_class.new([resource], described_class::VERSION, Kozo::VERSION) }.not_to raise_error
+      it { is_expected.not_to be_compatible }
     end
   end
 

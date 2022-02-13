@@ -4,13 +4,17 @@ module Kozo
   class State
     VERSION = 1
 
-    attr_accessor :resources
+    attr_accessor :resources, :version
 
-    def initialize(resources = [], version = VERSION, kozo_version = Kozo::VERSION)
+    def initialize(resources = [], version = VERSION)
       @resources = Array(resources)
+      @version = version
 
-      raise StateError, "invalid version in state: got #{version}, expected #{State::VERSION}" unless version == State::VERSION
-      raise StateError, "invalid kozo version in state: got #{kozo_version}, expected #{Kozo::VERSION}" unless kozo_version == Kozo::VERSION
+      raise StateError, "unexpected version in state: got #{version}, expected #{State::VERSION}\nRun `#{File.basename($PROGRAM_NAME)} state upgrade` to upgrade your state file" unless compatible?
+    end
+
+    def compatible?
+      version == State::VERSION
     end
 
     def ==(other)

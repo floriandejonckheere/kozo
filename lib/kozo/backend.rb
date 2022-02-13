@@ -11,7 +11,7 @@ module Kozo
 
     def state
       @state ||= State
-        .new(resources, data[:version], data[:kozo_version])
+        .new(resources, data[:version])
     end
 
     def state=(value)
