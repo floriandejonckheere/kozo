@@ -5,6 +5,8 @@ require "colorize"
 require "dinja"
 require "zeitwerk"
 
+require "kozo/inflector"
+
 require "byebug" if ENV["ENV"] == "development"
 
 module Kozo
@@ -33,6 +35,7 @@ module Kozo
 
     def setup
       @loader = Zeitwerk::Loader.for_gem
+      loader.inflector = Kozo::Inflector.new(__FILE__)
 
       # Register inflections
       instance_eval(File.read(root.join("config/inflections.rb")))
