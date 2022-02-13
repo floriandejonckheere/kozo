@@ -13,11 +13,13 @@ module Kozo
           attribute :name
           attribute :description
 
-          attribute :location, readonly: true
-
-          attribute :locked, type: :boolean, default: false, readonly: true
-
           attribute :labels, multiple: true
+
+          readonly
+
+          attribute :location
+
+          attribute :locked, type: :boolean, default: false
         end
       end
     end

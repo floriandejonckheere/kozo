@@ -9,7 +9,11 @@ module Kozo
 
     attr_accessor :provider, :state_name
 
-    attribute :id, readonly: true
+    readonly
+
+    attribute :id
+
+    readwrite
 
     class_attribute :resource_name, :provider_name
 
@@ -57,7 +61,7 @@ module Kozo
     def to_h
       {
         meta: meta,
-        data: attributes,
+        data: readable_attributes,
       }
     end
 

@@ -6,7 +6,11 @@ module Kozo
       class Resource < Kozo::Resource
         self.provider_name = "hcloud"
 
-        attribute :id, type: :integer, readonly: true
+        readonly
+
+        attribute :id, type: :integer
+
+        readwrite
 
         protected
 
