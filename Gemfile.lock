@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kozo (0.2.0)
+    kozo (0.3.0)
       activesupport (>= 6.0, < 7.1)
       colorize (~> 0.8)
       dinja (~> 2.0)
