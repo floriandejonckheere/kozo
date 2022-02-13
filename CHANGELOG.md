@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - 2021-12-02
+## [0.3.0] - 2022-02-13
 
-Initial release.
+- Add dependencies between resources
+- Show old and new attribute values in execution plan
+
+## [0.2.0] - 2021-12-02
 
 - Add SSH Key and Server resource
 - Update only changed attributes

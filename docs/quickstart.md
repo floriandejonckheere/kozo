@@ -209,6 +209,55 @@ end
 Try changing the name of the SSH key in the Hetzner Cloud panel as well.
 You'll see that Kozo tries to revert the name change.
 
+## Dependent resources
+
+Resource can depend on other resources for their values.
+Kozo will make sure that the dependent resources are created in the correct order.
+
+Append the following to your `main.kz` file:
+
+```ruby
+resource "hcloud_server", "default" do |s|
+  s.name = "default"
+  s.location = "fsn1"
+  s.image = "debian-11"
+  s.server_type = "cx11"
+  s.ssh_keys = [hcloud_ssh_key.default]
+  s.user_data = File.read("cloud-init.yml")
+
+  s.labels = {
+    primary: "true",
+  }
+end
+```
+
+```sh
+$ kozo plan
+...
+
+# hcloud_server.default:
++ resource "hcloud_server", "default" do |r|
+    r.id          = (known after apply)
+  + r.name        = "default"
+  + r.image       = "debian-11"
+  + r.server_type = "cx11"
+  + r.location    = "fsn1"
+    r.datacenter  = nil
+  + r.labels      = {
+      primary = "true"
+    }
+    r.locked      = (known after apply)
+    r.created     = (known after apply)
+  + r.user_data   = "#cloud-config  timezone: Europe/Berlin locale: C.UTF-8  ntp:   enabled: ..."
+  + r.ssh_keys    = [
+      5562231
+    ]
+end
+
+```
+
+Note that the SSH key reference was resolved to the ID of the SSH key that was previously created.
+
 ## Destroy a resource
 
 Instruct Kozo that the resource should be deleted simply by removing the relevant lines in the `main.kz` file.
