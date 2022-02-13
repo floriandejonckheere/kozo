@@ -46,11 +46,11 @@ module Kozo
 
         return if Kozo.options.dry_run?
 
-        # Write backup state file
-        FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups && File.exist?(path)
-
         # Write local state to temporary file
         File.write("#{path}.tmp", value.deep_stringify_keys.to_yaml)
+
+        # Write backup state file
+        FileUtils.mv(path, "#{path}.#{DateTime.current.to_i}.kzbackup") if backups && File.exist?(path)
 
         # Move temporary file to local state file
         FileUtils.mv("#{path}.tmp", path)
