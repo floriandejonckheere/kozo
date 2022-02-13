@@ -13,6 +13,7 @@ FactoryBot.define do
     factory :state_list_command, class: "Kozo::Commands::State::List"
     factory :state_show_command, class: "Kozo::Commands::State::Show"
     factory :state_delete_command, class: "Kozo::Commands::State::Delete"
+    factory :state_upgrade_command, class: "Kozo::Commands::State::Upgrade"
   end
 
   factory :import_command, parent: :command, class: "Kozo::Commands::Import"
