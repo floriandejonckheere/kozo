@@ -15,7 +15,7 @@ Install the application using your operating system's package manager, or using 
 ```sh
 $ gem install kozo
 $ kozo version
-kozo 0.2.0
+kozo 0.3.0
 ```
 
 ## Set up directory
@@ -118,6 +118,10 @@ Append to `main.kz`:
 resource "hcloud_ssh_key", "default" do |s|
   s.name = "default"
   s.public_key = File.read("id_rsa.pub")
+
+  s.labels = {
+    primary: "true",
+  }
 end
 ```
 
@@ -138,11 +142,13 @@ Kozo analyzed the state and created the following execution plan. Actions are in
 Kozo will perform the following actions:
 # hcloud_ssh_key.default:
 + resource "hcloud_ssh_key", "default" do |r|
-     r.id         = (known after apply)
-  +  r.name       = "default"
-  +  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
-     r.labels     = (known after apply)
-     r.created    = (known after apply)
+    r.id         = (known after apply)
+  + r.name       = "default"
+  + r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+  + r.labels     = {
+      primary = "true"
+    }
+    r.created    = (known after apply)
 end
 
 ```
@@ -161,11 +167,13 @@ Kozo analyzed the state and created the following execution plan. Actions are in
 Kozo will perform the following actions:
 # hcloud_ssh_key.default:
 + resource "hcloud_ssh_key", "default" do |r|
-     r.id         = (known after apply)
-  +  r.name       = "default"
-  +  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
-     r.labels     = (known after apply)
-     r.created    = (known after apply)
+    r.id         = (known after apply)
+  + r.name       = "default"
+  + r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+  + r.labels     = {
+      primary = "true"
+    }
+    r.created    = (known after apply)
 end
 
 hcloud_ssh_key.default: creating resource
@@ -186,11 +194,13 @@ $ kozo plan
 
 # hcloud_ssh_key.default:
 ~ resource "hcloud_ssh_key", "default" do |r|
-     r.id         = (known after apply)
-  ~  r.name       = "new_default"
-     r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
-     r.labels     = (known after apply)
-     r.created    = (known after apply)
+    r.id         = 5562231
+  ~ r.name       = "default" -> "new_default"
+    r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
+    r.labels     = {
+      primary = "true"
+    }
+    r.created    = 2022-02-13T22:09:51Z
 end
 
 ...
@@ -210,11 +220,13 @@ $ kozo plan
 
 # hcloud_ssh_key.default:
 - resource "hcloud_ssh_key", "default" do |r|
-  -  r.id         = "5025601"
-  -  r.name       = "default"
-  -  r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Zqnnfg24uLaKybQXEkhSs4rqqbKYLvPg..."
-  -  r.labels     = "{}"
-  -  r.created    = "2021-12-02 20:50:34 UTC"
+  - r.id         = 5562231
+  - r.name       = "default"
+  - r.public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrNY2BsGWGBSphJH/mbg2ms4IYxmrxjJxu..."
+  - r.labels     = {
+      primary = "true"
+    }
+  - r.created    = 2022-02-13T22:09:51Z
 end
 
 ```
