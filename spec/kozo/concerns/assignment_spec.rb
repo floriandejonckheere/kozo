@@ -6,6 +6,7 @@ RSpec.describe Kozo::Assignment do
   let(:object_class) do
     Class.new do
       include Kozo::Attributes
+      include Kozo::ReadWrite
 
       include Kozo::Assignment
 

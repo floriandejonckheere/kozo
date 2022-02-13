@@ -40,8 +40,13 @@ module Kozo
           .to_h { |name| [name, read_attribute(name)] }
       end
 
-      def arguments
-        argument_names
+      def readable_attributes
+        readable_attribute_names
+          .to_h { |name| [name, read_attribute(name)] }
+      end
+
+      def writeable_attributes
+        writeable_attribute_names
           .to_h { |name| [name, read_attribute(name)] }
       end
 
@@ -55,8 +60,10 @@ module Kozo
           .to_h { |name| [name, read_attribute(name).send_wrap(:as_h)] }
       end
 
-      delegate :attribute_names, to: :class
-      delegate :argument_names, to: :class
+      delegate :attribute_names,
+               :readable_attribute_names,
+               :writeable_attribute_names,
+               to: :class
     end
 
     class_methods do
@@ -102,8 +109,14 @@ module Kozo
           .keys
       end
 
-      def argument_names
-        @argument_names ||= attribute_types
+      def readable_attribute_names
+        attribute_types
+          .select { |_k, v| v[:read] }
+          .keys
+      end
+
+      def writeable_attribute_names
+        attribute_types
           .select { |_k, v| v[:write] }
           .keys
       end

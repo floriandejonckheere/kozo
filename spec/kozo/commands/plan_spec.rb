@@ -19,9 +19,9 @@ RSpec.describe Kozo::Commands::Plan do
           r.id          = (known after apply)
         + r.name        = "name0"
         + r.description = "description0"
+          r.labels      = []
           r.location    = (known after apply)
           r.locked      = (known after apply)
-          r.labels      = []
       end
     LOG
   end
@@ -33,9 +33,9 @@ RSpec.describe Kozo::Commands::Plan do
           r.id          = "#{resource1.id}"
         ~ r.name        = "old name1" -> "name1"
           r.description = "description1"
+          r.labels      = []
           r.location    = "eu"
           r.locked      = false
-          r.labels      = []
       end
     LOG
   end
@@ -47,9 +47,9 @@ RSpec.describe Kozo::Commands::Plan do
         - r.id          = "#{resource2.id}"
         - r.name        = "name2"
         - r.description = "description2"
+        - r.labels      = []
         - r.location    = "eu"
         - r.locked      = false
-        - r.labels      = []
       end
     LOG
   end

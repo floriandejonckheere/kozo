@@ -25,15 +25,27 @@ RSpec.describe Kozo::Attributes do
     end
   end
 
+  describe ".attribute_types" do
+    it "returns the types of the attributes" do
+      expect(object_class.attribute_types).to include single: include(multiple: false), multiple: include(multiple: true)
+    end
+  end
+
   describe ".attribute_names" do
     it "returns the names of the attributes" do
       expect(object_class.attribute_names).to match_array [:single, :multiple, :type, :default, :boolean, :wrapped, :readonly, :writeonly]
     end
   end
 
-  describe ".attribute_types" do
-    it "returns the types of the attributes" do
-      expect(object_class.attribute_types).to include single: include(multiple: false), multiple: include(multiple: true)
+  describe ".readable_attribute_names" do
+    it "returns the names of the arguments" do
+      expect(object_class.readable_attribute_names).not_to include :writeonly
+    end
+  end
+
+  describe ".writeable_attribute_names" do
+    it "returns the names of the arguments" do
+      expect(object_class.writeable_attribute_names).not_to include :readonly
     end
   end
 
@@ -47,17 +59,19 @@ RSpec.describe Kozo::Attributes do
     end
   end
 
-  describe ".argument_names" do
-    it "returns the names of the arguments" do
-      expect(object_class.argument_names).not_to include :readonly
+  describe "#readable_attributes" do
+    it "returns the arguments" do
+      object.writeonly = "one"
+
+      expect(object.readable_attributes).not_to include writeonly: "one"
     end
   end
 
-  describe "#arguments" do
+  describe "#writeable_attributes" do
     it "returns the arguments" do
       object.send(:readonly=, "one")
 
-      expect(object.arguments).not_to include readonly: "one"
+      expect(object.writeable_attributes).not_to include readonly: "one"
     end
   end
 

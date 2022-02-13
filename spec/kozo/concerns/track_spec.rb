@@ -7,6 +7,7 @@ RSpec.describe Kozo::Track do
     Class.new do
       include Kozo::Track
       include Kozo::Attributes
+      include Kozo::ReadWrite
 
       attribute :property
     end

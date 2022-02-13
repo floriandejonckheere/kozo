@@ -24,21 +24,21 @@ module Kozo
 
           if configured
             # Assign updated attributes (mark for update)
-            resource.assign_attributes(configured&.attributes&.slice(*configured&.updatable_attribute_names))
+            resource.assign_attributes(configured&.readable_attributes&.slice(*configured&.updatable_attribute_names))
           else
             # Set attributes to nil (mark for destruction)
-            resource.assign_attributes(resource.attributes.transform_values { nil })
+            resource.assign_attributes(resource.readable_attributes.transform_values { nil })
           end
         end
 
         # Append resources not in state (mark for creation)
         changes += resources
           .reject { |r| state.resources.any? { |res| res.address == r.address } }
-          .map { |r| r.class.new(state_name: r.state_name, **r.arguments) }
+          .map { |r| r.class.new(state_name: r.state_name, **r.writeable_attributes) }
 
         # Resolve references
         changes
-          .each { |c| c.arguments.each_value { |r| r.send_wrap(:try, :resolve, self) } }
+          .each { |c| c.writeable_attributes.each_value { |r| r.send_wrap(:try, :resolve, self) } }
 
         changes
       end

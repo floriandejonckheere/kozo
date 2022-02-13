@@ -20,7 +20,7 @@ module Kozo
           resource = resource_class.find(id)
 
           # Set local attributes from remote resource
-          attribute_names
+          readable_attribute_names
             .excluding(:id)
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::NotFound => e
@@ -32,7 +32,7 @@ module Kozo
           resource.create
 
           # Set local attributes from remote resource
-          attribute_names
+          readable_attribute_names
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::UniquenessError => e
           raise ResourceError, "#{address}: #{e.message}"
@@ -49,7 +49,7 @@ module Kozo
 
           resource.update
 
-          attribute_names
+          readable_attribute_names
             .excluding(:id)
             .each { |attr| send(:"#{attr}=", resource.send(attr)) }
         rescue ::HCloud::Errors::NotFound => e
