@@ -11,7 +11,7 @@ module Kozo
         protected
 
         def refresh
-          raise NotPersisted unless id
+          raise NotPersisted, "resource is not yet persisted" unless id
 
           resource = resource_class.find(id)
 
