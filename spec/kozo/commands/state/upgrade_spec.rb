@@ -21,6 +21,7 @@ RSpec.describe Kozo::Commands::State::Upgrade do
 
     it "upgrades the state file" do
       expect { command.start }.to log "to version 1"
+      expect { command.start }.to log "to version 2"
     end
   end
 end
