@@ -9,7 +9,7 @@ RSpec.describe Kozo::Types::Reference do
     end
 
     it "does not cast a reference" do
-      reference = Kozo::Reference.new(nil)
+      reference = Kozo::Reference.new
 
       expect(described_class.cast(reference)).to eq reference
     end
@@ -24,7 +24,7 @@ RSpec.describe Kozo::Types::Reference do
       reference = described_class.cast(resource)
 
       expect(reference.resource_class).to eq resource.class
-      expect(reference.resource).to eq resource
+      expect(reference.id).to eq resource.id
       expect(reference.state_name).to eq resource.state_name
     end
   end

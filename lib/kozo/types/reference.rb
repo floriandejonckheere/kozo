@@ -9,7 +9,7 @@ module Kozo
 
         # TODO: infer configuration
         Kozo::Reference
-          .new(nil, resource: value, resource_class: value.class)
+          .new(resource_class: value.class, id: value.id)
           .send(value.state_name)
       end
     end

@@ -24,7 +24,7 @@ module Kozo
 
           if configured
             # Assign updated attributes (mark for update)
-            resource.assign_attributes(configured&.updatable_attributes)
+            resource.assign_attributes(configured&.attributes&.slice(*configured&.updatable_attribute_names))
           else
             # Set attributes to nil (mark for destruction)
             resource.assign_attributes(resource.attributes.transform_values { nil })
@@ -35,6 +35,10 @@ module Kozo
         changes += resources
           .reject { |r| state.resources.any? { |res| res.address == r.address } }
           .map { |r| r.class.new(state_name: r.state_name, **r.arguments) }
+
+        # Resolve references
+        changes
+          .each { |c| c.arguments.each_value { |r| r.send_wrap(:try, :resolve, self) } }
 
         changes
       end
@@ -50,6 +54,10 @@ module Kozo
 
     def to_s
       "directory: #{directory}"
+    end
+
+    def inspect
+      "#<#{self.class.name} #{self}>"
     end
   end
 end

@@ -2,12 +2,11 @@
 
 module Kozo
   class Reference
-    attr_reader :resource_class, :state_name, :configuration
+    attr_reader :resource_class, :state_name, :id
 
-    def initialize(configuration, resource_class: nil, resource: nil)
+    def initialize(resource_class: nil, id: nil)
       @resource_class = resource_class
-      @configuration = configuration
-      @resource = resource
+      @id = id
     end
 
     def method_missing(method_name, *_arguments)
@@ -17,6 +16,19 @@ module Kozo
       @state_name = method_name.to_s
 
       self
+    end
+
+    def resolve(configuration)
+      raise StateError, "no state name specified" unless state_name
+
+      resource = configuration
+        .state
+        .resources
+        .find { |r| r.address == address }
+
+      raise StateError, "no such resource address: #{address}" unless resource
+
+      @id = resource.id
     end
 
     def respond_to_missing?(_method_name, _include_private = false)
@@ -34,24 +46,8 @@ module Kozo
     end
 
     def as_s
-      resource.id? ? resource.id.as_s : "(known after apply)"
+      id&.as_s || "(known after apply)"
     end
-
-    def resource
-      @resource ||= begin
-        raise StateError, "invalid resource address: #{address}" unless state_name
-
-        resource = configuration
-          .changes
-          .find { |r| r.address == address }
-
-        raise StateError, "no such resource address: #{address}" unless resource
-
-        resource
-      end
-    end
-
-    delegate :id, to: :resource
 
     private
 
