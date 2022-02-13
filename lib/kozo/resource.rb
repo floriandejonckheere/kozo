@@ -3,9 +3,9 @@
 module Kozo
   class Resource
     include Attributes
-
     include Assignment
     include Track
+    include ReadWrite
 
     attr_accessor :provider, :state_name
 

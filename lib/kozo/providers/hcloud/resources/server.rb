@@ -10,6 +10,8 @@ module Kozo
           self.creatable_attribute_names = [:name, :image, :server_type, :location, :datacenter, :user_data, :ssh_keys, :labels]
           self.updatable_attribute_names = [:name, :ssh_keys, :labels]
 
+          readwrite
+
           attribute :name
 
           attribute :image, wrapped: true
@@ -17,15 +19,19 @@ module Kozo
           attribute :location, wrapped: true
           attribute :datacenter, wrapped: true
 
-          attribute :user_data
-
           attribute :labels, type: :hash
 
+          readonly
+
+          attribute :locked, type: :boolean
+
+          attribute :created, type: :time
+
+          writeonly
+
+          attribute :user_data
+
           attribute :ssh_keys, multiple: true, type: :reference
-
-          attribute :locked, type: :boolean, readonly: true
-
-          attribute :created, type: :time, readonly: true
         end
       end
     end
