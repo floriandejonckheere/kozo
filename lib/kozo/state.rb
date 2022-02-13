@@ -6,11 +6,11 @@ module Kozo
 
     attr_accessor :resources, :version
 
-    def initialize(resources = [], version = VERSION)
+    def initialize(resources = [], version = VERSION, verify: true)
       @resources = Array(resources)
       @version = version
 
-      raise StateError, "unexpected version in state: got #{version}, expected #{State::VERSION}\nRun `#{File.basename($PROGRAM_NAME)} state upgrade` to upgrade your state file" unless compatible?
+      raise StateError, "unexpected version in state: got #{version}, expected #{State::VERSION}\nRun `#{File.basename($PROGRAM_NAME)} state upgrade` to upgrade your state file" unless compatible? || !verify
     end
 
     def compatible?

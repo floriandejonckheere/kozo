@@ -9,9 +9,9 @@ module Kozo
       @directory = directory
     end
 
-    def state
+    def state(verify: true)
       @state ||= State
-        .new(resources, data[:version])
+        .new(resources, data[:version], verify: verify)
     end
 
     def state=(value)
