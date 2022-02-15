@@ -11,7 +11,6 @@ module Kozo
         resource.update!
 
         # Update resource in local state
-        state.resources.delete(resource)
         state.resources << resource
       end
 
