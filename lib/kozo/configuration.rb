@@ -16,7 +16,6 @@ module Kozo
         # Copy resources in state
         changes = state
           .resources
-          .map(&:dup)
           .each(&:clear_changes)
           .each do |resource|
           # Find resource in configuration
