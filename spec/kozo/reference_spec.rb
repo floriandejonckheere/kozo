@@ -26,7 +26,7 @@ RSpec.describe Kozo::Reference do
     it "returns the ID as representation" do
       reference.dummy
 
-      reference.resolve(configuration)
+      reference.resolve([resource])
 
       expect(reference.as_h).to eq "id"
     end
@@ -36,7 +36,7 @@ RSpec.describe Kozo::Reference do
     it "transforms reference into a hash" do
       reference.dummy
 
-      reference.resolve(configuration)
+      reference.resolve([resource])
 
       expect(reference.to_h).to include id: "id"
     end
@@ -46,7 +46,7 @@ RSpec.describe Kozo::Reference do
     it "resolves correctly" do
       reference.dummy
 
-      reference.resolve(configuration)
+      reference.resolve([resource])
 
       expect(reference.id).to eq "id"
     end
@@ -57,20 +57,20 @@ RSpec.describe Kozo::Reference do
       it "resolves to nil" do
         reference.dummy
 
-        reference.resolve(configuration)
+        reference.resolve([resource])
 
         expect(reference.id).to be_nil
       end
     end
 
     it "raises an error when no state name was specified" do
-      expect { reference.resolve(configuration) }.to raise_error Kozo::StateError
+      expect { reference.resolve([resource]) }.to raise_error Kozo::StateError
     end
 
     it "raises an error when no resource was found in the configuration" do
       reference.no_dummy
 
-      expect { reference.resolve(configuration) }.to raise_error Kozo::StateError
+      expect { reference.resolve([resource]) }.to raise_error Kozo::StateError
     end
   end
 end

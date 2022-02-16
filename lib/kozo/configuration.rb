@@ -11,6 +11,7 @@ module Kozo
       @resources = Set.new
     end
 
+    # rubocop:disable Metrics/MethodLength
     def changes
       @changes ||= begin
         # Copy resources in state
@@ -35,13 +36,31 @@ module Kozo
           .reject { |r| state.resources.any? { |res| res.address == r.address } }
           .map { |r| r.class.new(state_name: r.state_name, **r.writeable_attributes) }
 
-        # Resolve references
-        changes
-          .each { |c| c.writeable_attributes.each_value { |r| r.send_wrap(:try, :resolve, self) } }
+        # Create dependency graph
+        graph = Graph.new
 
+        # Resolve references
+        changes.each do |change|
+          change.writeable_attributes.each_value do |attribute|
+            attribute.send_wrap do |ref|
+              # Skip values that are not references
+              next unless ref.respond_to? :resolve
+
+              # Resolve reference
+              ref.resolve(changes)
+
+              # Add vertices and edges to dependency graph
+              graph[change.address] << graph[ref.address]
+            end
+          end
+        end
+
+        # Order changes according to dependency graph
         changes
+          .sort_by! { |r| graph.tsort.index(r.address) }
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def backend
       @backend ||= Kozo

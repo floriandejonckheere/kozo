@@ -18,12 +18,10 @@ module Kozo
       self
     end
 
-    def resolve(configuration)
+    def resolve(resources)
       raise StateError, "no state name specified" unless state_name
 
-      resource = configuration
-        .state
-        .resources
+      resource = resources
         .find { |r| r.address == address }
 
       raise StateError, "no such resource address: #{address}" unless resource
@@ -33,6 +31,10 @@ module Kozo
 
     def respond_to_missing?(_method_name, _include_private = false)
       true
+    end
+
+    def address
+      "#{resource_class.resource_name}.#{state_name}"
     end
 
     def to_h
@@ -47,12 +49,6 @@ module Kozo
 
     def as_s
       id&.as_s || "(known after apply)"
-    end
-
-    private
-
-    def address
-      "#{resource_class.resource_name}.#{state_name}"
     end
   end
 end
