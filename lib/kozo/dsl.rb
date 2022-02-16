@@ -43,6 +43,8 @@ module Kozo
       yield resource if block_given?
 
       configuration.resources << resource
+
+      resource
     end
 
     def method_missing(method_name, *arguments, &block)
