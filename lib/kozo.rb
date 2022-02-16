@@ -44,6 +44,7 @@ module Kozo
       loader.enable_reloading
       loader.ignore(root.join("lib/**/*/dependencies.rb"))
       loader.collapse(root.join("lib/kozo/concerns"))
+      loader.collapse(root.join("lib/kozo/graph"))
       loader.setup
       loader.eager_load
 
