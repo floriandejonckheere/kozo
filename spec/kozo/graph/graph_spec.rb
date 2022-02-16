@@ -32,4 +32,25 @@ RSpec.describe Kozo::Graph do
       expect(graph.vertices).to be_empty
     end
   end
+
+  describe "#tsort" do
+    it "topologically sorts the graph" do
+      a = graph[:a]
+      b = graph[:b]
+      c = graph[:c]
+      d = graph[:d]
+      graph[:e]
+
+      # A requires B
+      a << b
+
+      # B requires D
+      b << d
+
+      # C also requires D
+      c << d
+
+      expect(graph.tsort).to eq [:d, :b, :a, :c, :e]
+    end
+  end
 end
