@@ -17,7 +17,6 @@ module Kozo
         # Copy resources in state
         changes = state
           .resources
-          .each(&:clear_changes)
           .each do |resource|
           # Find resource in configuration
           configured = resources.find { |r| r.address == resource.address }

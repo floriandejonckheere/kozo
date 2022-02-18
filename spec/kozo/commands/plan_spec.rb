@@ -60,10 +60,11 @@ RSpec.describe Kozo::Commands::Plan do
   context "when nothing can be done" do
     let(:state) { build(:state, resources: [resource0, resource1]) }
 
-    # Resource must have an ID, otherwise it is marked as to be created
-    before { resource0.send(:id=, "id0") }
-
     it "plans nothing" do
+      # Resource must have an ID, otherwise it is marked as to be created
+      resource0.send(:id=, "id0")
+      resource0.clear_changes
+
       expect { command.start }.to log("No actions have to be performed")
     end
   end
