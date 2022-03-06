@@ -78,7 +78,7 @@ RSpec.describe Kozo::Track do
     it "returns the previous value" do
       object.property = "property"
 
-      expect(object.property_was).to eq nil
+      expect(object.property_was).to be_nil
     end
   end
 end

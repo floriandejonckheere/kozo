@@ -5,19 +5,19 @@ RSpec.describe Kozo::Types::Boolean do
 
   describe ".cast" do
     it "does not cast nil" do
-      expect(described_class.cast(nil)).to eq nil
+      expect(described_class.cast(nil)).to be_nil
     end
 
     described_class::FALSE_VALUES.each do |value|
       it "casts a falsey value: #{value}" do
-        expect(described_class.cast(value)).to eq false
+        expect(described_class.cast(value)).to be false
       end
     end
 
     it "casts a truthy value" do
-      expect(described_class.cast(true)).to eq true
-      expect(described_class.cast("foo")).to eq true
-      expect(described_class.cast(:foo)).to eq true
+      expect(described_class.cast(true)).to be true
+      expect(described_class.cast("foo")).to be true
+      expect(described_class.cast(:foo)).to be true
     end
   end
 end

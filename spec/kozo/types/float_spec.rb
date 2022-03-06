@@ -5,7 +5,7 @@ RSpec.describe Kozo::Types::Float do
 
   describe ".cast" do
     it "does not cast nil" do
-      expect(described_class.cast(nil)).to eq nil
+      expect(described_class.cast(nil)).to be_nil
     end
 
     it "casts a float value" do

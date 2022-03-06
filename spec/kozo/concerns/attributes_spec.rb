@@ -77,7 +77,7 @@ RSpec.describe Kozo::Attributes do
 
   describe "#single" do
     it "returns nil when uninitialized" do
-      expect(object.single).to eq nil
+      expect(object.single).to be_nil
     end
 
     it "returns the value" do
@@ -109,7 +109,7 @@ RSpec.describe Kozo::Attributes do
 
   describe "#type" do
     it "returns nil when uninitialized" do
-      expect(object.type).to eq nil
+      expect(object.type).to be_nil
     end
 
     it "returns the value" do
@@ -135,7 +135,7 @@ RSpec.describe Kozo::Attributes do
     it "returns a default attribute for boolean types" do
       object.boolean = false
 
-      expect(object.boolean).to eq false
+      expect(object.boolean).to be false
     end
   end
 

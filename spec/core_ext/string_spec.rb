@@ -5,17 +5,17 @@ RSpec.describe CoreExt::String do
 
   describe "#to_b" do
     it "returns nil when the string is blank" do
-      expect("".to_b).to eq nil
+      expect("".to_b).to be_nil
     end
 
     it "returns false when the string is falsey" do
-      expect("false".to_b).to eq false
-      expect("OFF".to_b).to eq false
+      expect("false".to_b).to be false
+      expect("OFF".to_b).to be false
     end
 
     it "returns true when the string is truthy" do
-      expect("true".to_b).to eq true
-      expect("1".to_b).to eq true
+      expect("true".to_b).to be true
+      expect("1".to_b).to be true
     end
   end
 
